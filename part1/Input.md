@@ -4,11 +4,8 @@ Input
 
 Assign a value 1 to a variable x
 
-`x < - 1`
+```x < - 1
 
-`dfasdfa`
+dfasdfa`
 
-`fasdfas`
-
-
-
+fasdfas```
