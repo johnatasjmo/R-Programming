@@ -2,9 +2,4 @@
 
 Input
 
-Assign a value 1 to a variable
-
-fasdfas
-
-
-
+Assign a value 1 to a variable x
