@@ -2,10 +2,9 @@
 
 Input
 
-Assign a value 1 to a variable x
+Assign a value 1 to a variable
 
-```x < - 1
+fasdfas
 
-dfasdfa
 
-fasdfas```
+
