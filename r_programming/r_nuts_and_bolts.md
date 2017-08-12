@@ -3,16 +3,20 @@
 ##### Entering input
 
 ```
-> x <- 1> print(x)
+> x <- 1
+> print(x)
 [1] 1
-> x[1] 1
+> x
+[1] 1
 ```
 
 Print
 
 ```
 > x <- 11:30
-> x[1] 11 12 13 14 15 16 17 18 19 20 21 22[13] 23 24 25 26 27 28 29 30
+> x
+[1] 11 12 13 14 15 16 17 18 19 20 21 22
+[13] 23 24 25 26 27 28 29 30
 ```
 
 Objects
@@ -35,12 +39,18 @@ Mixing objects
 > y <- c("a", TRUE) ## character
 ```
 
-
-
-Explicit coercion
+##### Explicit coercion
 
 ```
-> x <- 0:6> class(x)[1] "integer"> as.numeric(x)[1] 0 1 2 3 4 5 6> as.logical(x)[1] FALSE TRUE TRUE TRUE TRUE TRUE TRUE> as.character(x)[1] "0" "1" "2" "3" "4" "5" "6"
+> x <- 0:6
+> class(x)
+[1] "integer"
+> as.numeric(x)
+[1] 0 1 2 3 4 5 6
+> as.logical(x)
+[1] FALSE TRUE TRUE TRUE TRUE TRUE TRUE
+> as.character(x)
+[1] "0" "1" "2" "3" "4" "5" "6"
 ```
 
 
