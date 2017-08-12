@@ -53,17 +53,17 @@ Attributes: names, dimnames \(eg. matrices, arrays\), dimensions \(integer, nume
 
 ##### Matrices
 
-    > m <- matrix(nrow = 2, ncol = 3)
-    > m
-    [,1] [,2] [,3]
-    [1,] NA NA NA
-    [2,] NA NA NA
-    > dim(m)
-    [1] 2 3
-    > attributes(m)
-    $dim
-    [1] 2 3
-    `
+> m &lt;- matrix\(nrow = 2, ncol = 3\)  
+> m  
+>     \[,1\] \[,2\] \[,3\]  
+>     \[1,\] NA NA NA  
+>     \[2,\] NA NA NA  
+> dim\(m\)  
+>     \[1\] 2 3  
+> attributes\(m\)  
+>     $dim  
+>     \[1\] 2 3  
+>     \`
 
 Matrices are constructed column-wise starting upper left and running by columns
 
@@ -103,3 +103,28 @@ x y
 x 1 2 3
 y 10 11 12
 ```
+
+##### Select from matrix
+
+```
+# All Rows and All Columns
+df[,]
+# First row and all columns
+df[1,]
+# First two rows and all columns
+df[1:2,]
+# First and third row and all columns
+df[ c(1,3), ]
+# First Row and 2nd and third column
+df[1, 2:3]
+# First, Second Row and Second and Third COlumn
+df[1:2, 2:3]
+# Just First Column with All rows
+df[, 1]
+# First and Third Column with All rows
+df[,c(1,3)]
+
+```
+
+
+
