@@ -3,19 +3,23 @@
 ##### Entering input
 
 ```
-> x <- 1> print(x)
+> x <- 1
+> print(x)
 [1] 1
-> x[1] 1
+> x
+[1] 1
 ```
 
-Print
+##### Print
 
 ```
 > x <- 11:30
-> x[1] 11 12 13 14 15 16 17 18 19 20 21 22[13] 23 24 25 26 27 28 29 30
+> x
+[1] 11 12 13 14 15 16 17 18 19 20 21 22
+[13] 23 24 25 26 27 28 29 30
 ```
 
-Objects
+##### Objects
 
 R has five basic objects: characters, numeric, integer, complex, logical
 
@@ -27,20 +31,16 @@ Attributes: names, dimnames \(eg. matrices, arrays\), dimensions \(integer, nume
 > x <- c(1+0i, 2+4i) ## complex
 ```
 
-Mixing objects
+##### Mixing objects
 
 ```
-> y <- c(1.7, "a") ## character
 > y <- c(TRUE, 2) ## numeric
 > y <- c("a", TRUE) ## character
 ```
 
-
-
-Explicit coercion
+##### Explicit coercion
 
 ```
-> x <- 0:6
 > class(x)
 [1] "integer"
 > as.numeric(x)
@@ -51,22 +51,22 @@ Explicit coercion
 [1] "0" "1" "2" "3" "4" "5" "6"
 ```
 
-Matrices
+##### Matrices
 
-```
-> m <- matrix(nrow = 2, ncol = 3)
-> m
-[,1] [,2] [,3]
-[1,] NA NA NA
-[2,] NA NA NA
-> dim(m)
-[1] 2 3
-> attributes(m)
-$dim
-[1] 2 3
-````
+    > m <- matrix(nrow = 2, ncol = 3)
+    > m
+    [,1] [,2] [,3]
+    [1,] NA NA NA
+    [2,] NA NA NA
+    > dim(m)
+    [1] 2 3
+    > attributes(m)
+    $dim
+    [1] 2 3
+    `
 
 Matrices are constructed column-wise starting upper left and running by columns
+
 ```
 > m <- matrix(1:6, nrow = 2, ncol = 3)
 > m
@@ -76,6 +76,7 @@ Matrices are constructed column-wise starting upper left and running by columns
 ```
 
 Can also be created from vectors
+
 ```
 > m <- 1:10
 > m
@@ -88,6 +89,7 @@ Can also be created from vectors
 ```
 
 column and row binding creation of matrices
+
 ```
 > x <- 1:3
 > y <- 10:12
@@ -101,3 +103,6 @@ x y
 x 1 2 3
 y 10 11 12
 ```
+
+
+
