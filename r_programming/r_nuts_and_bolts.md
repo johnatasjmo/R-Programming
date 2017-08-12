@@ -3,20 +3,16 @@
 ##### Entering input
 
 ```
-> x <- 1
-> print(x)
+> x <- 1> print(x)
 [1] 1
-> x
-[1] 1
+> x[1] 1
 ```
 
 Print
 
 ```
 > x <- 11:30
-> x
-[1] 11 12 13 14 15 16 17 18 19 20 21 22
-[13] 23 24 25 26 27 28 29 30
+> x[1] 11 12 13 14 15 16 17 18 19 20 21 22[13] 23 24 25 26 27 28 29 30
 ```
 
 Objects
@@ -39,7 +35,9 @@ Mixing objects
 > y <- c("a", TRUE) ## character
 ```
 
-##### Explicit coercion
+
+
+Explicit coercion
 
 ```
 > x <- 0:6
@@ -53,5 +51,17 @@ Mixing objects
 [1] "0" "1" "2" "3" "4" "5" "6"
 ```
 
+Matrices
 
-
+```
+> m <- matrix(nrow = 2, ncol = 3)
+> m
+[,1] [,2] [,3]
+[1,] NA NA NA
+[2,] NA NA NA
+> dim(m)
+[1] 2 3
+> attributes(m)
+$dim
+[1] 2 3
+````
