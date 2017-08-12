@@ -65,3 +65,39 @@ Matrices
 $dim
 [1] 2 3
 ````
+
+Matrices are constructed column-wise starting upper left and running by columns
+```
+> m <- matrix(1:6, nrow = 2, ncol = 3)
+> m
+[,1] [,2] [,3]
+[1,] 1 3 5
+[2,] 2 4 6
+```
+
+Can also be created from vectors
+```
+> m <- 1:10
+> m
+[1] 1 2 3 4 5 6 7 8 9 10
+> dim(m) <- c(2, 5)
+> m
+[,1] [,2] [,3] [,4] [,5]
+[1,] 1 3 5 7 9
+[2,] 2 4 6 8 10
+```
+
+column and row binding creation of matrices
+```
+> x <- 1:3
+> y <- 10:12
+> cbind(x, y)
+x y
+[1,] 1 10
+[2,] 2 11
+[3,] 3 12
+> rbind(x, y)
+[,1] [,2] [,3]
+x 1 2 3
+y 10 11 12
+```
