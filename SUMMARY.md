@@ -1,4 +1,4 @@
 # Summary
 
-* [Part I](part1/README.md)
-    * [Input](part1/Input.md)
+* [R Programming](r_programming/README.md)
+    * [Input](r_programming/Input.md)
