@@ -126,5 +126,56 @@ df[,c(1,3)]
 
 ```
 
+##### Lists
+List are speciat tupe of vector that contains elements of different classes.
 
+```
+> x <- list(1, "a", TRUE, 1 + 4i)
+> x
+[[1]]
+[1] 1
+[[2]]
+[1] "a"
+[[3]]
+[1] TRUE
+[[4]]
+[1] 1+4i
+```
 
+Create an empty list
+```
+> x <- vector("list", length = 5)
+```
+
+##### Factors
+Factors are used to represent categorical data and can e unordered or ordered. Examples "Male" , "Female"
+```
+> x <- factor(c("yes", "yes", "no", "yes", "no"))
+> x
+[1] yes yes no yes no
+Levels: no yes
+> table(x)
+x
+no yes
+2 3
+```
+
+##### Missing Values
+• is.na() is used to test objects if they are NA
+• is.nan() is used to test for NaN
+```
+> ## Create a vector with NAs in it
+> x <- c(1, 2, NA, 10, 3)
+> ## Return a logical vector indicating which elements are NA
+> is.na(x)
+[1] FALSE FALSE TRUE FALSE FALSE
+> ## Return a logical vector indicating which elements are NaN
+> is.nan(x)
+[1] FALSE FALSE FALSE FALSE FALSE
+> ## Now create a vector with both NA and NaN values
+> x <- c(1, 2, NaN, NA, 4)
+> is.na(x)
+[1] FALSE FALSE TRUE TRUE FALSE
+> is.nan(x)
+[1] FALSE FALSE TRUE FALSE FALSE
+```
