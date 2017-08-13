@@ -187,6 +187,24 @@ no yes
 > is.nan(x)
 [1] FALSE FALSE TRUE FALSE FALSE
 ```
+##### Data Frames
 
+Data frames are used to store tabular data in R.
+Unlikely matrices, data frames can store different classes of objects in each column.
 
+Data frames are usually created by reading in a dataset using read.table() and read.csv().
+data.matrix() converts a data frame to a matrix.
 
+```
+> x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
+> x
+foo bar
+1 1 TRUE
+2 2 TRUE
+3 3 FALSE
+4 4 FALSE
+> nrow(x)
+[1] 4
+> ncol(x)
+[1] 2
+```
