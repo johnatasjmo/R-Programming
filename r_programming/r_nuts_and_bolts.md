@@ -52,19 +52,19 @@ Attributes: names, dimnames \(eg. matrices, arrays\), dimensions \(integer, nume
 ```
 
 ##### Matrices
-```
- m &lt;- matrix\(nrow = 2, ncol = 3\)  
- m  
-     \[,1\] \[,2\] \[,3\]  
-     \[1,\] NA NA NA  
-     \[2,\] NA NA NA  
- dim\(m\)  
-     \[1\] 2 3  
- attributes\(m\)  
-     $dim  
-     \[1\] 2 3  
-     \`
-```
+
+     m &lt;- matrix\(nrow = 2, ncol = 3\)  
+     m  
+         \[,1\] \[,2\] \[,3\]  
+         \[1,\] NA NA NA  
+         \[2,\] NA NA NA  
+     dim\(m\)  
+         \[1\] 2 3  
+     attributes\(m\)  
+         $dim  
+         \[1\] 2 3  
+         \`
+
 Matrices are constructed column-wise starting upper left and running by columns
 
 ```
@@ -123,10 +123,10 @@ df[1:2, 2:3]
 df[, 1]
 # First and Third Column with All rows
 df[,c(1,3)]
-
 ```
 
 ##### Lists
+
 List are speciat tupe of vector that contains elements of different classes.
 
 ```
@@ -143,12 +143,15 @@ List are speciat tupe of vector that contains elements of different classes.
 ```
 
 Create an empty list
+
 ```
 > x <- vector("list", length = 5)
 ```
 
 ##### Factors
+
 Factors are used to represent categorical data and can e unordered or ordered. Examples "Male" , "Female"
+
 ```
 > x <- factor(c("yes", "yes", "no", "yes", "no"))
 > x
@@ -161,17 +164,22 @@ no yes
 ```
 
 ##### Missing Values
-• is.na() is used to test objects if they are NA
-• is.nan() is used to test for NaN
+
+• is.na\(\) is used to test objects if they are NA  
+• is.nan\(\) is used to test for NaN
+
 ```
 > ## Create a vector with NAs in it
 > x <- c(1, 2, NA, 10, 3)
+
 > ## Return a logical vector indicating which elements are NA
 > is.na(x)
 [1] FALSE FALSE TRUE FALSE FALSE
+
 > ## Return a logical vector indicating which elements are NaN
 > is.nan(x)
 [1] FALSE FALSE FALSE FALSE FALSE
+
 > ## Now create a vector with both NA and NaN values
 > x <- c(1, 2, NaN, NA, 4)
 > is.na(x)
@@ -179,3 +187,6 @@ no yes
 > is.nan(x)
 [1] FALSE FALSE TRUE FALSE FALSE
 ```
+
+
+
