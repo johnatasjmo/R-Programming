@@ -12,8 +12,6 @@ mpply: multivariat to lapply
 
 slplit
 
-
-
 lapply\(list, function\), always returns a list
 
 runif : gets vectors
@@ -21,14 +19,12 @@ runif : gets vectors
 apply
 
 ```
-
+x<- matrix(rnorm(200), 20, 10)  #creates a matrix with 20 rows and 10 columns
+apply(x, 2, mean)  # apply the mean to x and return the second column
+apply(x, 2, sum) # for each row calculate the sum
 ```
 
-x&lt;- matrix\(rnorm\(200\), 20, 10\)  \#creates a matrix with 20 rows and 10 columns
 
-apply\(x, 2, mean\)  \# apply the mean to x and return the second column
-
-apply\(x, 2, sum\) \# for each row calculate the sum
 
 rowSums
 
@@ -39,8 +35,4 @@ colSums
 ColMeans
 
 apply\(x, 1, quantile, probs = c\(0.25, 0.75\)\)
-
-
-
-
 
