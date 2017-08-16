@@ -7,5 +7,5 @@
   * [Reading Data](r_programming/reading_data.md)
   * [Subsetting](r_programming/subsetting.md)
   * [Vectorized Operations](r_programming/vectorized_operations.md)
-* Loop Functions
+* [Loop Functions](loop-functions.md)
 
