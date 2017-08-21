@@ -55,7 +55,45 @@ rnorm(n, mean = 0, sd = 1)
  [6] 17.54794 22.56533 15.78623 21.55598 23.5179
 > summary(x)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  15.79   18.89   20.86   20.39   22.14   23.52 
+```
+
+### Seed on randon numbers
+
+Set se sequence or random numbers every time is set, for reproduction
+
+```
+> set.seed(1)
+```
+
+```
+> set.seed(1)
+> rnorm(5)
+[1] -0.6264538  0.1836433 -0.8356286  1.5952808
+[5]  0.3295078
+> rnorm(5)
+[1] -0.8204684  0.4874291  0.7383247  0.5757814
+[5] -0.3053884
+> set.seed(1)
+> rnorm(5)
+[1] -0.6264538  0.1836433 -0.8356286  1.5952808
+[5]  0.3295078
+```
+
+```
+dpois(x, lambda, log = FALSE)
+ppois(q, lambda, lower.tail = TRUE, log.p = FALSE)
+qpois(p, lambda, lower.tail = TRUE, log.p = FALSE)
+rpois(n, lambda)
+```
+
+```
+
+> rpois (10,1) #randonm probability of 10 records with lambda of 1
+[1] 0 0 1 1 2 1 1 4 1 2
+
+> ppois(2,2)  # probability of posaain randon variable is less than or equal to 2
+[1] 0.6766764
+ 
 ```
 
 
