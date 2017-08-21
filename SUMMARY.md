@@ -8,4 +8,5 @@
   * [Subsetting](r_programming/subsetting.md)
   * [Vectorized Operations](r_programming/vectorized_operations.md)
 * [Loop Functions](loop-functions.md)
+* [Simulation & Profiling](simulation-and-profiling.md)
 
