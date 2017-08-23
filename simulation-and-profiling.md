@@ -54,16 +54,12 @@ rnorm(n, mean = 0, sd = 1)
  [1] 21.04184 20.54080 18.34019 22.33039 20.67315
  [6] 17.54794 22.56533 15.78623 21.55598 23.5179
 > summary(x)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
 ```
 
-### Seed on randon numbers
+##### Seed on randon numbers
 
 Set se sequence or random numbers every time is set, for reproduction
-
-```
-> set.seed(1)
-```
 
 ```
 > set.seed(1)
@@ -87,14 +83,58 @@ rpois(n, lambda)
 ```
 
 ```
-
 > rpois (10,1) #randonm probability of 10 records with lambda of 1
 [1] 0 0 1 1 2 1 1 4 1 2
 
 > ppois(2,2)  # probability of posaain randon variable is less than or equal to 2
 [1] 0.6766764
- 
 ```
+
+### Profiling
+
+To examina how much tom is spend in different parts, to optimize your code. 
+
+* First design, then optimize. Collect data
+
+`system.time()` it gives time in seconds
+
+**user time: **amount of time charged to CPU
+
+**elapsed time:** "walk clock" time
+
+Usually both times are the same, but can be different. Parallel package can process in parallel.
+
+MAC: vecLib/Accelerate
+
+```
+system.time(readLines("http://www.jhsph.edu"))
+
+s <- hilbert(100)
+system.time(svd(x)) # this will be executed in 2 CPUS and faster
+
+```
+
+##### The R Profiler
+
+`rprof()`
+
+`summaryRprof()`
+
+do not use sustem.time and rprof together. Default sampling 0.02 seconds, if run fast, do not need to use it.
+
+`by.total  `
+
+`by.self` is more useful as substract low level functions. 
+
+`sample.interval`
+
+
+
+
+
+
+
+
 
 
 
