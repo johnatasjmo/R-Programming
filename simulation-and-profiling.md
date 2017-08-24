@@ -92,7 +92,7 @@ rpois(n, lambda)
 
 ### Profiling
 
-To examina how much tom is spend in different parts, to optimize your code. 
+To examina how much tom is spend in different parts, to optimize your code.
 
 * First design, then optimize. Collect data
 
@@ -111,7 +111,6 @@ system.time(readLines("http://www.jhsph.edu"))
 
 s <- hilbert(100)
 system.time(svd(x)) # this will be executed in 2 CPUS and faster
-
 ```
 
 ##### The R Profiler
@@ -122,17 +121,134 @@ system.time(svd(x)) # this will be executed in 2 CPUS and faster
 
 do not use sustem.time and rprof together. Default sampling 0.02 seconds, if run fast, do not need to use it.
 
-`by.total  `
+`by.total`
 
-`by.self` is more useful as substract low level functions. 
+`by.self` is more useful as substract low level functions.
 
 `sample.interval`
 
 
 
+### Swirl: looking at data
+
+Check the class of the database
+
+```
+> class(plants) # check the class of the database
+[1] "data.frame
+
+> dim(plants) # check rows and variables, 5166 rows and 10 variables
+[1] 5166   10
+
+> nrow(plants)
+[1] 5166
+
+> ncol(plants)
+[1] 10
+
+> object.size(plants) # check how much space is data base
+644232 bytes
+
+> names(plants)  # character vector of variable names
+ [1] "Scientific_Name"      "Duration"            
+ [3] "Active_Growth_Period" "Foliage_Color"       
+ [5] "pH_Min"               "pH_Max"              
+ [7] "Precip_Min"           "Precip_Max"          
+ [9] "Shade_Tolerance"      "Temp_Min_F" 
+ 
+ > head(plants)  # preview the data
+               Scientific_Name          Duration
+1                  Abelmoschus              <NA>
+2       Abelmoschus esculentus Annual, Perennial
+3                        Abies              <NA>
+4               Abies balsamea         Perennial
+5 Abies balsamea var. balsamea         Perennial
+6                     Abutilon              <NA>
+  Active_Growth_Period Foliage_Color pH_Min pH_Max Precip_Min
+1                 <NA>          <NA>     NA     NA         NA
+2                 <NA>          <NA>     NA     NA         NA
+3                 <NA>          <NA>     NA     NA         NA
+4    Spring and Summer         Green      4      6         13
+5                 <NA>          <NA>     NA     NA         NA
+6                 <NA>          <NA>     NA     NA         NA
+  Precip_Max Shade_Tolerance Temp_Min_F
+1         NA            <NA>         NA
+2         NA            <NA>         NA
+3         NA            <NA>         NA
+4         60        Tolerant        -43
+5         NA            <NA>         NA
+6         NA            <NA>         NA
+
+> head(plants, 10) # shows the first 10 rows
+
+> tail(plants) # shows the last rows
+> tail(plants, 15) # shows the last 15 records
+> summary(plants) # shows a summary of all columns, including NA's
+> table(plants$Active_Growth_Period) # how many times a data ocurrs in the data with table active gworth
+
+> str(plants)
+'data.frame':	5166 obs. of  10 variables:
+ $ Scientific_Name     : Factor w/ 5166 levels "Abelmoschus",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ Duration            : Factor w/ 8 levels "Annual","Annual, Biennial",..: NA 4 NA 7 7 NA 1 NA 7 7 ...
+ $ Active_Growth_Period: Factor w/ 8 levels "Fall, Winter and Spring",..: NA NA NA 4 NA NA NA NA 4 NA ...
+ $ Foliage_Color       : Factor w/ 6 levels "Dark Green","Gray-Green",..: NA NA NA 3 NA NA NA NA 3 NA ...
+ $ pH_Min              : num  NA NA NA 4 NA NA NA NA 7 NA ...
+ $ pH_Max              : num  NA NA NA 6 NA NA NA NA 8.5 NA ...
+ $ Precip_Min          : int  NA NA NA 13 NA NA NA NA 4 NA ...
+ $ Precip_Max          : int  NA NA NA 60 NA NA NA NA 20 NA ...
+ $ Shade_Tolerance     : Factor w/ 3 levels "Intermediate",..: NA NA NA 3 NA NA NA NA 2 NA ...
+ $ Temp_Min_F          : int  NA NA NA -43 NA NA NA NA -13 NA ...
+ 
+ 
+```
+
+### Simulations
+
+swirl 13 Simulation
+
+```
+> sample(1:6, 4, replace = TRUE)  # simulate rolling four six-sided dice 
+[1] 2 1 6 2
+
+# flips variable created for a sample of vector c(0,1)as binary,  with replacement and probabilities of c(0.3, 0.7)
+> flips <- sample(c(0,1), 100, replace = TRUE, prob = c(0.3, 0.7))
+> flips
+  [1] 1 1 1 1 1 1 1 0 1 1 1 1 0 0 1 1 1 0 1 1 1 1 1 1 1 1 0 1 0 0 1 1 1 1
+ [35] 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 0 1 0 0 1 0 0 1 1 1 0 1 0 1 1 1
+ [69] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 0 0 0 1 1 0 1
+ 
+ # now check the number of flips
+ > sum(flips)
+[1] 77
+
+# binomial random variable of independent trials with specific number of sucess
+> rbinom(1, size = 100, prob = 0.7)
+[1] 59
+
+> flips2 <- rbinom(100, size = 1, prob = 0.7) # see all 0s and 1s 
+> flips2
+  [1] 1 0 0 0 0 0 1 1 0 1 0 0 1 1 1 0 1 1 1 0 1 0 0 1 0 1 0 1 1 1 0 0 0 0
+ [35] 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 0 0 0 1 0 0 1 1 0
+ [69] 0 1 0 0 1 0 1 1 1 0 1 1 1 1 0 1 0 0 1 1 0 1 1 1 1 0 1 0 0 1 1 1
+ 
+# 10 random numbers with normal distribution
+  > rnorm(10)
+ [1] -0.14710445 -0.67101186  0.02490357 -1.54296279  1.07708427
+ [6] -0.23475420  1.95946200 -0.87981780  0.04064564  0.15525950
+ 
+ # 10 numbers wtih mean of 100, standard deviation of 25
+ > rnorm(10, mean =100, sd = 25)
+ [1] 110.26467 123.32692  92.03604 142.98517  79.24166  94.10339
+ [7] 101.04612 110.48012  74.67709 164.20260
+ 
+ # 5 samples of rpois distribution with mean of 10
+> rpois(5, 10) 
+
+# ten times 5 samples of rpois with mean of 10
+> replicate(100, rpois(5, 10))
 
 
-
+```
 
 
 
