@@ -9,4 +9,4 @@
   * [Vectorized Operations](r_programming/vectorized_operations.md)
   * [Loop Functions](r_programming/loop-functions.md)
   * [Simulation & Profiling](r_programming/simulation-and-profiling.md)
-*[Cleaning Data](cleaning_data/README.md)
+* [Cleaning Data](cleaning_data/README.md)
