@@ -1,7 +1,5 @@
 # Downloading Files
 
-
-
 Download data
 
 ```
@@ -26,9 +24,6 @@ head(cameraData)
 Reading Excel file
 
 ```
-
-
-
 library(xlsx)
 cameraData<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,header=TRUE)
 head(cameraData)
@@ -51,7 +46,7 @@ xmlName(rootNode)
 names(rootNode)
 rootNode[[1]] 
 rootNode[[1]][[1]]  
-xmlSApply(rootNode,xmlValue)  
+xmlSApply(rootNode,xmlValue)
 ```
 
 XPath
@@ -149,8 +144,9 @@ write.table(big_df,file=file,row.names=FALSE,col.names=TRUE,sep="\t",quote=FALSE
 system.time(fread(file))
 # time with read.table - slower
 system.time(read.table(file, header=TRUE, sep="\t"))
-
 ```
 
+Raphael Gottardos notes
 
+http://github.com/raphg/Biostat-578/blob/mster/Advanced\__data\__manipulation.Rpres
 
