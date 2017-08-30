@@ -12,3 +12,5 @@
 * [Cleaning Data](cleaning_data/README.md)
   * [Downloading Files](cleaning_data/downloading_files.md)
   * [Reading Files](cleaning_data/reading_files.md)
+  * [Data Table](cleaning_data/data_table.md)
+  
