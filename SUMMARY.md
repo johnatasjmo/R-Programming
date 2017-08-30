@@ -13,4 +13,4 @@
   * [Downloading Files](cleaning_data/downloading_files.md)
   * [Reading Files](cleaning_data/reading_files.md)
   * [Data Table](cleaning_data/data_table.md)
-  * [Data Table](cleaning_data/resources.md)
+  * [Resources](cleaning_data/resources.md)
