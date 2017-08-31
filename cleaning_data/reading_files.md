@@ -1,23 +1,51 @@
 # Reading Files
 
+### Reading with utils package \(default\)
 
+`read.table `is the default option
 
+`read.csv `reads csv files with header = TRUE and sep ="'," by default
 
+`read.delim `reads data separated by tabs with header = TRUE, sep ="\t"
 
-Reading local file
+##### Importing Data
 
 ```
-cameraData<-read.table("./data/cameras.csv",sep=",",header=TRUE)
+pools <- read.csv("swimming_pools.csv", stringsAsFactors = TRUE)
+
+# Option B
+pools <- read.csv("swimming_pools.csv", stringsAsFactors = FALSE)
+```
+
+##### Path
+
+```
+# Path to the hotdogs.txt file: path
+path <- file.path("data", "hotdogs.txt")
+
+#Path to the hotdogs.txt file inside wd
+path <- "hotdogs.txt"
+
+#read table txt
+hotdogs <- read.table(path,  sep = "",col.names = c("type", "calories", "sodium"))
+```
+
+
+
+#####  
+
+##### Reading local file
+
+```
 head(cameraData)
 
 cameraData <- read.csv("./data/cameras.csv")
 head(cameraData)
 ```
 
-Reading Excel file
+##### Reading Excel file
 
 ```
-library(xlsx)
 cameraData<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,header=TRUE)
 head(cameraData)
 
@@ -28,7 +56,7 @@ cameraDataSubset<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,colIndex=colIndex
 cameraDataSubset
 ```
 
-## Reading XML and HTML
+##### Reading XML and HTML
 
 ```
 library(XML)
@@ -42,7 +70,7 @@ rootNode[[1]][[1]]
 xmlSApply(rootNode,xmlValue)
 ```
 
-XPath
+##### XPath
 
 ```
 # /nodeTop level node
@@ -60,10 +88,9 @@ teams <- xpathSApply(doc,"//li[@class='team-name']",xmlValue)
 scores
 ```
 
-Reading JSON
+##### Reading JSON
 
 ```
-library(jsonlite)
 jsonData<fromJSON("https://api.github.com/users/jtleek/repos")
 names(jsonData)
 jsonData$name
@@ -77,6 +104,125 @@ cat(myjson)
 #Convert back to JSON
 iris2<-fromJSON(myjson)
 head(iris2)
+```
+
+### Reading with readr package
+
+Best to specify a vector and add it as `col_names`
+
+`col`_`types `specifies the column types \( c = character, d =double, i = integer, l = logical , \_=skip\). Like `col`_`types ="ccdd"`
+
+
+
+##### Load library
+
+```
+library(readr)
+```
+
+##### read\_delim usage
+
+```
+# Column Names
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+# Import potatoes.txt using read_delim(): potatoes
+potatoes <- read_delim("potatoes.txt", delim = "\t", col_names = properties)
+# Print out potatoes
+potatoes
+
+```
+
+##### skip and n\_max
+
+`skip` and `n_max`_for huge data files. `skip = 2`, `n_max = 3 `will  skip two columns and read the next 3 records. However, col\_names must be specified in statement_
+
+```
+# readr is already loaded
+
+# Column names
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+
+# Import 5 observations from potatoes.txt: potatoes_fragment
+potatoes_fragment <- read_tsv("potatoes.txt", skip = 6, n_max = 5, col_names = properties)
+```
+
+##### col\_types
+
+col\_types specifies the column types
+
+```
+# readr is already loaded
+
+# Column names
+properties <- c("area", "temp", "size", "storage", "method",
+                "texture", "flavor", "moistness")
+
+# Import all data, but force all columns to be character: potatoes_char
+potatoes_char <- read_tsv("potatoes.txt", col_types = "cccccccc", col_names = properties)
+
+# Print out structure of potatoes_char
+str(potatoes_char)
+```
+
+col_factor and col\_integer_
+
+```
+# readr is already loaded
+
+# Import without col_types
+hotdogs <- read_tsv("hotdogs.txt", col_names = c("type", "calories", "sodium"))
+
+# Display the summary of hotdogs
+summary(hotdogs)
+
+
+# The collectors you will need to import the data
+fac <- col_factor(levels = c("Beef", "Meat", "Poultry"))
+int <- col_integer()
+
+# Edit the col_types argument to import the data correctly: hotdogs_factor
+hotdogs_factor <- read_tsv("hotdogs.txt",
+                           col_names = c("type", "calories", "sodium"),
+                           col_types = list(fac, int, int))
+
+# Display the summary of hotdogs_factor
+summary(hotdogs_factor)
+```
+
+### Reading with data.table
+
+fread\(\) automatically handles names, types, separators and its fast
+
+Other factors can manually added
+
+Load package
+
+```
+library(data.table)
+```
+
+Import file
+
+```
+# Import potatoes.csv with fread(): potatoes
+potatoes <- fread("potatoes.csv")
+
+# Print out potatoes
+potatoes
+```
+
+Select
+
+```
+# fread is already loaded
+
+# Import columns 6 and 8 of potatoes.csv: potatoes
+potatoes <- fread("potatoes.csv", select = c(6,8))
+
+# Plot texture (x) and moistness (y) of potatoes
+plot(x = potatoes$texture, y = potatoes$moistness)
 ```
 
 

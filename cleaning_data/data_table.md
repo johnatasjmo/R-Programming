@@ -1,8 +1,6 @@
-# Data Table
+# Data Table package
 
 Faster than data frames
-
-
 
 ```
 #load
