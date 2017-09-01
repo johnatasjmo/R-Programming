@@ -68,5 +68,185 @@ system.time(fread(file))
 system.time(read.table(file, header=TRUE, sep="\t"))
 ```
 
+Example with data table
+
+```
+library(data.table) 
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv"
+download.file(fileUrl, destfile = "america_comm_survey.csv")
+dateDownloaded <- date()
+data <- read.csv("america_comm_survey.csv")
+head(data$VAL) # take a look at the contents of the VAL (property worth) variable
+```
+
+```
+> head(data$VAL)
+[1] 17 NA 18 19 20 15
+```
+
+```
+DT = data.table(data)
+DT[, .N, by=VAL==24] 
+```
+
+```
+> DT[, .N, by=VAL==24] 
+     VAL    N
+1: FALSE 4367
+2:    NA 2076
+3:  TRUE   53
+```
+
+```
+# ANSWER = 53 AT $1m+ (NUMBER 24)
+head(DT$FES, 20)
+```
+
+Other example
+
+```
+#install.packages("XML")
+```
+
+```
+library
+(
+XML
+)
+library
+(
+RCurl
+)
+library
+(
+dplyr
+)
+fileXML
+<
+-
+"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
+# had to remove s from https in above xml file. This method commented below:
+#   fileXML 
+<
+- "http://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
+#   doc 
+<
+- xmlTreeParse(fileXML,useInternal = TRUE)
+# using RCurl, can leave https.  Use getURL first, then parse with xmlParse
+xData
+<
+-
+getURL
+(
+fileXML
+)
+# This allows you to use https
+doc
+<
+-
+xmlParse
+(
+xData
+)
+rootNode
+<
+-
+xmlRoot
+(
+doc
+)
+#xmlName(rootNode) # just displays top root node name
+# one version, no data frame required - no need for zips, zips_dt 
+sum
+(
+xpathSApply
+(
+rootNode
+, 
+"//zipcode"
+, 
+xmlValue
+)
+==
+"21231"
+)
+```
+
+```
+## [1] 127
+```
+
+```
+# another version, create data frame and find answer there
+zips
+<
+-
+xpathSApply
+(
+rootNode
+,
+"//zipcode"
+, 
+xmlValue
+)
+# getting the zip code data
+zips_dt
+<
+-
+data.frame
+(
+zips
+, 
+row.names
+=
+NULL
+)
+# creating a data frame from them
+summary
+(
+zips_dt
+$
+zips
+==
+21231
+)
+# find count of 21231
+```
+
+```
+##    Mode   FALSE    TRUE    NA's 
+## logical    1200     127       0
+```
+
+```
+# another method, finds count of True instance of 21231. Uses dplyr.
+count
+(
+zips_dt
+, 
+zips
+==
+21231
+)
+```
+
+```
+## Source: local data frame [2 x 2]
+## 
+##   zips == 21231     n
+##           (lgl) (int)
+## 1         FALSE  1200
+## 2          TRUE   127
+```
+
+```
+# QUESTION 4 ANSWER        
+127
+```
+
+```
+## [1] 127
+```
+
 
 

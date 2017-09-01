@@ -2,11 +2,11 @@
 
 ### Reading with utils package \(default\)
 
-`read.table `is the default option
+`read.table`is the default option
 
-`read.csv `reads csv files with header = TRUE and sep ="'," by default
+`read.csv`reads csv files with header = TRUE and sep ="'," by default
 
-`read.delim `reads data separated by tabs with header = TRUE, sep ="\t"
+`read.delim`reads data separated by tabs with header = TRUE, sep ="\t"
 
 ##### Importing Data
 
@@ -16,6 +16,12 @@ pools <- read.csv("swimming_pools.csv", stringsAsFactors = TRUE)
 # Option B
 pools <- read.csv("swimming_pools.csv", stringsAsFactors = FALSE)
 ```
+
+```
+
+```
+
+##### 
 
 ##### Path
 
@@ -30,9 +36,7 @@ path <- "hotdogs.txt"
 hotdogs <- read.table(path,  sep = "",col.names = c("type", "calories", "sodium"))
 ```
 
-
-
-#####  
+##### 
 
 ##### Reading local file
 
@@ -110,9 +114,7 @@ head(iris2)
 
 Best to specify a vector and add it as `col_names`
 
-`col`_`types `specifies the column types \( c = character, d =double, i = integer, l = logical , \_=skip\). Like `col`_`types ="ccdd"`
-
-
+`coltypes`_specifies the column types \( c = character, d =double, i = integer, l = logical , \_=skip\). Like `col`\_`types ="ccdd"`
 
 ##### Load library
 
@@ -130,12 +132,11 @@ properties <- c("area", "temp", "size", "storage", "method",
 potatoes <- read_delim("potatoes.txt", delim = "\t", col_names = properties)
 # Print out potatoes
 potatoes
-
 ```
 
 ##### skip and n\_max
 
-`skip` and `n_max`_for huge data files. `skip = 2`, `n_max = 3 `will  skip two columns and read the next 3 records. However, col\_names must be specified in statement_
+`skip` and `n_max`_for huge data files. _`skip = 2`_, _`n_max = 3`_will  skip two columns and read the next 3 records. However, col\_names must be specified in statement_
 
 ```
 # readr is already loaded
