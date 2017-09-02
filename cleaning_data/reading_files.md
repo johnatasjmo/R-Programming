@@ -47,19 +47,6 @@ cameraData <- read.csv("./data/cameras.csv")
 head(cameraData)
 ```
 
-##### Reading Excel file
-
-```
-cameraData<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,header=TRUE)
-head(cameraData)
-
-## Reading specific rows and columns
-colIndex<-2:3
-rowIndex<-1:4
-cameraDataSubset<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,colIndex=colIndex,rowIndex=rowIndex)
-cameraDataSubset
-```
-
 ##### Reading XML and HTML
 
 ```
