@@ -43,7 +43,7 @@ cameraDataSubset<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,colIndex=colIndex
 cameraDataSubset
 ```
 
-#####
+#### \#
 
 ```r
 # The readxl package is already loaded
@@ -153,7 +153,7 @@ urban_clean <- na.omit(urban)
 summary(urban_clean)
 ```
 
-XLConnect
+### XLConnect
 
 Work with Excel through R, a bride, editing, formating, etc.
 
@@ -177,3 +177,70 @@ readWorksheet(book, sheet = "year_2000",
                 startCol =2,
                 header = FALSE)
 ```
+
+##### Adapting sheets
+
+```r
+pop_2010 <-... #truncated
+library(XLConnect)
+book <- loadWorkbook("cities.xlsx")
+createSheet(book, name = "year_2010")
+writeWorksheet(book, pop_2010, sheet = "year_2010")
+saveWorkbook(book, file = "cities2.xlsx")
+renameSheet(book, "year_2010", "Y2010")  # rename sheet
+saveWorkbook(book, file = "cities3.xlsx")
+removeSheet(book, sheet = "Y2010") # remove sheet
+```
+
+```r
+# XLConnect is already available
+
+# Build connection to urbanpop.xlsx
+my_book <- loadWorkbook("urbanpop.xlsx")
+
+# Add a worksheet to my_book, named "data_summary"
+createSheet(my_book, "data_summary")
+
+# Create data frame: summ
+sheets <- getSheets(my_book)[1:3]
+dims <- sapply(sheets, function(x) dim(readWorksheet(my_book, sheet = x)), USE.NAMES = FALSE)
+summ <- data.frame(sheets = sheets,
+                   nrows = dims[1, ],
+                   ncols = dims[2, ])
+
+# Add data in summ to "data_summary" sheet
+writeWorksheet(my_book, summ, sheet = "data_summary")
+
+# Save workbook as summary.xlsx
+saveWorkbook(my_book, file = "summary.xlsx")
+```
+
+```r
+# my_book is available
+
+# Rename "data_summary" sheet to "summary"
+renameSheet(my_book, "data_Summary", "summary")
+
+# Print out sheets of my_book
+getSheets(my_book)
+
+# Save workbook to "renamed.xlsx"
+saveWorkbook(my_book, file = "renamed.xlsx")
+```
+
+```r
+# Load the XLConnect package
+library("XLConnect")
+
+# Build connection to renamed.xlsx: my_book
+my_book <- loadWorkbook("renamed.xlsx")
+
+# Remove the fourth sheet
+removeSheet(my_book, sheet = "summary")
+
+# Save workbook to "clean.xlsx"
+saveWorkbook(my_book, file = "clean.xlsx")
+```
+
+
+

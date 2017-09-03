@@ -79,7 +79,7 @@ data <- read.csv("america_comm_survey.csv")
 head(data$VAL) # take a look at the contents of the VAL (property worth) variable
 ```
 
-```
+```r
 > head(data$VAL)
 [1] 17 NA 18 19 20 15
 ```
