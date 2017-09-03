@@ -166,7 +166,7 @@ install.packages("XLConnect")
 library("XLConnect")
 ```
 
-```R
+```r
 book <- loadWorkbook("cities.xlsx"
 str(book)
 excel_sheets("cities.xlsx")
