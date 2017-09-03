@@ -16,14 +16,14 @@
 
 **Install and load**
 
-```
+```r
 install.packages("readxls")
 library(readxl)
 ```
 
 ##### Reading Excel file
 
-```
+```r
 #Load second sheet
 read_excel("cities.xlsx", sheet = 2
 read_excel("cities.xlsx", sheet = "year_2000")
@@ -32,7 +32,7 @@ read_excel("cities.xlsx", sheet = "year_2000")
 excel_sheets("urbanpop.xlsx")
 ```
 
-```
+```r
 cameraData<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,header=TRUE)
 head(cameraData)
 
@@ -45,7 +45,7 @@ cameraDataSubset
 
 #####
 
-```
+```r
 # The readxl package is already loaded
 # Read the sheets, one by one
 pop_1 <- read_excel("urbanpop.xlsx", sheet = 1)
@@ -59,7 +59,7 @@ pop_list <- list(pop_1, pop_2, pop_3)
 str(pop_list)
 ```
 
-```
+```r
 # The readxl package is already loaded
 
 # Read all Excel sheets with lapply(): pop_list
@@ -69,7 +69,7 @@ pop_list <- lapply(excel_sheets("urbanpop.xlsx"), read_excel, path = "urbanpop.x
 str(pop_list)
 ```
 
-```
+```r
 # The readxl package is already loaded
 
 # Import the the first Excel sheet of urbanpop_nonames.xlsx (R gives names): pop_a
@@ -86,7 +86,7 @@ summary(pop_a)
 summary(pop_b)
 ```
 
-```
+```r
 # The readxl package is already loaded
 
 # Import the second sheet of urbanpop.xlsx, skipping the first 21 rows: urbanpop_sel
@@ -102,14 +102,14 @@ gdata reads.xls ith Perl and uses read.csv to read table. It is an extension. Us
 
 Specific sheet names can be imported with sheet names or number
 
-```
+```r
 install.packages("gdata")
 library(gdata)
 
 read.xls("cities.xls")
 ```
 
-```
+```r
 # Load the gdata package
 library(gdata)
 
@@ -120,7 +120,7 @@ urban_pop <- read.xls("urbanpop.xls", sheet = "1967-1974")
 head(urban_pop, 11)
 ```
 
-```
+```r
 # The gdata package is alreaded loaded
 
 # Column names for urban_pop
@@ -135,7 +135,7 @@ urban_pop <- read.xls("urbanpop.xls", sheet = 2,
 head(urban_pop, 10)
 ```
 
-```
+```r
 # Add code to import data from all three sheets in urbanpop.xls
 path <- "urbanpop.xls"
 urban_sheet1 <- read.xls(path, sheet = 1, stringsAsFactors = FALSE)
@@ -161,7 +161,7 @@ XLConnect requires Java
 
 Useful to decide when to start reading
 
-```
+```r
 install.packages("XLConnect")
 library("XLConnect")
 ```
