@@ -98,7 +98,7 @@ head(urbanpop_sel, 1)
 
 ### gdata Package
 
-gdata reads.xls ith Perl and uses read.csv to read table. It is an extension. Usually to handle big excel files. This is under development. 
+gdata reads.xls ith Perl and uses read.csv to read table. It is an extension. Usually to handle big excel files. This is under development.
 
 Specific sheet names can be imported with sheet names or number
 
@@ -151,6 +151,31 @@ urban_clean <- na.omit(urban)
 
 # Print out a summary of urban_clean
 summary(urban_clean)
+```
+
+XLConnect
+
+Work with Excel through R, a bride, editing, formating, etc.
+
+XLConnect requires Java
+
+Useful to decide when to start reading
+
+```
+install.packages("XLConnect")
+library("XLConnect")
+```
+
+```
+book <- loadWorkbook("cities.xlsx"
+str(book)
+excel_sheets("cities.xlsx")
+readWorksheet(book, sheet = "year_2000")
+readWorksheet(book, sheet = "year_2000",
+                startRow =3, 
+                endRow =4, 
+                startCol =2,
+                header = FALSE) 
 ```
 
 
