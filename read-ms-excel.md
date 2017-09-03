@@ -43,7 +43,7 @@ cameraDataSubset<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,colIndex=colIndex
 cameraDataSubset
 ```
 
-##### 
+#####
 
 ```
 # The readxl package is already loaded
@@ -166,17 +166,14 @@ install.packages("XLConnect")
 library("XLConnect")
 ```
 
-```
+```R
 book <- loadWorkbook("cities.xlsx"
 str(book)
 excel_sheets("cities.xlsx")
 readWorksheet(book, sheet = "year_2000")
 readWorksheet(book, sheet = "year_2000",
-                startRow =3, 
-                endRow =4, 
+                startRow =3,
+                endRow =4,
                 startCol =2,
-                header = FALSE) 
+                header = FALSE)
 ```
-
-
-
