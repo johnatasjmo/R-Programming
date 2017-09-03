@@ -2,7 +2,7 @@
 
 Faster than data frames
 
-```
+```r
 #load
 library(data.table)
 
@@ -86,7 +86,7 @@ head(data$VAL) # take a look at the contents of the VAL (property worth) variabl
 
 ```
 DT = data.table(data)
-DT[, .N, by=VAL==24] 
+DT[, .N, by=VAL==24]
 ```
 
 ```
