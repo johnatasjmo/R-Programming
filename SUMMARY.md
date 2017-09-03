@@ -13,6 +13,6 @@
   * [Downloading Files](cleaning_data/downloading_files.md)
   * [Reading Files](cleaning_data/reading_files.md)
   * [Data Table](cleaning_data/data_table.md)
+  * [Read MS Excel](read-ms-excel.md)
   * [Resources](cleaning_data/resources.md)
-* [Read MS Excel](read-ms-excel.md)
 
