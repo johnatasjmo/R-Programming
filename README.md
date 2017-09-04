@@ -33,7 +33,7 @@ dbGetQuery(hg19, "select count(*) from affyU133Plus2")
 [13] "qStart"      "qEnd"        "tName"      
 [16] "tSize"       "tStart"      "tEnd"       
 [19] "blockCount"  "blockSizes"  "qStarts"    
-[22] "tStarts"    
+[22] "tStarts"
 ```
 
 ```
@@ -59,11 +59,7 @@ There were 16 warnings (use warnings() to see them)
 
 ### Resources
 
-[r-bloggers](https://www.r-bloggers.com/mysql-and-r/)
+https://www.pantz.org/software/mysql/mysqlcommands.html
 
-[Pantz](https://www.pantz.org/software/mysql/mysqlcommands.html)
-
-
-
-
+https://www.r-bloggers.com/mysql-and-r/
 
