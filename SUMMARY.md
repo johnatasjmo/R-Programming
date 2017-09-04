@@ -15,5 +15,5 @@
   * [Data Table](cleaning_data/data_table.md)
   * [Read MS Excel](read-ms-excel.md)
   * [Resources](cleaning_data/resources.md)
-* Reading MySQL
+* [Reading MySQL](reading-mysql.md)
 
