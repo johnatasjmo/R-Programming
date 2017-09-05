@@ -16,4 +16,5 @@
   * [Read MS Excel](read-ms-excel.md)
   * [Resources](cleaning_data/resources.md)
 * [Reading MySQL](reading-mysql.md)
+* [Reading HDF5](reading-hdf5.md)
 

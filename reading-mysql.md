@@ -58,10 +58,6 @@ There were 16 warnings (use warnings() to see them)
 [1] 10 22
 ```
 
-```
-
-```
-
 ### Resources
 
 [https://www.pantz.org/software/mysql/mysqlcommands.html](https://www.pantz.org/software/mysql/mysqlcommands.html)
