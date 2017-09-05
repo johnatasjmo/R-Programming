@@ -24,7 +24,7 @@ dbListFields(hg19,"affyU133Plus2")
 dbGetQuery(hg19, "select count(*) from affyU133Plus2")
 ```
 
-```
+```r
 > dbListFields(hg19,"affyU133Plus2")
  [1] "bin"         "matches"     "misMatches" 
  [4] "repMatches"  "nCount"      "qNumInsert" 
@@ -42,7 +42,7 @@ dbGetQuery(hg19, "select count(*) from affyU133Plus2")
 1    58463
 ```
 
-```
+```r
 # select all from affy... table where misMatches variable is between 1 and 3, then fetch the query per quartile
 > query <- dbSendQuery(hg19, "select * from affyU133Plus2 where misMatches between 1 and 3")
 There were 16 warnings (use warnings() to see them)
@@ -50,8 +50,8 @@ There were 16 warnings (use warnings() to see them)
   0%  25%  50%  75% 100% 
    1    1    2    2    3 
 
-
-> affyMisSmall <- fetch(query, n=10); dbClearResult(query); # clear the query results
+# fetch the top 10 record and clear the query results
+> affyMisSmall <- fetch(query, n=10); dbClearResult(query); 
 [1] TRUE
 
 > dim(affyMisSmall)
