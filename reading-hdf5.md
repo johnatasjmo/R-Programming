@@ -8,3 +8,45 @@ Datasets multidimanesional array of data elements with data. Header with name, d
 
 [hdfgroup](htpp://www.hdfgroup.org)
 
+
+
+```
+source("http://bioconductor.org/biocLite.R")
+biocLite("rhdf5")
+
+```
+
+```
+library(rhdf5)
+
+```
+
+```
+
+created = h5createFile("example.h5")
+```
+
+```
+created = h5createGroup("example.h5","foo") # create foo group on file example.h5
+created = h5createGroup("example.h5","baa")
+created = h5createGroup("example.h5","baa/foobaa")
+> h5ls("example.h5")
+  group   name     otype dclass dim
+0     /    baa H5I_GROUP           
+1  /baa foobaa H5I_GROUP           
+2     /    foo H5I_GROUP 
+```
+
+```
+A = matrix(1:10,nr=5,nc=2)
+h5write(A, "example.h5","foo/A")
+B = array(seq(0.1,2.0,by=0.1),dim=c(5,2,2))
+attr(B, "scale") <- "liter"
+h5write(B, "example.h5", "foo/foobaa/B")
+h5ls("example.h5")
+```
+
+Resources
+
+[bioconductor](https://bioconductor.org/packages/release/bioc/html/rhdf5.html)
+
