@@ -13,7 +13,7 @@ dateDownloaded <- date()
 
 List files in directory
 
-```
+```r
 list.files()
 ```
 
