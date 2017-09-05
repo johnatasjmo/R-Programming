@@ -43,6 +43,7 @@ dbGetQuery(hg19, "select count(*) from affyU133Plus2")
 ```
 
 ```
+# select all from affy... table where misMatches variable is between 1 and 3, then fetch the query per quartile
 > query <- dbSendQuery(hg19, "select * from affyU133Plus2 where misMatches between 1 and 3")
 There were 16 warnings (use warnings() to see them)
 > affyMis <- fetch(query); quantile(affyMis$misMatches)
@@ -55,6 +56,10 @@ There were 16 warnings (use warnings() to see them)
 
 > dim(affyMisSmall)
 [1] 10 22
+```
+
+```
+
 ```
 
 ### Resources
