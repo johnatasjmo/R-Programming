@@ -17,7 +17,7 @@ biocLite("rhdf5")
 library(rhdf5)
 ```
 
-```
+```r
 created = h5createFile("example.h5")
 ```
 
