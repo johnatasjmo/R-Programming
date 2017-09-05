@@ -10,7 +10,7 @@
 
 ##### Importing Data
 
-```
+```r
 pools <- read.csv("swimming_pools.csv", stringsAsFactors = TRUE)
 
 # Option B
@@ -25,7 +25,7 @@ pools <- read.csv("swimming_pools.csv", stringsAsFactors = FALSE)
 
 ##### Path
 
-```
+```r
 # Path to the hotdogs.txt file: path
 path <- file.path("data", "hotdogs.txt")
 
@@ -40,7 +40,7 @@ hotdogs <- read.table(path,  sep = "",col.names = c("type", "calories", "sodium"
 
 ##### Reading local file
 
-```
+```r
 head(cameraData)
 
 cameraData <- read.csv("./data/cameras.csv")
@@ -49,7 +49,7 @@ head(cameraData)
 
 ##### Reading XML and HTML
 
-```
+```r
 library(XML)
 fileUrl<-"http://www.w3schools.com/xml/simple.xml"
 doc<-xmlTreeParse(fileUrl,useInternal=TRUE)
@@ -63,7 +63,7 @@ xmlSApply(rootNode,xmlValue)
 
 ##### XPath
 
-```
+```r
 # /nodeTop level node
 # //nodeNode at any level
 # node[@attr-name]Node with an attribute name
@@ -81,7 +81,7 @@ scores
 
 ##### Reading JSON
 
-```
+```r
 jsonData<fromJSON("https://api.github.com/users/jtleek/repos")
 names(jsonData)
 jsonData$name
@@ -105,13 +105,13 @@ Best to specify a vector and add it as `col_names`
 
 ##### Load library
 
-```
+```r
 library(readr)
 ```
 
 ##### read\_delim usage
 
-```
+```r
 # Column Names
 properties <- c("area", "temp", "size", "storage", "method",
                 "texture", "flavor", "moistness")
@@ -125,7 +125,7 @@ potatoes
 
 `skip` and `n_max`_for huge data files. _`skip = 2`_, _`n_max = 3`_will  skip two columns and read the next 3 records. However, col\_names must be specified in statement_
 
-```
+```r
 # readr is already loaded
 
 # Column names
@@ -140,7 +140,7 @@ potatoes_fragment <- read_tsv("potatoes.txt", skip = 6, n_max = 5, col_names = p
 
 col\_types specifies the column types
 
-```
+```r
 # readr is already loaded
 
 # Column names
@@ -156,7 +156,7 @@ str(potatoes_char)
 
 col_factor and col\_integer_
 
-```
+```r
 # readr is already loaded
 
 # Import without col_types
@@ -187,13 +187,13 @@ Other factors can manually added
 
 Load package
 
-```
+```r
 library(data.table)
 ```
 
 Import file
 
-```
+```r
 # Import potatoes.csv with fread(): potatoes
 potatoes <- fread("potatoes.csv")
 
@@ -203,7 +203,7 @@ potatoes
 
 Select
 
-```
+```r
 # fread is already loaded
 
 # Import columns 6 and 8 of potatoes.csv: potatoes
