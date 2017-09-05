@@ -2,7 +2,7 @@
 
 ### Install
 
-```
+```r
 install.packages("RMySQL")
 library("RMySQL")
 ```
