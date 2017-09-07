@@ -99,6 +99,16 @@ specific <- dbGetQuery(con, "SELECT message FROM comments WHERE tweat_id = '77' 
 
 # Print specific
 specific
+
+# Create data frame short, select id and name where char length of name is less than 5
+short <- data.frame(dbGetQuery(con, "SELECT id, name FROM users WHERE CHAR_LENGTH(name) < 5"))
+
+# Print short
+short
+
+# INNER JOIN can also be used, this command will join two tables
+guess <- data.frame(dbGetQuery(con, "SELECT post, message from tweats INNER JOIN comments on tweats.id = tweat_id WHERE tweat_id = 77")
+guess
 ```
 
 ```
