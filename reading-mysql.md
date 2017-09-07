@@ -69,7 +69,7 @@ con <- dbConnect(RMySQL::MySQL(),
                  port = 3306,
                  user = "student",
                  password = "datacamp")
-                 
+
 # Build a vector of table names: tables
 tables <- dbListTables(con)
 
@@ -82,6 +82,26 @@ users <- dbReadTable(con, "users")
 # Print users
 users
 
+# Import tweat_id column of comments where user_id is 1: elisabeth
+elisabeth <- dbGetQuery(con, "SELECT tweat_id FROM comments WHERE user_id = '1'")
+
+# Print elisabeth
+elisabeth
+
+# Import post column of tweats where date is higher than '2015-09-21': latest
+latest <- data.frame(dbGetQuery(con, "SELECT post FROM tweats WHERE date > '2015-09-21'"))
+
+# Print latest
+latest
+
+# Create data frame specific
+specific <- dbGetQuery(con, "SELECT message FROM comments WHERE tweat_id = '77' AND user_id > 4")
+
+# Print specific
+specific
+```
+
+```
 
 ```
 
