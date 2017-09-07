@@ -58,6 +58,33 @@ There were 16 warnings (use warnings() to see them)
 [1] 10 22
 ```
 
+```
+# Load the DBI package
+library(DBI)
+
+# Edit dbConnect() call
+con <- dbConnect(RMySQL::MySQL(), 
+                 dbname = "tweater", 
+                 host = "courses.csrrinzqubik.us-east-1.rds.amazonaws.com", 
+                 port = 3306,
+                 user = "student",
+                 password = "datacamp")
+                 
+# Build a vector of table names: tables
+tables <- dbListTables(con)
+
+# Display structure of tables
+str(tables)
+
+# Import the users table from tweater: users
+users <- dbReadTable(con, "users")
+
+# Print users
+users
+
+
+```
+
 ### Resources
 
 [https://www.pantz.org/software/mysql/mysqlcommands.html](https://www.pantz.org/software/mysql/mysqlcommands.html)
