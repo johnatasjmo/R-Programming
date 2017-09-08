@@ -18,4 +18,4 @@
   * [Reading HDF5](cleaning_data/reading-hdf5.md)
   * [Reading from the Web](cleaning_data/reading-from-the-web.md)
   * [Reading with httr](cleaning_data/reading-with-httr.md)
-  * [Resources](cleaning_data/cleaning_data/resources.md)
+  * [Resources2](cleaning_data/cleaning_data/resources.md)
