@@ -17,6 +17,6 @@
   * [Resources](cleaning_data/resources.md)
 * [Reading MySQL](reading-mysql.md)
 * [Reading HDF5](reading-hdf5.md)
-* Reading from the Web
+* [Reading from the Web](reading-from-the-web.md)
 * [Reading with httr](Reading with httr)
 
