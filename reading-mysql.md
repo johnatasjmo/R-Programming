@@ -111,9 +111,33 @@ guess <- data.frame(dbGetQuery(con, "SELECT post, message from tweats INNER JOIN
 guess
 ```
 
-```
+DBI internals
 
 ```
+# Send query to the database
+res <- dbSendQuery(con, "SELECT * FROM comments WHERE user_id > 4")
+
+# Use dbFetch() twice
+dbFetch(res, n = 2)
+dbFetch(res)
+
+
+# Clear res
+dbClearResult(res)
+
+# Create the data frame  long_tweats
+long_tweats <- data.frame(dbGetQuery(con, "SELECT post, date FROM tweats WHERE char_length(post) > 40"))
+
+# Print long_tweats
+print(long_tweats)
+
+# Disconnect from the database
+dbDisconnect(con)
+
+
+```
+
+
 
 ### Resources
 
