@@ -18,4 +18,4 @@
   * [Reading MySQL](cleaning_data/reading-mysql.md)
   * [Reading HDF5](cleaning_data/reading-hdf5.md)
   * [Reading from the Web](cleaning_data/reading-from-the-web.md)
-  * [Reading with httr](cleaning_data/reading-with-httr)
+  * [Reading with httr](cleaning_data/reading-with-httr.md)
