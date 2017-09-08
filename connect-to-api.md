@@ -1,9 +1,8 @@
-# Reading with API
+# Reading with httr
 
 Github API
 
 ```
-
 library(httr)
 
 # 1. Find OAuth settings for github:
@@ -34,7 +33,9 @@ stop_for_status(req)
 content(req)
 ```
 
-Other examples of API connect 
+### Other examples of API connect
 
-[r-lib/httr/demo](https://github.com/r-lib/httr/tree/master/demo)
+### [r-lib/httr/demo](https://github.com/r-lib/httr/tree/master/demo)
+
+[r-lib/httr](https://github.com/r-lib/httr)
 
