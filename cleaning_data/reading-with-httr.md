@@ -27,10 +27,10 @@ List of 5
  $ alcohol_pct: num 12.4
  $ color      : chr "red"
  $ awarded    : logi FALSE
-> 
+>
 ```
 
-```R
+```r
 > # jsonlite is preloaded
 > 
 > # Definition of quandl_url
@@ -42,7 +42,7 @@ List of 5
 > # Print structure of quandl_data
 > str(quandl_url)
  chr "https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz"
-> 
+>
 ```
 
 ### Github API
