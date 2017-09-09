@@ -1,15 +1,13 @@
 # Reading with API
 
-### APIs & JSON
+### jsonlite package
 
-jsonlite package
-
-```
+```r
 install.packages("jsonlite")
 library(jsonlite)
 ```
 
-```
+```r
 > # Load the jsonlite package
 > library(jsonlite)
 > 
@@ -40,14 +38,47 @@ List of 5
 > quandl_data <- fromJSON(quandl_url)
 > 
 > # Print structure of quandl_data
-> str(quandl_url)
- chr "https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?auth_token=i83asDsiWUUyfoypkgMz"
->
+> str(quandl_data)
+List of 1
+ $ dataset_data:List of 10
+  ..$ limit       : NULL
+  ..$ transform   : NULL
+  ..$ column_index: NULL
+  ..$ column_names: chr [1:13] "Date" "Open" "High" "Low" ...
+  ..$ start_date  : chr "2012-05-18"
+  ..$ end_date    : chr "2017-09-08"
+  ..$ frequency   : chr "daily"
+  ..$ data        : chr [1:1336, 1:13] "2017-09-08" "2017-09-07" "2017-09-06" "2017-09-05" ...
+  ..$ collapse    : NULL
+  ..$ order       : NULL
+> 
+```
+
+```r
+> # The package jsonlite is already loaded
+> 
+> # Definition of the URLs
+> url_sw4 <- "http://www.omdbapi.com/?apikey=ff21610b&i=tt0076759&r=json"
+> url_sw3 <- "http://www.omdbapi.com/?apikey=ff21610b&i=tt0121766&r=json"
+> 
+> # Import two URLs with fromJSON(): sw4 and sw3
+> sw4 <- fromJSON(url_sw4)
+> sw3 <- fromJSON(url_sw3)
+> 
+> # Print out the Title element of both lists
+> sw4$Title
+[1] "Star Wars: Episode IV - A New Hope"
+> sw3$Title
+[1] "Star Wars: Episode III - Revenge of the Sith"
+> 
+> # Is the release year of sw4 later than sw3?
+> sw4$Year > sw3$Year
+[1] FALSE
 ```
 
 ### Github API
 
-```
+```r
 library(httr)
 
 # 1. Find OAuth settings for github:
