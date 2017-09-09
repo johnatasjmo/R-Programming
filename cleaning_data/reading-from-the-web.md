@@ -56,8 +56,40 @@ excel_readxl <- read_excel("local_latitude.xls")
 ```
 
 ```
+# Load the httr package
+library(httr)
 
+# Get the url, save response to resp
+url <- "http://www.example.com/"
+resp <- GET(url)
+
+
+# Print resp
+resp
+
+# Get the raw content of resp: raw_content
+raw_content <- content(resp, as = "raw")
+
+# Print the head of raw_content
+head(raw_content)
 ```
 
-Question: what is the difference between `read.csv `vs `read_csv` ?
+```
+# httr is already loaded
+
+# Get the url
+url <- "http://www.omdbapi.com/?apikey=ff21610b&t=Annie+Hall&y=&plot=short&r=json"
+resp <- GET(url)
+
+# Print resp
+resp
+
+# Print content of resp as text
+content(resp, as = "text")
+
+# Print content of resp
+content(resp,)
+```
+
+Question: what is the difference between `read.csv`vs `read_csv` ?
 
