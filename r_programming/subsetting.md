@@ -1,6 +1,6 @@
 Subsetting
 
-```
+```r
 # creating a random matrix with NAs
 > set.seed(13435)
 > X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
@@ -14,8 +14,6 @@ Subsetting
 5    4    9   13
 ```
 
-
-
 ```
 # subsetting
 > X[,1]
@@ -27,8 +25,6 @@ Subsetting
 > X[1:2,"var2"] # output first two rows of X and second column of var2
 [1] NA 10
 ```
-
-
 
 ```
 > X[(X$var1 <= 3 & X$var3 > 11)] # use of AND
@@ -78,8 +74,6 @@ Sorting
 2    3   NA   12
 5    4    9   13
 3    5    6   14
-
-
 ```
 
 plyr package
@@ -107,10 +101,7 @@ library(plyr)
 3    3   NA   12
 4    2   NA   15
 5    1   10   11
-
 ```
-
-
 
 ```
 > X$var4 <- rnorm(5) # add a new variable as extra column
@@ -139,8 +130,6 @@ library(plyr)
 2 -0.9710917    3   NA   12  0.4966936
 3 -0.9446847    5    6   14  0.0631830
 5 -0.2967423    4    9   13 -0.5361329
-
-
 ```
 
 
