@@ -8,9 +8,4 @@
 
 [Raphael Gottardo's Notes](http://github.com/raphg/Biostat-578/blob/mster/Advanced__data__manipulation.Rpres)
 
-
-
-Read 
-
-Q
-
+[Andrew Jeff lecture's note](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)
