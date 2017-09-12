@@ -14,7 +14,7 @@ Subsetting
 5    4    9   13
 ```
 
-```
+```r
 # subsetting
 > X[,1]
 [1] 2 1 3 5 4
@@ -26,7 +26,7 @@ Subsetting
 [1] NA 10
 ```
 
-```
+```r
 > X[(X$var1 <= 3 & X$var3 > 11)] # use of AND
   var1 var3
 1    2   15
@@ -49,7 +49,7 @@ Subsetting
 
 Sorting
 
-```
+```r
 > sort(X$var1)
 [1] 1 2 3 4 5
 
@@ -80,12 +80,12 @@ plyr package
 
 use for command arrange
 
-```
+```r
 install.packages("plyr")
 library(plyr)
 ```
 
-```
+```r
 > arrange(X,var1) #arrange by var1
   var1 var2 var3
 1    1   10   11
@@ -103,7 +103,7 @@ library(plyr)
 5    1   10   11
 ```
 
-```
+```r
 > X$var4 <- rnorm(5) # add a new variable as extra column
 > X
   var1 var2 var3       var4
