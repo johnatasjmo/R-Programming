@@ -20,4 +20,5 @@
   * [Reading with httr](cleaning_data/reading-with-httr.md)
   * [Resources](cleaning_data/resources.md)
 * [R programming resources](r-programming-resources.md)
+* [Summarizing Data](summarizing-data.md)
 
