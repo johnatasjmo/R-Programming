@@ -1,4 +1,4 @@
-Subsetting
+# Subsetting
 
 ```r
 # creating a random matrix with NAs
@@ -47,10 +47,9 @@ Subsetting
 5    4    9   13
 ```
 
-Sorting
+##### Sorting
 
 ```r
-> sort(X$var1)
 [1] 1 2 3 4 5
 
 > sort(X$var1, decreasing = TRUE)
@@ -76,7 +75,7 @@ Sorting
 3    5    6   14
 ```
 
-plyr package
+### plyr package
 
 use for command arrange
 
