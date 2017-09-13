@@ -16,7 +16,8 @@
   * [Reading MySQL](cleaning_data/reading-mysql.md)
   * [Reading HDF5](cleaning_data/reading-hdf5.md)
   * [Reading from the Web](cleaning_data/reading-from-the-web.md)
-  * [Reading with httr](cleaning_data/reading-with-httr.md)
+  * [Reading from JSON](cleaning_data/reading-with-httr.md)
   * [Subsetting](cleaning_data/subsetting.md)
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
+
