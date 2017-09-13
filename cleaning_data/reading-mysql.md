@@ -58,7 +58,7 @@ There were 16 warnings (use warnings() to see them)
 [1] 10 22
 ```
 
-```
+```r
 # Load the DBI package
 library(DBI)
 
@@ -113,7 +113,7 @@ guess
 
 DBI internals
 
-```
+```r
 # Send query to the database
 res <- dbSendQuery(con, "SELECT * FROM comments WHERE user_id > 4")
 
@@ -133,11 +133,7 @@ print(long_tweats)
 
 # Disconnect from the database
 dbDisconnect(con)
-
-
 ```
-
-
 
 ### Resources
 

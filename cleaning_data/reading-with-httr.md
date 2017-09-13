@@ -78,6 +78,24 @@ List of 1
 
 ### JSON Objects
 
+##### Reading JSON
+
+```r
+jsonData<fromJSON("https://api.github.com/users/jtleek/repos")
+names(jsonData)
+jsonData$name
+names(jsonData$owner)
+jsonData$owner$login
+
+#Writing data frames to JSON
+myjson<-toJSON(iris,pretty=TRUE)
+cat(myjson)
+
+#Convert back to JSON
+iris2<-fromJSON(myjson)
+head(iris2)
+```
+
 ##### fromJSON\(\) and toJSON\(\)
 
 ```r

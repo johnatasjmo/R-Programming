@@ -1,6 +1,6 @@
 # Reading from the Web
 
-```
+```r
 # Load the readr package
 library(readr)
 
@@ -19,7 +19,7 @@ pools
 potatoes
 ```
 
-```
+```r
 # https URL to the swimming_pools csv file.
 url_csv <- "https://s3.amazonaws.com/assets.datacamp.com/production/course_1478/datasets/swimming_pools.csv"
 
@@ -37,7 +37,7 @@ str(pools1)
 str(pools2)
 ```
 
-```
+```r
 # Load the readxl and gdata package
 library(readxl)
 library(gdata)
@@ -55,7 +55,7 @@ download.file(url_xls, destfile = "local_latitude.xls")
 excel_readxl <- read_excel("local_latitude.xls")
 ```
 
-```
+```r
 # Load the httr package
 library(httr)
 
@@ -74,7 +74,7 @@ raw_content <- content(resp, as = "raw")
 head(raw_content)
 ```
 
-```
+```r
 # httr is already loaded
 
 # Get the url

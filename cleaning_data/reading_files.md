@@ -17,12 +17,6 @@ pools <- read.csv("swimming_pools.csv", stringsAsFactors = TRUE)
 pools <- read.csv("swimming_pools.csv", stringsAsFactors = FALSE)
 ```
 
-```
-
-```
-
-##### 
-
 ##### Path
 
 ```r
@@ -79,25 +73,7 @@ teams <- xpathSApply(doc,"//li[@class='team-name']",xmlValue)
 scores
 ```
 
-##### Reading JSON
-
-```r
-jsonData<fromJSON("https://api.github.com/users/jtleek/repos")
-names(jsonData)
-jsonData$name
-names(jsonData$owner)
-jsonData$owner$login
-
-#Writing data frames to JSON
-myjson<-toJSON(iris,pretty=TRUE)
-cat(myjson)
-
-#Convert back to JSON
-iris2<-fromJSON(myjson)
-head(iris2)
-```
-
-### Reading with readr package
+##### Reading with readr package
 
 Best to specify a vector and add it as `col_names`
 
