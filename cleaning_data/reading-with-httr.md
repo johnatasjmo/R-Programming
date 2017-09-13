@@ -78,6 +78,8 @@ List of 1
 
 ### JSON Objects
 
+##### fromJSON\(\) and toJSON\(\)
+
 ```r
 # jsonlite is already loaded
 
@@ -115,6 +117,8 @@ water_json <- toJSON(water)
 # Print out water_json
 water_json
 ```
+
+##### pretty json and minify\(\)
 
 ```r
 # jsonlite is already loaded
