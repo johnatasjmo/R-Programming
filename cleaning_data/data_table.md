@@ -1,5 +1,39 @@
 # Data Table package
 
+### Reading with data.table
+
+fread\(\) automatically handles names, types, separators and its fast
+
+Other factors can manually added
+
+##### Load package
+
+```r
+library(data.table)
+```
+
+##### Import file
+
+```r
+# Import potatoes.csv with fread(): potatoes
+potatoes <- fread("potatoes.csv")
+
+# Print out potatoes
+potatoes
+```
+
+##### Select
+
+```r
+# fread is already loaded
+
+# Import columns 6 and 8 of potatoes.csv: potatoes
+potatoes <- fread("potatoes.csv", select = c(6,8))
+
+# Plot texture (x) and moistness (y) of potatoes
+plot(x = potatoes$texture, y = potatoes$moistness)
+```
+
 Faster than data frames
 
 ```r
@@ -218,16 +252,9 @@ zips
 ## logical    1200     127       0
 ```
 
-```
+```r
 # another method, finds count of True instance of 21231. Uses dplyr.
-count
-(
-zips_dt
-, 
-zips
-==
-21231
-)
+count(zips_dt, zips == 21231)
 ```
 
 ```
