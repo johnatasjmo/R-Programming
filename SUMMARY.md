@@ -21,4 +21,5 @@
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
 * [Reading with haven](reading-with-haven.md)
+* [Reading with foreign](reading-with-foreign.md)
 
