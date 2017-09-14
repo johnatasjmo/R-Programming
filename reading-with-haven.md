@@ -1,4 +1,4 @@
-Reading with haven
+# Reading with haven
 
 Packages like:
 
@@ -6,9 +6,7 @@ Packages like:
 * STATA: economist
 * SPSS: social sciences
 
-haven can deal with SAS, STATA and SPSS
-
-Result: Rdataframe
+haven can deal with SAS, STATA and SPSS. The end result is a R data frame
 
 ```
 install.package("haven")
@@ -48,7 +46,7 @@ library(haven)
 > 
 > # Display the structure of sales
 > str(sales)
-Classes 'tbl_df', 'tbl' and 'data.frame':	431 obs. of  4 variables:
+Classes 'tbl_df', 'tbl' and 'data.frame':    431 obs. of  4 variables:
  $ purchase: num  0 0 1 1 0 0 0 0 0 0 ...
  $ age     : num  41 47 41 39 32 32 33 45 43 40 ...
  $ gender  : chr  "Female" "Female" "Female" "Female" ...
@@ -56,12 +54,10 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	431 obs. of  4 variables:
  - attr(*, "label")= chr "SALES"
 ```
 
-
-
 ```
 > sugar <- read_dta("http://assets.datacamp.com/production/course_1478/datasets/trade.dta")
 > str(sugar)
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10 obs. of  5 variables:
+Classes ‘tbl_df’, ‘tbl’ and 'data.frame':    10 obs. of  5 variables:
  $ Date    :Class 'labelled'  atomic [1:10] 10 9 8 7 6 5 4 3 2 1
   .. ..- attr(*, "label")= chr "Date"
   .. ..- attr(*, "format.stata")= chr "%9.0g"
@@ -82,7 +78,7 @@ Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10 obs. of  5 variables:
  - attr(*, "label")= chr "Written by R."
 > sugar$Date <- as.Date(as_factor(sugar$Date))
 > str(sugar)
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	10 obs. of  5 variables:
+Classes ‘tbl_df’, ‘tbl’ and 'data.frame':    10 obs. of  5 variables:
  $ Date    : Date, format: "2013-12-31" "2012-12-31" ...
  $ Import  : atomic  37664782 16316512 11082246 35677943 9879878 ...
   ..- attr(*, "label")= chr "Import"
