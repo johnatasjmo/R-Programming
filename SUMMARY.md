@@ -20,4 +20,5 @@
   * [Subsetting](cleaning_data/subsetting.md)
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
+* [Reading with haven](reading-with-haven.md)
 
