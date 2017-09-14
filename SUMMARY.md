@@ -20,6 +20,5 @@
   * [Subsetting](cleaning_data/subsetting.md)
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
-* [Reading with haven](reading-with-haven.md)
-* [Reading with foreign](reading-with-foreign.md)
-
+  * [Reading with haven](cleaning_data/reading-with-haven.md)
+  * [Reading with foreign](cleaning_data/reading-with-foreign.md)
