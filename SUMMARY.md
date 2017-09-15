@@ -22,3 +22,5 @@
   * [Reading with foreign](cleaning_data/reading-with-foreign.md)
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
+* [Creating new variables](creating-new-variables.md)
+
