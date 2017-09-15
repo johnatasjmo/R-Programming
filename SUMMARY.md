@@ -23,4 +23,5 @@
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
 * [Creating new variables](creating-new-variables.md)
+* [Reshaping data](reshaping-data.md)
 
