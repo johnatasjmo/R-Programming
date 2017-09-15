@@ -4,13 +4,13 @@
 
 ##### Baltimore dataset
 
-```
+```r
 > list.files()
 [1] "restaurants.csv"
 > restData <- read.csv("restaurants.csv")
 ```
 
-```
+```r
 > s1 <- seq(1,10, by=2) ;s1
 [1] 1 3 5 7 9
 
@@ -25,7 +25,7 @@ Create a sequence of length
 
 Subsetting variables
 
-```
+```r
 > # Find restaurants only in these two neibourhoods that are IN
 > restData$nearMe = restData$neighborhood %in% c("Roland Park", "Homeland") 
 > table(restData$nearMe)
@@ -95,7 +95,7 @@ Creting categorical variables
 
 ##### Easier cutting \(easier way to group\)
 
-```
+```r
 > library(Hmisc)
 > restData$zipGroups = cut2(restData$zipCode,g=4)
 > table(restData$zipGroups)
@@ -106,7 +106,7 @@ Creting categorical variables
 
 ##### Creating factor variables with `factor()`
 
-```
+```r
 > # zipcode variable is an integer, we will convert it to a factor
 > restData$zcf <- factor(restData$zipCode)
 > restData$zcf[1:10]
@@ -118,7 +118,7 @@ Creting categorical variables
 
 Levels of factor variables
 
-```
+```r
 > #create vector of yes no
 > yesno <- sample(c("yes","no"), size=10, replace=TRUE)
 > #turn into a factor variable, but treat level c in order yes then no
@@ -133,18 +133,18 @@ Levels: yes no
 
 Cutting produces factor variables
 
-```
+```r
 > library(Hmisc)
 > restData$zipGroups = cut2(restData$zipCode, g=4)
 > table(restData$zipGroups)
 
 [-21226,21205) [ 21205,21220) [ 21220,21227) [ 21227,21287] 
-           338            375            300            314 
+           338            375            300            314
 ```
 
 using the mutate function
 
-```
+```r
 > library(Hmisc)
 > library(plyr)
 # create a new version of the variable with mutate to apply to restData and apply zipGroups
@@ -153,7 +153,7 @@ using the mutate function
 > table(restData2$zipGroups)
 
 [-21226,21205) [ 21205,21220) [ 21220,21227) [ 21227,21287] 
-           338            375            300            314 
+           338            375            300            314
 ```
 
 
