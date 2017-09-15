@@ -24,4 +24,6 @@
   * [Resources](cleaning_data/resources.md)
 * [Creating new variables](creating-new-variables.md)
 * [Reshaping data](reshaping-data.md)
+* [Data Frames with dplyr](data-frames-with-dplyr.md)
+* Merging Data
 
