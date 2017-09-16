@@ -22,8 +22,7 @@
   * [Reading with foreign](cleaning_data/reading-with-foreign.md)
   * [Summarizing Data](cleaning_data/summarizing-data.md)
   * [Resources](cleaning_data/resources.md)
-* [Creating new variables](creating-new-variables.md)
-* [Reshaping data](reshaping-data.md)
-* [Data Frames with dplyr](data-frames-with-dplyr.md)
-* [Merging Data](merging-data.md)
-
+  * [Creating new variables](cleaning_data/creating-new-variables.md)
+  * [Reshaping data](cleaning_data/reshaping-data.md)
+  * [Data Frames with dplyr](cleaning_data/data-frames-with-dplyr.md)
+  * [Merging Data](cleaning_data/merging-data.md)
