@@ -25,5 +25,5 @@
 * [Creating new variables](creating-new-variables.md)
 * [Reshaping data](reshaping-data.md)
 * [Data Frames with dplyr](data-frames-with-dplyr.md)
-* Merging Data
+* [Merging Data](merging-data.md)
 

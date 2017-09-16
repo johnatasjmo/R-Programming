@@ -8,22 +8,21 @@ specific for data frames
 * Other can be used for relational databaseies 
 * simplifies existing functionalities and faster
 
-Verbs
-
-select, ilter, arrange, rename, mutate, summarise/summarize
+Verbs: select, ilter, arrange, rename, mutate, summarise/summarize
 
 So takes a dataframe, formated and outputs a dataframe
 
 ```
-library(dplyr)
-fileURL <- "https://github.com/DataScienceSpecialization/courses/blob/master/03_GettingData/dplyr/chicago.rds?raw=true"
+> load data to be used for examples
+> library(dplyr)
+> fileURL <- "https://github.com/DataScienceSpecialization/courses/blob/master/03_GettingData/dplyr/chicago.rds?raw=true"
 download.file(fileURL, destfile = "chicago.rds", method = "curl", extra='-L')
-chicago <- readRDS("chicago.rds")
+> chicago <- readRDS("chicago.rds")
 
 > dim(chicago)
 [1] 6940    8
 > str(chicago)
-'data.frame':	6940 obs. of  8 variables:
+'data.frame':    6940 obs. of  8 variables:
  $ city      : chr  "chic" "chic" "chic" "chic" ...
  $ tmpd      : num  31.5 33 33 29 32 40 34.5 29 26.5 32.5 ...
  $ dptp      : num  31.5 29.9 27.4 28.6 28.9 ...
@@ -211,7 +210,6 @@ mutate
 1    cold 15.97807 66.587500 24.54924
 2     hot 26.48118 62.969656 24.93870
 3    <NA> 47.73750  9.416667 37.44444
-
 ```
 
 ##### summarize
