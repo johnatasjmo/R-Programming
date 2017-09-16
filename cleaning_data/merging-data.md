@@ -16,7 +16,7 @@ reviews = read.csv("./data/reviews.csv"); solutions <- read.csv("./data/solution
 head(reviews,2)
 ```
 
-```
+```r
   id solution_id reviewer_id      start       stop time_left accept
 1  1           3          27 1304095698 1304095758      1754      1
 2  2           4          22 1304095188 1304095206      2306      1
@@ -26,7 +26,7 @@ head(reviews,2)
 head(solutions,2)
 ```
 
-```
+```r
   id problem_id subject_id      start       stop time_left answer
 1  1        156         29 1304095119 1304095169      2343      B
 2  2        269         25 1304095119 1304095183      2329      C
@@ -65,7 +65,7 @@ mergedData = merge(reviews,solutions,by.x="solution_id",by.y="id",all=TRUE)
 head(mergedData)
 ```
 
-```
+```r
   solution_id id reviewer_id    start.x     stop.x time_left.x accept problem_id subject_id
 1           1  4          26 1304095267 1304095423        2089      1        156         29
 2           2  6          29 1304095471 1304095513        1999      1        269         25
@@ -147,7 +147,7 @@ dfList = list(df1,df2,df3)
 join_all(dfList)
 ```
 
-```
+```r
    id        x        y        z
 1   6  0.39093 -0.16670  0.56523
 2   1 -1.90467  0.43811 -0.37449
@@ -167,32 +167,34 @@ join_all(dfList)
 
 Merge two data sets by country code. Here we download two data sets, name columns correctly by CountryCode, skip the first 4 columns on one file as we do not need them. After that, we use fread\(\) function to read the downloaded file and finally merge them, sort by Rank descending and select the 13th value.
 
-    fileurl3a = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv'
-    dst3a = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3a.csv'
-    fileurl3b = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv'
-    dst3b = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3b.csv'
-    download.file(fileurl3a, dst3a, method = 'curl')
-    download.file(fileurl3b, dst3b, method = 'curl')
-    gdp = fread(dst3a, skip=4, nrows = 190, select = c(1, 2, 4, 5), col.names=c("CountryCode", "Rank", "Economy", "Total"))
-    edu = fread(dst3b)
-    merge = merge(gdp, edu, by = 'CountryCode')
-    nrow(merge)
-    # 189
+```r
+fileurl3a = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv'
+dst3a = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3a.csv'
+fileurl3b = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv'
+dst3b = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3b.csv'
+download.file(fileurl3a, dst3a, method = 'curl')
+download.file(fileurl3b, dst3b, method = 'curl')
+gdp = fread(dst3a, skip=4, nrows = 190, select = c(1, 2, 4, 5), col.names=c("CountryCode", "Rank", "Economy", "Total"))
+edu = fread(dst3b)
+merge = merge(gdp, edu, by = 'CountryCode')
+nrow(merge)
+# 189
 
-    # arrange by rank and select the 13th economy
-    arrange(merge, desc(Rank))[13, Economy]
-    ## [1] "St. Kitts and Nevis"
+# arrange by rank and select the 13th economy
+arrange(merge, desc(Rank))[13, Economy]
+## [1] "St. Kitts and Nevis"
 
-    # select average GDP from "High Income OECD" and "High Income: nonOECD"
-    # take note that Income group is escaped
-    tapply(merge$Rank, merge$`Income Group`, mean)
-    ## High income: nonOECD    High income: OECD           Low income 
-    ##             91.91304             32.96667            133.72973 
-    ##  Lower middle income  Upper middle income 
-    ##            107.70370             92.13333
+# select average GDP from "High Income OECD" and "High Income: nonOECD"
+# take note that Income group is escaped
+tapply(merge$Rank, merge$`Income Group`, mean)
+## High income: nonOECD    High income: OECD           Low income 
+##             91.91304             32.96667            133.72973 
+##  Lower middle income  Upper middle income 
+##            107.70370             92.13333
 
-    # cut GPD ranking in 5 separate quantile groups. Then make a table vs Income.Group 
-    # see how many countries are in lower middle income, but amongst highest GDP
+# cut GPD ranking in 5 separate quantile groups. Then make a table vs Income.Group 
+# see how many countries are in lower middle income, but amongst highest GDP
+```
 
 ## More on merging data
 
