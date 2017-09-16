@@ -191,6 +191,8 @@ Merge two data sets by country code. Here we download two data sets, name column
     ##  Lower middle income  Upper middle income 
     ##            107.70370             92.13333
 
+    # cut GPD ranking in 5 separate quantile groups. Then make a table vs Income.Group 
+    # see how many countries are in lower middle income, but amongst highest GDP
 
 ## More on merging data
 
