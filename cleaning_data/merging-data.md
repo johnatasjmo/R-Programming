@@ -6,8 +6,6 @@ Load example
 
 ## Peer review data
 
-
-
 ```r
 if(!file.exists("./data")){dir.create("./data")}
 fileUrl1 = "https://dl.dropboxusercontent.com/u/7710864/data/reviews-apr29.csv"
@@ -34,11 +32,9 @@ head(solutions,2)
 2  2        269         25 1304095119 1304095183      2329      C
 ```
 
-
-
 ---
 
-## Merging data - merge()
+## Merging data - merge\(\)
 
 * Merges data frames
 * Important parameters: _x_,_y_,_by_,_by.x_,_by.y_,_all_
@@ -49,7 +45,7 @@ names(reviews)
 
 ```
 [1] "id"          "solution_id" "reviewer_id" "start"       "stop"        "time_left"  
-[7] "accept"     
+[7] "accept"
 ```
 
 ```r
@@ -57,14 +53,12 @@ names(solutions)
 ```
 
 ```
-[1] "id"         "problem_id" "subject_id" "start"      "stop"       "time_left"  "answer"    
+[1] "id"         "problem_id" "subject_id" "start"      "stop"       "time_left"  "answer"
 ```
-
 
 ---
 
-## Merging data - merge()
-
+## Merging data - merge\(\)
 
 ```r
 mergedData = merge(reviews,solutions,by.x="solution_id",by.y="id",all=TRUE)
@@ -88,11 +82,9 @@ head(mergedData)
 6 1304095131 1304095270        2242      C
 ```
 
-
 ---
 
 ## Default - merge all common column names
-
 
 ```r
 intersect(names(solutions),names(reviews))
@@ -116,7 +108,6 @@ head(mergedData2)
 5  3 1304095127 1304095146      2366          NA          NA     NA         34         22      C
 6  3 1304095276 1304095320      2192           5          28      1         NA         NA   <NA>
 ```
-
 
 ---
 
@@ -144,12 +135,9 @@ arrange(join(df1,df2),id)
 10 10  2.8065  0.5794
 ```
 
-
-
 ---
 
 ## If you have multiple data frames
-
 
 ```r
 df1 = data.frame(id=sample(1:10),x=rnorm(10))
@@ -173,11 +161,42 @@ join_all(dfList)
 10  8  1.20439  1.29138 -0.88586
 ```
 
-
 ---
+
+## Examples
+
+Merge two data sets by country code. Here we download two data sets, name columns correctly by CountryCode, skip the first 4 columns on one file as we do not need them. After that, we use fread\(\) function to read the downloaded file and finally merge them, sort by Rank descending and select the 13th value.
+
+    fileurl3a = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv'
+    dst3a = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3a.csv'
+    fileurl3b = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv'
+    dst3b = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q3b.csv'
+    download.file(fileurl3a, dst3a, method = 'curl')
+    download.file(fileurl3b, dst3b, method = 'curl')
+    gdp = fread(dst3a, skip=4, nrows = 190, select = c(1, 2, 4, 5), col.names=c("CountryCode", "Rank", "Economy", "Total"))
+    edu = fread(dst3b)
+    merge = merge(gdp, edu, by = 'CountryCode')
+    nrow(merge)
+    # 189
+
+    # arrange by rank and select the 13th economy
+    arrange(merge, desc(Rank))[13, Economy]
+    ## [1] "St. Kitts and Nevis"
+
+    # select average GDP from "High Income OECD" and "High Income: nonOECD"
+    # take note that Income group is escaped
+    tapply(merge$Rank, merge$`Income Group`, mean)
+    ## High income: nonOECD    High income: OECD           Low income 
+    ##             91.91304             32.96667            133.72973 
+    ##  Lower middle income  Upper middle income 
+    ##            107.70370             92.13333
+
 
 ## More on merging data
 
 * The quick R data merging page - [http://www.statmethods.net/management/merging.html](http://www.statmethods.net/management/merging.html)
 * plyr information - [http://plyr.had.co.nz/](http://plyr.had.co.nz/)
-* Types of joins - [http://en.wikipedia.org/wiki/Join_(SQL)](http://en.wikipedia.org/wiki/Join_(SQL))
+* Types of joins - \[[http://en.wikipedia.org/wiki/Join\_\(SQL\)\]\(http://en.wikipedia.org/wiki/Join\_\(SQL](http://en.wikipedia.org/wiki/Join_%28SQL%29]%28http://en.wikipedia.org/wiki/Join_%28SQL)\)\)
+
+
+

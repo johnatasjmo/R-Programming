@@ -131,5 +131,20 @@ library(plyr)
 5 -0.2967423    4    9   13 -0.5361329
 ```
 
+which
+
+Download a file, read it and select the ACR == 3 and AGS == 6
+
+[https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FPUMSDataDict06.pdf](https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FPUMSDataDict06.pdf)
+
+```
+fileurl1 = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv'
+dst1 = '/Users/zhusiqi/Desktop/coursera/R_jhu/geting_and_cleaning_data/week3/q1.csv'
+download.file(fileurl1, dst1, method = 'curl')
+data1 = read.csv(dst1)
+agricultureLogical = data1$ACR == 3 & data1$AGS == 6
+head(which(agricultureLogical), 3)
+```
+
 
 
