@@ -27,4 +27,4 @@
   * [Reshaping data](cleaning_data/reshaping-data.md)
   * [Data Frames with dplyr](cleaning_data/data-frames-with-dplyr.md)
   * [Merging Data](cleaning_data/merging-data.md)
-  * [Read STATA](cleaning_data/read-stata.md)
+  * [Read STATA](cleaning_data/read-stata-and-spss.md)
