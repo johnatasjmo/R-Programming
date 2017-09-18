@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* [Setup environments](setup-environments.md)
 * [R Programming](r_programming/README.md)
   * [R Nuts and Bolts](r_programming/r_nuts_and_bolts.md)
   * [Dates and times](r_programming/dates_and_times.md)
@@ -26,6 +27,4 @@
   * [Reshaping data](cleaning_data/reshaping-data.md)
   * [Data Frames with dplyr](cleaning_data/data-frames-with-dplyr.md)
   * [Merging Data](cleaning_data/merging-data.md)
-* [Read STATA](read-stata.md)
-* [Setup environments](setup-environments.md)
-
+  * [Read STATA](cleaning_data/read-stata.md)
