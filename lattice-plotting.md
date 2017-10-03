@@ -84,7 +84,7 @@ panel.lmline(x, y, col = 2)
 > xyplot(Ozone ~ Wind, data = airquality)
 ```
 
-![](/assets/airquality.png&s=200)
+![](/assets/airquality.png)
 
 
 
