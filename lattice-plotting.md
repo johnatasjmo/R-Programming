@@ -84,7 +84,7 @@ panel.lmline(x, y, col = 2)
 > xyplot(Ozone ~ Wind, data = airquality)
 ```
 
-![](/assets/airquality.png =100x20)
+![](/assets/airquality.png):200x200
 
 ```
 > ## convert month to a factor variable
