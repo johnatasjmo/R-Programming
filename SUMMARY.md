@@ -32,4 +32,5 @@
 * [Plotting Comparison](plotting-comparison.md)
 * [R Bloggers](r-bloggers.md)
 * [Exploring Raw Data](exploring-raw-data.md)
+* [tidyr Package](tidy-data.md)
 
