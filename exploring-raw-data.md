@@ -20,29 +20,29 @@ Exploring Raw Data
 
 `hist(lunch$set)`  shows histogram of a single variable
 
-`plot(lunch$year, lunch$per`_`free`_`red)` show relationship
+`plot(lunch$year, lunch$per_free_red)` show relationship
 
 ```
 > # Check the class of bmi
-> 
+>
 > class(bmi)
 [1] "data.frame"
 > # Check the dimensions of bmi
 > dim(bmi)
 [1] 199  30
-> 
+>
 > # View the column names of bmi
 > names(bmi)
- [1] "Country" "Y1980"   "Y1981"   "Y1982"   "Y1983"   "Y1984"   "Y1985"  
- [8] "Y1986"   "Y1987"   "Y1988"   "Y1989"   "Y1990"   "Y1991"   "Y1992"  
-[15] "Y1993"   "Y1994"   "Y1995"   "Y1996"   "Y1997"   "Y1998"   "Y1999"  
-[22] "Y2000"   "Y2001"   "Y2002"   "Y2003"   "Y2004"   "Y2005"   "Y2006"  
+ [1] "Country" "Y1980"   "Y1981"   "Y1982"   "Y1983"   "Y1984"   "Y1985"
+ [8] "Y1986"   "Y1987"   "Y1988"   "Y1989"   "Y1990"   "Y1991"   "Y1992"
+[15] "Y1993"   "Y1994"   "Y1995"   "Y1996"   "Y1997"   "Y1998"   "Y1999"
+[22] "Y2000"   "Y2001"   "Y2002"   "Y2003"   "Y2004"   "Y2005"   "Y2006"
 [29] "Y2007"   "Y2008"
 ```
 
 ```
 > # Check the structure of bmi
-> 
+>
 > str(bmi)
 'data.frame':    199 obs. of  30 variables:
  $ Country: chr  "Afghanistan" "Albania" "Algeria" "Andorra" ...
@@ -76,7 +76,7 @@ Exploring Raw Data
  $ Y2007  : num  20.6 26.3 24.5 27.5 22.1 ...
  $ Y2008  : num  20.6 26.4 24.6 27.6 22.3 ...
 > # Load dplyr
-> 
+>
 > library(dplyr)
 > # Check the structure of bmi, the dplyr way
 > glimpse(bmi)
@@ -112,66 +112,63 @@ $ Y2005   <dbl> 20.58084, 26.08939, 24.27001, 27.32827, 21.80564, 25.39965,...
 $ Y2006   <dbl> 20.58749, 26.20867, 24.38270, 27.43588, 21.93881, 25.51382,...
 $ Y2007   <dbl> 20.60246, 26.32753, 24.48846, 27.53363, 22.08962, 25.64247,...
 $ Y2008   <dbl> 20.62058, 26.44657, 24.59620, 27.63048, 22.25083, 25.76602,...
-> 
+>
 > # View a summary of bmi
 > summary(bmi)
-   Country              Y1980           Y1981           Y1982      
- Length:199         Min.   :19.01   Min.   :19.04   Min.   :19.07  
- Class :character   1st Qu.:21.27   1st Qu.:21.31   1st Qu.:21.36  
- Mode  :character   Median :23.31   Median :23.39   Median :23.46  
-                    Mean   :23.15   Mean   :23.21   Mean   :23.26  
-                    3rd Qu.:24.82   3rd Qu.:24.89   3rd Qu.:24.94  
-                    Max.   :28.12   Max.   :28.36   Max.   :28.58  
-     Y1983           Y1984           Y1985           Y1986      
- Min.   :19.10   Min.   :19.13   Min.   :19.16   Min.   :19.20  
- 1st Qu.:21.42   1st Qu.:21.45   1st Qu.:21.47   1st Qu.:21.49  
- Median :23.57   Median :23.64   Median :23.73   Median :23.82  
- Mean   :23.32   Mean   :23.37   Mean   :23.42   Mean   :23.48  
- 3rd Qu.:25.02   3rd Qu.:25.06   3rd Qu.:25.11   3rd Qu.:25.20  
- Max.   :28.82   Max.   :29.05   Max.   :29.28   Max.   :29.52  
-     Y1987           Y1988           Y1989           Y1990      
- Min.   :19.23   Min.   :19.27   Min.   :19.31   Min.   :19.35  
- 1st Qu.:21.50   1st Qu.:21.52   1st Qu.:21.55   1st Qu.:21.57  
- Median :23.87   Median :23.93   Median :24.03   Median :24.14  
- Mean   :23.53   Mean   :23.59   Mean   :23.65   Mean   :23.71  
- 3rd Qu.:25.27   3rd Qu.:25.34   3rd Qu.:25.37   3rd Qu.:25.39  
- Max.   :29.75   Max.   :29.98   Max.   :30.20   Max.   :30.42  
-     Y1991           Y1992           Y1993           Y1994      
- Min.   :19.40   Min.   :19.45   Min.   :19.51   Min.   :19.59  
- 1st Qu.:21.60   1st Qu.:21.65   1st Qu.:21.74   1st Qu.:21.76  
- Median :24.20   Median :24.19   Median :24.27   Median :24.36  
- Mean   :23.76   Mean   :23.82   Mean   :23.88   Mean   :23.94  
- 3rd Qu.:25.42   3rd Qu.:25.48   3rd Qu.:25.54   3rd Qu.:25.62  
- Max.   :30.64   Max.   :30.85   Max.   :31.04   Max.   :31.23  
-     Y1995           Y1996           Y1997           Y1998      
- Min.   :19.67   Min.   :19.71   Min.   :19.74   Min.   :19.77  
- 1st Qu.:21.83   1st Qu.:21.89   1st Qu.:21.94   1st Qu.:22.00  
- Median :24.41   Median :24.42   Median :24.50   Median :24.49  
- Mean   :24.00   Mean   :24.07   Mean   :24.14   Mean   :24.21  
- 3rd Qu.:25.70   3rd Qu.:25.78   3rd Qu.:25.85   3rd Qu.:25.94  
- Max.   :31.41   Max.   :31.59   Max.   :31.77   Max.   :31.95  
-     Y1999           Y2000           Y2001           Y2002      
- Min.   :19.80   Min.   :19.83   Min.   :19.86   Min.   :19.84  
- 1st Qu.:22.04   1st Qu.:22.12   1st Qu.:22.22   1st Qu.:22.29  
- Median :24.61   Median :24.66   Median :24.73   Median :24.81  
- Mean   :24.29   Mean   :24.36   Mean   :24.44   Mean   :24.52  
- 3rd Qu.:26.01   3rd Qu.:26.09   3rd Qu.:26.19   3rd Qu.:26.30  
- Max.   :32.13   Max.   :32.32   Max.   :32.51   Max.   :32.70  
-     Y2003           Y2004           Y2005           Y2006      
- Min.   :19.81   Min.   :19.79   Min.   :19.79   Min.   :19.80  
- 1st Qu.:22.37   1st Qu.:22.45   1st Qu.:22.54   1st Qu.:22.63  
- Median :24.89   Median :25.00   Median :25.11   Median :25.24  
- Mean   :24.61   Mean   :24.70   Mean   :24.79   Mean   :24.89  
- 3rd Qu.:26.38   3rd Qu.:26.47   3rd Qu.:26.53   3rd Qu.:26.59  
- Max.   :32.90   Max.   :33.10   Max.   :33.30   Max.   :33.49  
-     Y2007           Y2008      
- Min.   :19.83   Min.   :19.87  
- 1st Qu.:22.73   1st Qu.:22.83  
- Median :25.36   Median :25.50  
- Mean   :24.99   Mean   :25.10  
- 3rd Qu.:26.66   3rd Qu.:26.82  
+   Country              Y1980           Y1981           Y1982
+ Length:199         Min.   :19.01   Min.   :19.04   Min.   :19.07
+ Class :character   1st Qu.:21.27   1st Qu.:21.31   1st Qu.:21.36
+ Mode  :character   Median :23.31   Median :23.39   Median :23.46
+                    Mean   :23.15   Mean   :23.21   Mean   :23.26
+                    3rd Qu.:24.82   3rd Qu.:24.89   3rd Qu.:24.94
+                    Max.   :28.12   Max.   :28.36   Max.   :28.58
+     Y1983           Y1984           Y1985           Y1986
+ Min.   :19.10   Min.   :19.13   Min.   :19.16   Min.   :19.20
+ 1st Qu.:21.42   1st Qu.:21.45   1st Qu.:21.47   1st Qu.:21.49
+ Median :23.57   Median :23.64   Median :23.73   Median :23.82
+ Mean   :23.32   Mean   :23.37   Mean   :23.42   Mean   :23.48
+ 3rd Qu.:25.02   3rd Qu.:25.06   3rd Qu.:25.11   3rd Qu.:25.20
+ Max.   :28.82   Max.   :29.05   Max.   :29.28   Max.   :29.52
+     Y1987           Y1988           Y1989           Y1990
+ Min.   :19.23   Min.   :19.27   Min.   :19.31   Min.   :19.35
+ 1st Qu.:21.50   1st Qu.:21.52   1st Qu.:21.55   1st Qu.:21.57
+ Median :23.87   Median :23.93   Median :24.03   Median :24.14
+ Mean   :23.53   Mean   :23.59   Mean   :23.65   Mean   :23.71
+ 3rd Qu.:25.27   3rd Qu.:25.34   3rd Qu.:25.37   3rd Qu.:25.39
+ Max.   :29.75   Max.   :29.98   Max.   :30.20   Max.   :30.42
+     Y1991           Y1992           Y1993           Y1994
+ Min.   :19.40   Min.   :19.45   Min.   :19.51   Min.   :19.59
+ 1st Qu.:21.60   1st Qu.:21.65   1st Qu.:21.74   1st Qu.:21.76
+ Median :24.20   Median :24.19   Median :24.27   Median :24.36
+ Mean   :23.76   Mean   :23.82   Mean   :23.88   Mean   :23.94
+ 3rd Qu.:25.42   3rd Qu.:25.48   3rd Qu.:25.54   3rd Qu.:25.62
+ Max.   :30.64   Max.   :30.85   Max.   :31.04   Max.   :31.23
+     Y1995           Y1996           Y1997           Y1998
+ Min.   :19.67   Min.   :19.71   Min.   :19.74   Min.   :19.77
+ 1st Qu.:21.83   1st Qu.:21.89   1st Qu.:21.94   1st Qu.:22.00
+ Median :24.41   Median :24.42   Median :24.50   Median :24.49
+ Mean   :24.00   Mean   :24.07   Mean   :24.14   Mean   :24.21
+ 3rd Qu.:25.70   3rd Qu.:25.78   3rd Qu.:25.85   3rd Qu.:25.94
+ Max.   :31.41   Max.   :31.59   Max.   :31.77   Max.   :31.95
+     Y1999           Y2000           Y2001           Y2002
+ Min.   :19.80   Min.   :19.83   Min.   :19.86   Min.   :19.84
+ 1st Qu.:22.04   1st Qu.:22.12   1st Qu.:22.22   1st Qu.:22.29
+ Median :24.61   Median :24.66   Median :24.73   Median :24.81
+ Mean   :24.29   Mean   :24.36   Mean   :24.44   Mean   :24.52
+ 3rd Qu.:26.01   3rd Qu.:26.09   3rd Qu.:26.19   3rd Qu.:26.30
+ Max.   :32.13   Max.   :32.32   Max.   :32.51   Max.   :32.70
+     Y2003           Y2004           Y2005           Y2006
+ Min.   :19.81   Min.   :19.79   Min.   :19.79   Min.   :19.80
+ 1st Qu.:22.37   1st Qu.:22.45   1st Qu.:22.54   1st Qu.:22.63
+ Median :24.89   Median :25.00   Median :25.11   Median :25.24
+ Mean   :24.61   Mean   :24.70   Mean   :24.79   Mean   :24.89
+ 3rd Qu.:26.38   3rd Qu.:26.47   3rd Qu.:26.53   3rd Qu.:26.59
+ Max.   :32.90   Max.   :33.10   Max.   :33.30   Max.   :33.49
+     Y2007           Y2008
+ Min.   :19.83   Min.   :19.87
+ 1st Qu.:22.73   1st Qu.:22.83
+ Median :25.36   Median :25.50
+ Mean   :24.99   Mean   :25.10
+ 3rd Qu.:26.66   3rd Qu.:26.82
  Max.   :33.69   Max.   :33.90
 ```
-
-
-
