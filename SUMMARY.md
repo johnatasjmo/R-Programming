@@ -30,4 +30,6 @@
   * [Read STATA](cleaning_data/read-stata-and-spss.md)
 * [Lattice Plotting](lattice-plotting.md)
 * [Plotting Comparison](plotting-comparison.md)
+* [R Bloggers](r-bloggers.md)
+* [Exploring Raw Data](exploring-raw-data.md)
 
