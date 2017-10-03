@@ -6,23 +6,21 @@ Exploring Raw Data
 
 `class()` \(table or two dimension?\), view dimensions, look at columns names
 
-`dim() `shows dimensions
+`dim()`shows dimensions
 
 `str()` function is very useful for compact summary. See obs and variables. See name of each column, data type and example.
 
 `dplyr()` package offers glimpse\(\) function, similar to str
 
-`summary()` applies for a summary of distribution 
+`summary()` applies for a summary of distribution
 
-`head() `shows first rows head\(lunch, n = 15\)
+`head()`shows first rows head\(lunch, n = 15\)
 
-`tail() `shows last
+`tail()`shows last
 
 `hist(lunch$set)`  shows histogram of a single variable
 
-`plot(lunch$year, lunch$per_free)` show relationship
-
-
+`plot(lunch$year, lunch$per_free-red)` show relationship
 
 ```
 > # Check the class of bmi
@@ -46,7 +44,7 @@ Exploring Raw Data
 > # Check the structure of bmi
 > 
 > str(bmi)
-'data.frame':	199 obs. of  30 variables:
+'data.frame':    199 obs. of  30 variables:
  $ Country: chr  "Afghanistan" "Albania" "Algeria" "Andorra" ...
  $ Y1980  : num  21.5 25.2 22.3 25.7 20.9 ...
  $ Y1981  : num  21.5 25.2 22.3 25.7 20.9 ...
