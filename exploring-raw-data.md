@@ -172,3 +172,31 @@ $ Y2008   <dbl> 20.62058, 26.44657, 24.59620, 27.63048, 22.25083, 25.76602,...
  3rd Qu.:26.66   3rd Qu.:26.82
  Max.   :33.69   Max.   :33.90
 ```
+
+```
+# Print bmi to the console
+print(bmi)
+
+# View the first 6 rows
+head(bmi, n = 6)
+
+# View the first 15 rows
+head(bmi, n = 15)
+
+# View the last 6 rows
+tail(bmi, n = 6)
+
+# View the last 10 rows
+tail(bmi, n = 10)
+```
+
+```
+# Histogram of BMIs from 2008
+hist(bmi$Y2008)
+
+# Scatter plot comparing BMIs from 1980 to those from 2008
+plot(bmi$Y1980, bmi$Y2008)
+```
+
+
+
