@@ -103,8 +103,6 @@ panel.lmline(x, y, col = 2)
 
 ![](/assets/airquality_transform.png)
 
-
-
 ##### Plot appears automatically by calling `xyplot()`
 
 ```
@@ -124,6 +122,10 @@ y <- x + f - f * x+ rnorm(100, sd = 0.5)
 f <- factor(f, labels = c("Group 1", "Group 2"))
 xyplot(y ~ x | f, layout =  c(2,1)) # plot with 2 panels
 ```
+
+![](/assets/lattice_plot2_pannels.png)
+
+
 
 
 
