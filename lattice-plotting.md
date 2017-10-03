@@ -1,6 +1,7 @@
 # Lattice Plotting System
 
 * `library(lattice)` = load lattice system
+* Used when same data with different ser variables, make graphs quickly
 * implemented using the `lattice` and `grid` packages
   * `lattice` package = contains code for producing _**Trellis**_ graphics \(independent from base graphics system\)
   * `grid` package = implements the graphing system; lattice build on top of grid
@@ -125,7 +126,28 @@ xyplot(y ~ x | f, layout =  c(2,1)) # plot with 2 panels
 
 ![](/assets/lattice_plot2_pannels.png)
 
+##### add horizontal line
 
+```
+        panel.xyplot(x, y, ...) ##first call the default panel function for xplot
+        panel.abline(h = median(y), lty = 2) ##add a horizontal line at median
+})
+```
 
+![](/assets/lattice_horizontal_line.png)
 
+Mix lines
+
+```
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+        # call the default panel function for xyplot
+        panel.xyplot(x, y, ...)
+        # adds a horizontal line at the median
+        panel.abline(h = median(y), lty = 2)
+        # overlays a simple linear regression line
+        panel.lmline(x, y, col = 2)
+})
+```
+
+![](/assets/lattice_horizonta_and_regression.png)
 
