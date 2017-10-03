@@ -20,7 +20,7 @@ Exploring Raw Data
 
 `hist(lunch$set)`  shows histogram of a single variable
 
-`plot(lunch$year, lunch$per_free-red)` show relationship
+`plot(lunch$year, lunch$per`_`free`_`red)` show relationship
 
 ```
 > # Check the class of bmi
