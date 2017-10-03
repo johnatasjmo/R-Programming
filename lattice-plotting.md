@@ -46,12 +46,12 @@
 
 ### `lattice` Example
 
-\`\`\`{r fig.height = 4, fig.width = 6, fig.align='center'}  
-library\(lattice\)  
-set.seed\(10\)  
-x &lt;- rnorm\(100\)  
-f &lt;- rep\(0:1, each = 50\)  
-y &lt;- x + f - f \* x+ rnorm\(100, sd = 0.5\)  
+\`\`\`{r fig.height = 4, fig.width = 6, fig.align='center'}
+library\(lattice\)
+set.seed\(10\)
+x &lt;- rnorm\(100\)
+f &lt;- rep\(0:1, each = 50\)
+y &lt;- x + f - f \* x+ rnorm\(100, sd = 0.5\)
 f &lt;- factor\(f, labels = c\("Group 1", "Group 2"\)\)
 
 ## Plot with 2 panels with custom panel function
@@ -67,7 +67,7 @@ panel.abline(h = median(y), lty = 2)
 panel.lmline(x, y, col = 2)
 ```
 
-}\)  
+}\)
 \`\`\`
 
 ```
@@ -84,7 +84,7 @@ panel.lmline(x, y, col = 2)
 > xyplot(Ozone ~ Wind, data = airquality)
 ```
 
-![](/assets/airquality.png)
+![](/assets/airquality.png&s=200)
 
 
 
@@ -103,6 +103,3 @@ panel.lmline(x, y, col = 2)
 ```
 
 ![](/assets/airquality_transform.png)
-
-
-
