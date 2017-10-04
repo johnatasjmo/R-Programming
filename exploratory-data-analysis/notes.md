@@ -43,15 +43,15 @@ qplot(displ, hwy, data = mpg, color = drv, shape = drv)
 
   - **example**
 
-```{r fig.height = 3, fig.width = 4, fig.align='center'} qplot(displ, hwy, data = mpg, geom = c("point", "smooth"), method="lm")
-
+```R
+qplot(displ, hwy, data = mpg, geom = c("point", "smooth"), method="lm")
 ```
 
 * **histograms**: if only one value is specified, a histogram is produced
     * `fill = factor1` = can be used to fill the histogram with different colors for the subsets (legend automatically generated)
     * ***example***
 
-```{r fig.height = 3, fig.width = 4, fig.align='center', results='hide', message = F, warning = F}
+```R
 qplot(hwy, data = mpg, fill = drv)
 ```
 
@@ -64,15 +64,15 @@ qplot(hwy, data = mpg, fill = drv)
   - labels get generated automatically based on factor variable values
   - **example**
 
-```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F} qplot(displ, hwy, data = mpg, facets = . ~ drv) qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
-
+```
+qplot(displ, hwy, data = mpg, facets = . ~ drv) qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
 ```
 
 * **density smooth**: smooths the histograms into a line tracing its shape
     * `geom = "density"` = replaces the default scatterplot with density smooth curve
     * ***example***
 
-```{r fig.height = 4, fig.width = 8, fig.align='center', echo=FALSE}
+```
 grid.raster(readPNG("figures/16.jpg"))
 ```
 
@@ -135,7 +135,6 @@ grid.raster(readPNG("figures/16.jpg"))
 
     - **example**
 
-    ![Alpha Level](figures/17.jpg)
 
   - **axis limits**
 
