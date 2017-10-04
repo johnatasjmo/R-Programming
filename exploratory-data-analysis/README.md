@@ -24,7 +24,7 @@ library\(png\) library\(grid\) grid.raster\(readPNG\("figures/1.jpg"\)\)
     slightly negative relationship between pollution and mortality when split up by season, the relationships are all positive $\rightarrow$ season = confounding variable
 
 
-    ```{r fig.height = 4, fig.width = 6, fig.align='center', echo=FALSE}
+    ​```{r fig.height = 4, fig.width = 6, fig.align='center', echo=FALSE}
     grid.raster(readPNG("figures/2.jpg"))
 
 * **Principle 4: Integration of evidence**
@@ -84,8 +84,8 @@ library\(png\) library\(grid\) grid.raster\(readPNG\("figures/1.jpg"\)\)
         * `par(mfrow = c(2, 1), mar = c(4, 4, 2, 1))` = set margin
         * `hist(subset(pollution, region == "east")$pm25, col = "green")` = first histogram
         * `hist(subset(pollution, region == "west")$pm25, col = "green")` = second histogram
-
-    ```{r fig.height = 3, fig.width = 4, fig.align='center', echo=FALSE}
+    
+    ​```{r fig.height = 3, fig.width = 4, fig.align='center', echo=FALSE}
     grid.raster(readPNG("figures/4.jpg"))
 
 * **scatterplot**
@@ -96,7 +96,7 @@ library\(png\) library\(grid\) grid.raster\(readPNG\("figures/1.jpg"\)\)
 
 \`\`\`{r fig.height = 3, fig.width = 4, message = F, warning = F, fig.align='center', echo=FALSE} grid.raster\(readPNG\("figures/5.jpg"\)\)
 
-    ```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F, echo=FALSE}
+    ​```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F, echo=FALSE}
     library(UsingR); data(galton)
     plot(jitter(child, 4)~parent, galton)
 
@@ -124,14 +124,14 @@ library\(png\) library\(grid\) grid.raster\(readPNG\("figures/1.jpg"\)\)
     * core plotting/graphics engine in R encapsulated in the following
         * ***graphics***: plotting functions for vase graphing system (plot, hist, boxplot, text)
         * ***grDevices***: contains all the code implementing the various graphics devices (x11, PDF, PostScript, PNG, etc)
-
+    
     * ***Two phase***: initialize, annotate
     * calling `plot(x, y)` or `hist(x)` will launch a graphics device and draw a plot on device
         * if no argument specified, default called
         * parameters documented in “`?par`"
         * ***Note**: it is some times necessary to convert column/variable to factor to make plotting easier *
             * `airquality <- transform(airquality, Month = factor(month))`
-
+    
     ### Base Graphics Functions and Parameters
     * **arguments**
         * `pch`: plotting symbol (default = open circle)
@@ -157,9 +157,9 @@ library\(png\) library\(grid\) grid.raster\(readPNG\("figures/1.jpg"\)\)
         * `title`: add annotations to x,y axis labels, title, subtitles, outer margin
         * `mtext`: add arbitrary text to margins (inner or outer) of plot
         * `axis`: specify axis ticks
-
+    
     ### Base Plot Example
-    ```{r fig.height = 4, fig.width = 6, fig.align='center'}
+    ​```{r fig.height = 4, fig.width = 6, fig.align='center'}
     library(datasets)
     # type =“n” sets up the plot and does not fill it with data
     with(airquality, plot(Wind, Ozone, main = "Ozone and Wind in New York City", type = "n"))
@@ -233,8 +233,6 @@ $\pagebreak$
   * **\*Note**: copying a plot is not an exact operation, so the result may not be identical to the original \*
   * _**example**_
 
-\`\`\`{r fig.height = 3, fig.width = 4, fig.align='center', results = 'hide'}
-
 ## Create plot on screen device
 
 with\(faithful, plot\(eruptions, waiting\)\)
@@ -248,7 +246,6 @@ title\(main = "Old Faithful Geyser data"\)
 dev.copy\(png, file = "geyserplot.png"\)
 
 ## Don't forget to close the PNG device!
-
-dev.off\(\)  
-\`\`\`\`
-
+```
+dev.off
+```

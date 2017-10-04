@@ -158,10 +158,6 @@ g + geom_point(alpha = 1/3)                             # adds points
   + labs(title = "MAACS Cohort”)
 ```
 
-![Final Plot](figures/18.jpg)
-
-$\pagebreak$
-
 ## Hierarchical Clustering
 
 - useful for visualizing high dimensional data, organizes things that are close into groups
@@ -409,9 +405,9 @@ plot(colMeans(dataOrdered),xlab="Column",ylab="Column Mean",pch=19)
         + when a orthogonal matrices, $A$, is multiplied by another matrix, $B$, it is effectively a linear transformation in that the length and angles of $B$ are preserved
     - ***Note** : diagonal implies that any value outside of the main diagonal ($\searrow$) = 0 *
         ` example $$A = \begin{bmatrix}
-       1 & 0 & 0 \\
-       0 & 2 & 0 \\
-       0 & 0 & 3 \end{bmatrix}$$ `
+           1 & 0 & 0 \\
+           0 & 2 & 0 \\
+           0 & 0 & 3 \end{bmatrix}$$ `
 
 * ***Note**: scale of data matters for SVD/PCA (scaling the data may help), patterns detected maybe mixed together, and computation is intensive for these operations
 
