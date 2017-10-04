@@ -117,7 +117,27 @@ Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02 0_1    4    4
 Datsun 710        22.8   4  108  93 3.85 2.320 18.61 1_1    4    1
 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 1_0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02 0_0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22 1_0    3    1 
+Valiant           18.1   6  225 105 2.76 3.460 20.22 1_0    3    1
+```
+
+##### Use of gather\(\)
+
+gather uses first value is dataset, second the name of the first column, third name of second column and lastly with - sign, the name of column that we do not wish to gather
+
+```
+## tidyr and dplyr are already loaded for you
+
+# View the head of census
+head(census)
+
+# Gather the month columns
+census2 <- gather(census, month, amount, -YEAR)
+
+# Arrange rows by YEAR using dplyr's arrange
+census2 <- arrange(census2, YEAR)
+
+# View first 20 rows of census2
+head(census2, 20)
 ```
 
 
