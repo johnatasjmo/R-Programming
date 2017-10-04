@@ -1,17 +1,3 @@
----
-title: Exploratory Data Analysis Course Notes
-author: Xing Su
-output:
-  pdf_document:
-    toc: true
-    toc_depth: 3
-  html_document:
-    highlight: pygments
-    theme: spacelab
-    toc: true
----
-
-$\pagebreak$
 
 # Principle of Analytic Graphics
 
