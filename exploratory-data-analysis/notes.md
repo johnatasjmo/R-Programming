@@ -41,7 +41,7 @@ qplot(displ, hwy, data = mpg, color = drv, shape = drv)
 
     - `lm` = linear regression
 
-  - **_example_**
+  - **example**
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center'} qplot(displ, hwy, data = mpg, geom = c("point", "smooth"), method="lm")
 
@@ -62,7 +62,7 @@ qplot(hwy, data = mpg, fill = drv)
   - `facets = . ~ columns` = creates 1 by col subplots
   - `facets = row ~ .` = creates row row by 1 subplots
   - labels get generated automatically based on factor variable values
-  - **_example_**
+  - **example**
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F} qplot(displ, hwy, data = mpg, facets = . ~ drv) qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
 
@@ -108,7 +108,7 @@ grid.raster(readPNG("figures/16.jpg"))
 
       - creates n-1 ranges from n points = in this case 3
 
-  - **_annotations_**:
+  - **annotations**:
 
     - `xlab()`, `ylab()`, `labs()`, `ggtitle()` = for labels and titles
 
@@ -118,12 +118,12 @@ grid.raster(readPNG("figures/16.jpg"))
     - `geom` functions = many options to modify
     - `theme()` = for global changes in presentation
 
-      - **_example_**: `theme(legend.position = "none")`
+      - **example**: `theme(legend.position = "none")`
 
     - two standard themes defined: `theme_gray()` and `theme_bw()`
     - `base_family = "Times"` = changes font to Times
 
-  - **_aesthetics_**
+  - **aesthetics**
 
     - `+ geom_point(color, size, alpha)` = specifies how the points are supposed to be plotted on the graph (style)
 
@@ -133,11 +133,11 @@ grid.raster(readPNG("figures/16.jpg"))
       - `size = 4` = specifies size of the data points
       - `alpha = 0.5` = specifies transparency of the data points
 
-    - **_example_**
+    - **example**
 
     ![Alpha Level](figures/17.jpg)
 
-  - **_axis limits_**
+  - **axis limits**
 
     - `+ ylim(-3, 3)` = limits the range of y variable to a specific range
 
@@ -466,7 +466,7 @@ plot(svd1$d,xlab="Column",ylab="Singular value",pch=19)
 
 plot(svd1$d^2/sum(svd1$d^2),xlab="Column",ylab="Prop. of variance explained",pch=19)
 
-````
+```
 
 * **Relationship to PCA**
     * `p <- prcomp(data, scale = TRUE)` = performs PCA on data specified
@@ -486,7 +486,7 @@ plot(pca1$rotation[,1],svd1$v[,1],pch=19,xlab="Principal Component 1",
 abline(c(0,1))
 # summarize PCA
 summary(pca1)
-````
+```
 
 - **More Complex Patterns**
 
