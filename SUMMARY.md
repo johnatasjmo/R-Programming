@@ -26,6 +26,7 @@
   * [Creating new variables](cleaning_data/creating-new-variables.md)
   * [Reshaping data](cleaning_data/reshaping-data.md)
   * [Data Frames with dplyr](cleaning_data/data-frames-with-dplyr.md)
+  * [Tidy Data](cleaning_data/tidy-data.md)
   * [Merging Data](cleaning_data/merging-data.md)
   * [Read STATA](cleaning_data/read-stata-and-spss.md)
 * [Lattice Plotting](lattice-plotting.md)
@@ -33,4 +34,7 @@
 * [R Bloggers](r-bloggers.md)
 * [Exploring Raw Data](exploring-raw-data.md)
 * [tidyr Package](tidy-data.md)
-
+* [Exploratory Data Analysis](exploratory-data-analysis/README.md)
+    * [Notes](exploratory-data-analysis/notes.md)
+    * [Lattice](exploratory-data-analysis/lattice.md)
+    * [Plotting Comparison](exploratory-data-analysis/plotting-comparison.md)
