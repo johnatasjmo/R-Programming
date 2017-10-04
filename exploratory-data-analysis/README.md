@@ -14,7 +14,7 @@
 
   - more than 2 variables because the real world is multivariate
   - show as much data on a plot as you can
-  - **_example_**
+
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center', echo=FALSE}
 
@@ -22,14 +22,14 @@
 
 library(png) library(grid) grid.raster(readPNG("figures/1.jpg"))
 
-````
+```
 
-* slightly negative relationship between pollution and mortality
-    * when split up by season, the relationships are all positive $\rightarrow$ season = confounding variable
+slightly negative relationship between pollution and mortality when split up by season, the relationships are all positive $\rightarrow$ season = confounding variable
+
 
 ```{r fig.height = 4, fig.width = 6, fig.align='center', echo=FALSE}
 grid.raster(readPNG("figures/2.jpg"))
-````
+```
 
 - **Principle 4: Integration of evidence**
 
@@ -118,7 +118,7 @@ plot(jitter(child, 4)~parent, galton)
 
 ```{r fig.height = 4, fig.width = 6, fig.align='center', echo=FALSE} grid.raster(readPNG("figures/6.jpg"))
 
-````
+```
 
 ### Process of Making a Plot/Considerations
 * where will plot be made? screen or file?
@@ -182,7 +182,7 @@ legend("topright", pch = 1, col = c("blue", "red"), legend = c("May", "Other Mon
 model <- lm(Ozone ~ Wind, airquality)
 # regression line is produced here
 abline(model, lwd = 2)
-````
+```
 
 ### Multiple Plot Example
 
@@ -201,11 +201,9 @@ plot(Solar.R, Ozone, main = "Ozone and Solar Radiation")
 plot(Temp, Ozone, main = "Ozone and Temperature")
 # this adds a line of text in the outer margin*
 mtext("Ozone and Weather in New York City", outer = TRUE)}
-```
-
 )
 
-````
+```
 
 
 $\pagebreak$
