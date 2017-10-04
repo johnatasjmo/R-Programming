@@ -10,10 +10,9 @@ When column headers are variable is not tidy
 
 Wide vs long is not tidy
 
-
+##### Use of gather\(\)
 
 ```
-> # Apply gather() to bmi and save the result as bmi_long
 > bmi_long <- gather(bmi, year, bmi_val, -Country)
 > 
 > # View the first 20 rows of the result
@@ -51,7 +50,7 @@ Wide vs long is not tidy
 997 Albania Y1985 25.28669
 ```
 
-Use of Spread
+##### Use of spread\(\)
 
 ```
 > # Apply spread() to bmi_long
@@ -87,6 +86,38 @@ Use of Spread
 4 27.02525 27.12481 27.23107 27.32827 27.43588 27.53363 27.63048
 5 21.51765 21.59924 21.69218 21.80564 21.93881 22.08962 22.25083
 6 25.13039 25.20713 25.29898 25.39965 25.51382 25.64247 25.76602
+```
+
+##### Use of unite\(\) and separate\(\)
+
+```
+> head(mtcars)
+                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+> mtcars_unite <- unite(mtcars, "vs_am", c("vs","am"))
+> head(mtcars_unite)
+                   mpg cyl disp  hp drat    wt  qsec vs_am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46   0_1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02   0_1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61   1_1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44   1_0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02   0_0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22   1_0    3    1
+
+> mtcars_separate <- separate(mtcars_unite, vs_am, "vs", "am")
+> head(mtcars_separate)
+                   mpg cyl disp  hp drat    wt  qsec  vs gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46 0_1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02 0_1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61 1_1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 1_0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02 0_0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22 1_0    3    1 
 ```
 
 
