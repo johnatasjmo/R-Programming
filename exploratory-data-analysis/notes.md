@@ -29,7 +29,7 @@
     * `shape = factor2` = use the factor variable to display subsets of data in different shapes on the same plot (legend automatically generated)
     * ***example***
 
-```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F}
+```R
 library(ggplot2)
 qplot(displ, hwy, data = mpg, color = drv, shape = drv)
 ```
