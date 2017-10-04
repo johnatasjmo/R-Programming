@@ -32,7 +32,7 @@
 ```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F}
 library(ggplot2)
 qplot(displ, hwy, data = mpg, color = drv, shape = drv)
-````
+```
 
 - **adding statistics**: `geom = c("points", "smooth")` = add a smoother/"low S"
 
@@ -45,7 +45,7 @@ qplot(displ, hwy, data = mpg, color = drv, shape = drv)
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center'} qplot(displ, hwy, data = mpg, geom = c("point", "smooth"), method="lm")
 
-````
+```
 
 * **histograms**: if only one value is specified, a histogram is produced
     * `fill = factor1` = can be used to fill the histogram with different colors for the subsets (legend automatically generated)
@@ -53,7 +53,7 @@ qplot(displ, hwy, data = mpg, color = drv, shape = drv)
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center', results='hide', message = F, warning = F}
 qplot(hwy, data = mpg, fill = drv)
-````
+```
 
 - **facets**: similar to panels in lattice, split data according to factor variables
 
@@ -66,7 +66,7 @@ qplot(hwy, data = mpg, fill = drv)
 
 ```{r fig.height = 3, fig.width = 4, fig.align='center', message = F, warning = F} qplot(displ, hwy, data = mpg, facets = . ~ drv) qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
 
-````
+```
 
 * **density smooth**: smooths the histograms into a line tracing its shape
     * `geom = "density"` = replaces the default scatterplot with density smooth curve
@@ -74,7 +74,7 @@ qplot(hwy, data = mpg, fill = drv)
 
 ```{r fig.height = 4, fig.width = 8, fig.align='center', echo=FALSE}
 grid.raster(readPNG("figures/16.jpg"))
-````
+```
 
 - **`ggplot()`**
 
@@ -182,7 +182,7 @@ $\pagebreak$
 
 ```{r fig.height = 3, fig.width = 6, fig.align='center', echo=FALSE} grid.raster(readPNG("figures/25.png"))
 
-````
+```
 
 ### Procedure for Constructing Hierarchical Clusters (`hclust` function)
 1\. calculate all pair wise distances between all points to see which points are closest together
@@ -228,15 +228,14 @@ dataFrame <- data.frame(x=x,y=y)
 distxy <- dist(dataFrame)
 hClustering <- hclust(distxy)
 plot(hClustering)
-````
+```
 
 ### `myplcclust` Function and Example
 
-- ***Note**: `myplcclust` = a function to plot `hclust` objects in color (clusters labeled 1 2 3 etc.), but must know how many clusters there are initially *
-
-```{r fig.height = 3, fig.width = 4, fig.align='center'} myplclust <- function(hclust, lab = hclust$labels, lab.col = rep(1, length(hclust$labels)), hang = 0.1, ...) {
+##### Note: `myplcclust` = a function to plot `hclust` objects in color (clusters labeled 1 2 3 etc.), but must know how many clusters there are initially *
 
 ```
+myplclust <- function(hclust, lab = hclust$labels, lab.col = rep(1, length(hclust$labels)), hang = 0.1, ...) {
 ## modifiction of plclust for plotting hclust objects *in colour*! Copyright
 ## Eva KF Chan 2009 Arguments: hclust: hclust object lab: a character vector
 ## of labels of the leaves of the tree lab.col: colour for the labels;
@@ -257,9 +256,10 @@ col = lab.col[hclust$order], srt = 90, adj = c(1, 0.5), xpd = NA, ...) }
 
 # example
 
+```
 dataFrame <- data.frame(x = x, y = y) distxy <- dist(dataFrame) hClustering <- hclust(distxy) myplclust(hClustering, lab = rep(1:3, each = 4), lab.col = rep(1:3, each = 4))
 
-````
+```
 
 ### `heatmap` Function and Example
 * `heatmap(data.matrix)` function = similar to `image(t(x))`
@@ -272,7 +272,7 @@ dataFrame <- data.frame(x = x, y = y) distxy <- dist(dataFrame) hClustering <- h
 set.seed(12345)
 data <- matrix(rnorm(400), nrow = 40)
 heatmap(data)
-````
+```
 
 ## `image` Function and Example
 
@@ -296,7 +296,7 @@ heatmap(data)
 
 ```{r fig.height = 4, fig.width = 3, fig.align='center'} image(1:10, 1:40, t(data)[, nrow(data):1])
 
-````
+```
 
 $\pagebreak$
 
@@ -335,7 +335,7 @@ kmeansObj$cluster
 par(mar=rep(0.2,4))
 plot(x,y,col=kmeansObj$cluster,pch=19,cex=2)
 points(kmeansObj$centers,col=1:3,pch=3,cex=3,lwd=3)
-````
+```
 
 ## Characteristics of K-means Clustering Algorithms
 
@@ -398,7 +398,7 @@ plot(rowMeans(dataOrdered),40:1,,xlab="Row Mean",ylab="Row",pch=19)
 
 plot(colMeans(dataOrdered),xlab="Column",ylab="Column Mean",pch=19)
 
-````
+```
 
 ### Singular Value Decomposition (SVD)
 * Let $X$ = matrix which each variable in column (measurement) and each observation in row (subject)
@@ -408,11 +408,11 @@ plot(colMeans(dataOrdered),xlab="Column",ylab="Column Mean",pch=19)
     - $V$ = right singular vector, orthogonal matrix (columns independent of each other)
     - ***Note**: orthogonal implies that a matrix is always invertible [$A^{-1} = A^T$] and that the product of the matrix and its transpose equals the identity matrix [$AA^T = I$] *
         + when a orthogonal matrices, $A$, is multiplied by another matrix, $B$, it is effectively a linear transformation in that the length and angles of $B$ are preserved
-    - ***Note**: diagonal implies that any value outside of the main diagonal ($\searrow$) = 0 *
-        + example $$A = \begin{bmatrix}
+    - ***Note** : diagonal implies that any value outside of the main diagonal ($\searrow$) = 0 *
+        ` example $$A = \begin{bmatrix}
        1 & 0 & 0 \\
        0 & 2 & 0 \\
-       0 & 0 & 3 \end{bmatrix}$$
+       0 & 0 & 3 \end{bmatrix}$$ `
 
 * ***Note**: scale of data matters for SVD/PCA (scaling the data may help), patterns detected maybe mixed together, and computation is intensive for these operations
 
@@ -442,7 +442,7 @@ image(t(dataOrdered)[,nrow(dataOrdered):1])
 plot(svd1$u[,1],40:1,,xlab="Row",ylab="First left singular vector",pch=19)
 # V vector - first column
 plot(svd1$v[,1],xlab="Column",ylab="First right singular vector",pch=19)
-````
+```
 
 - **$D$ Matrix and Variance Explained**
 
@@ -513,7 +513,7 @@ if(coinFlip1){ data[i,] <- data[i,] + rep(c(0,5),each=5) } if(coinFlip2){ data[i
 
 svd2 <- svd(scale(dataOrdered)) par(mfrow=c(2,3)) image(t(dataOrdered)[,nrow(dataOrdered):1]) plot(rep(c(0,1),each=5),pch=19,xlab="Column", main="True Pattern 1") plot(rep(c(0,1),5),pch=19,xlab="Column",main="True Pattern 2") image(t(dataOrdered)[,nrow(dataOrdered):1]) plot(svd2$v[,1],pch=19,xlab="Column",ylab="First right singular vector", main="Detected Pattern 1") plot(svd2$v[,2],pch=19,xlab="Column",ylab="Second right singular vector", main="Detected Pattern 2")
 
-````
+```
 
 * **Missing Data**
     * SVD cannot be performed on dataset with `NA` values
@@ -531,7 +531,7 @@ svd1 <- svd(scale(dataOrdered)); svd2 <- svd(scale(data2))
 par(mfrow=c(1,2))
 plot(svd1$v[,1],pch=19, main="Original")
 plot(svd2$v[,1],pch=19, main="Imputed")
-````
+```
 
 ## Create Approximations/Data Compression
 
@@ -548,7 +548,7 @@ load("figures/face.rda")
 
 svd3 <- svd(scale(faceData)) plot(svd3$d^2/sum(svd3$d^2),pch=19,xlab="Singular vector",ylab="Variance explained")
 
-````
+```
 
 * approximations can thus be created by taking the first few components and using matrix multiplication with the corresponding $U$, $V$, and $D$ components
 
@@ -563,7 +563,7 @@ image(t(approx1)[,nrow(approx1):1], main = "1 Component")
 image(t(approx5)[,nrow(approx5):1], main = "5 Component")
 image(t(approx10)[,nrow(approx10):1], main = "10 Component")
 image(t(faceData)[,nrow(faceData):1], main = "Original")
-````
+```
 
 $\pagebreak$
 
@@ -622,7 +622,7 @@ plot(x, y, pch = 19, main = "Default")
 
 plot(x, y, col = rgb(0, 0, 0, 0.2), main = "With Transparency")
 
-````
+```
 
 ### `RColorBrewer` Package
 * can be found on CRAN that has predefined color palettes
@@ -636,7 +636,7 @@ plot(x, y, col = rgb(0, 0, 0, 0.2), main = "With Transparency")
 
 ```{r fig.height = 6, fig.width = 8, fig.align='center', echo=FALSE}
 grid.raster(readPNG("figures/color.png"))
-````
+```
 
 - **`brewer.pal(n, "BuGn")` function**
 
@@ -667,7 +667,7 @@ image(volcano, col = topo.colors(20), main = "Topographical Colors")
 
 image(volcano, col = pal(20), main = "RColorBrewer Colors")
 
-````
+```
 
 * **`smoothScatter` function**
     - used to plot large quantities of data points
@@ -678,7 +678,7 @@ image(volcano, col = pal(20), main = "RColorBrewer Colors")
 ```{r fig.height = 4, fig.width = 4, fig.align='center'}
 x <- rnorm(10000); y <- rnorm(10000)
 smoothScatter(x, y)
-````
+```
 
 $\pagebreak$
 
@@ -721,7 +721,7 @@ plot(sub1[, 2], col = sub1$activity, ylab = names(sub1)[2], main = "Mean Body Ac
 
 legend("bottomright",legend=unique(sub1$activity),col=unique(sub1$activity), pch = 1)
 
-````
+```
 
 
 **Clustering Based on Only Average Acceleration**
@@ -735,7 +735,7 @@ distanceMatrix <- dist(sub1[,1:3])
 hclustering <- hclust(distanceMatrix)
 # run myplclust on data
 myplclust(hclustering, lab.col = unclass(sub1$activity))
-````
+```
 
 **Plotting Max Acceleration for the First Subject**
 
@@ -749,7 +749,7 @@ par(mfrow=c(1,2))
 
 plot(sub1[,10],pch=19,col=sub1$activity,ylab=names(sub1)[10], main = "Max Body Acceleration for X") plot(sub1[,11],pch=19,col = sub1$activity,ylab=names(sub1)[11], main = "Max Body Acceleration for Y")
 
-````
+```
 
 
 **Clustering Based on Maximum Acceleration**
@@ -759,7 +759,7 @@ plot(sub1[,10],pch=19,col=sub1$activity,ylab=names(sub1)[10], main = "Max Body A
 distanceMatrix <- dist(sub1[,10:12])
 hclustering <- hclust(distanceMatrix)
 myplclust(hclustering,lab.col=unclass(sub1$activity))
-````
+```
 
 **Singular Value Decomposition**
 
@@ -779,7 +779,7 @@ par(mfrow=c(1,2))
 
 plot(svd1$u[,1],col=sub1$activity,pch=19, main = "First Left Singular Vector") plot(svd1$u[,2],col=sub1$activity,pch=19, main = "Second Left Singular Vector")
 
-````
+```
 
 
 **New Clustering with Maximum Contributers**
@@ -793,7 +793,7 @@ hclustering <- hclust(distanceMatrix)
 myplclust(hclustering,lab.col=unclass(sub1$activity))
 # name of max contributing factor
 names(samsungData)[maxContrib]
-````
+```
 
 **K-means Clustering (nstart=1, first try)**
 
@@ -816,7 +816,7 @@ kClust <- kmeans(sub1[,-c(562,563)],centers=6,nstart=100)
 
 table(kClust$cluster,sub1$activity)
 
-````
+```
 
 **K-means clustering (nstart=100, second try)**
 
@@ -825,7 +825,7 @@ table(kClust$cluster,sub1$activity)
 kClust <- kmeans(sub1[,-c(562,563)],centers=6,nstart=100)
 # tabulate results
 table(kClust$cluster,sub1$activity)
-````
+```
 
 **Cluster 1 Variable Centers (Laying)**
 
@@ -835,7 +835,7 @@ table(kClust$cluster,sub1$activity)
 
 plot(kClust$center[1,1:10],pch=19,ylab="Cluster Center",xlab="")
 
-````
+```
 
 
 **Cluster 2 Variable Centers (Walking)**
@@ -843,7 +843,7 @@ plot(kClust$center[1,1:10],pch=19,ylab="Cluster Center",xlab="")
 ```{r fig.height=4,fig.width=5, fig.align='center'}
 # plot first 10 centers of k-means for laying to understand which features drive the activity
 plot(kClust$center[4,1:10],pch=19,ylab="Cluster Center",xlab="")
-````
+```
 
 $\pagebreak$
 
@@ -885,7 +885,7 @@ names(pm1) <- make.names(cnames[[1]])
 
 x1 <- pm1$Sample.Value
 
-````
+```
 
 **Summaries for Both Periods**
 
@@ -895,7 +895,7 @@ summary(x1)
 summary(x0)
 # calculate % of missing values, Are missing values important here?
 data.frame(NA.1990 = mean(is.na(x0)), NA.2012 = mean(is.na(x1)))
-````
+```
 
 **Make a boxplot of both 1999 and 2012**
 
@@ -909,7 +909,7 @@ boxplot(x0, x1, main = "Regular Boxplot")
 
 boxplot(log10(x0), log10(x1), main = "log Boxplot")
 
-````
+```
 
 **Check for Negative Values in 'x1'**
 
@@ -927,7 +927,7 @@ dates <- pm1$Date
 dates <- as.Date(as.character(dates), "%Y%m%d")
 # plot the histogram
 hist(dates, "month")  ## Check what's going on in months 1--6
-````
+```
 
 **Check Same New York Monitors at 1999 and 2012**
 
@@ -990,7 +990,7 @@ dates1 <- as.Date(as.character(dates1), "%Y%m%d")
 
 plot(dates1, x1sub, main = "PM2.5 Polution Level in 2012")
 
-````
+```
 
 **Plot data for 1999**
 
@@ -1003,7 +1003,7 @@ dates0 <- as.Date(as.character(dates0), "%Y%m%d")
 x0sub <- pm0sub$Sample.Value
 # plot pm2.5 value vs time
 plot(dates0, x0sub, main = "PM2.5 Polution Level in 1999")
-````
+```
 
 **Panel Plot for Both Years**
 
@@ -1033,7 +1033,7 @@ plot(dates1, x1sub, pch = 20, ylim = rng, main="Pollution in 2012")
 
 abline(h = median(x1sub, na.rm = T))
 
-````
+```
 
 **Find State-wide Means and Trend**
 
@@ -1062,4 +1062,4 @@ with(mrg, points(rep(2, 52), mrg[, 3]))
 segments(rep(1, 52), mrg[, 2], rep(2, 52), mrg[, 3])
 # add 1999 and 2012 labels
 axis(1, c(1, 2), c("1999", "2012"))
-````
+```
