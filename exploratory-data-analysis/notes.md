@@ -64,7 +64,7 @@ qplot(hwy, data = mpg, fill = drv)
   - labels get generated automatically based on factor variable values
   - **example**
 
-```
+```R
 qplot(displ, hwy, data = mpg, facets = . ~ drv) qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
 ```
 
