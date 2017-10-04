@@ -1,7 +1,8 @@
 # Summary
 
 * [Introduction](README.md)
-        * [Introduction](introduction/setup-environments.md)
+    * [Introduction](introduction/setup-environments.md)
+    *  [R-bloggers](introduction/r-bloggers.md)
 * [Setup environments](setup-environments.md)
 * [R Programming](r_programming/README.md)
   * [R Nuts and Bolts](r_programming/r_nuts_and_bolts.md)
@@ -30,11 +31,6 @@
   * [Tidy Data](cleaning_data/tidy-data.md)
   * [Merging Data](cleaning_data/merging-data.md)
   * [Read STATA](cleaning_data/read-stata-and-spss.md)
-* [Lattice Plotting](lattice-plotting.md)
-* [Plotting Comparison](plotting-comparison.md)
-* [R Bloggers](r-bloggers.md)
-* [Exploring Raw Data](exploring-raw-data.md)
-* [tidyr Package](tidy-data.md)
 * [Exploratory Data Analysis](exploratory-data-analysis/README.md)
     * [Notes](exploratory-data-analysis/notes.md)
     * [Lattice](exploratory-data-analysis/lattice.md)
