@@ -1,13 +1,5 @@
 
 
-
-$\pagebreak$
-
-
-
-
-$\pagebreak$
-
 ## `ggplot2` Plotting System
 * `library(ggplot2)` = loads ggplot2 package
 * implementation of Grammar of Graphics by Leland Wilkinson, written by Hadley Wickham (created RStudio)
