@@ -1,5 +1,57 @@
 # Creating new variables
 
+### Types of variables
+
+* character: "treatment", 123"
+* numeric: 23.44, 120, NaN, Inf 
+* integer:  4L, 1123L
+* factor: factor\("hello\), factor\(8\)
+* logical: TRUE, FALSE, NA
+
+`class() `shows the variable class of each
+
+`as.character`
+
+`as.numeric`
+
+`as.integer`
+
+`as.factor`
+
+`as.logical`
+
+### Lubridate
+
+```
+> ymd("2015-08-25")
+[1] "2015-08-25"
+> ymd("2015 August 25")
+[1] "2015-08-25"
+> mdy("August, 25 2015")
+[1] "2015-08-25"
+> hms("13:33:00")
+[1] "13H 33M 0S"
+```
+
+### Convert
+
+```
+# Make this evaluate to character
+class("true")
+
+# Make this evaluate to numeric
+class(8484.00)
+
+# Make this evaluate to integer
+class(99L)
+
+# Make this evaluate to factor
+class(factor("factor"))
+
+# Make this evaluate to logical
+class(FALSE)
+```
+
 ### Creating sequences
 
 ##### Baltimore dataset
@@ -23,7 +75,7 @@ Create a sequence of length
 [1] 1 2 3 4 5
 ```
 
-Subsetting variables
+##### Subsetting variables
 
 ```r
 > # Find restaurants only in these two neibourhoods that are IN
@@ -34,7 +86,7 @@ FALSE  TRUE
  1314    13
 ```
 
-Creating binary variables
+##### Creating binary variables
 
 ```
 > #if zipcode is less than 0. return TRUE if condition returns TRUE, else is FALSE
@@ -47,7 +99,7 @@ Creating binary variables
   TRUE      0    1
 ```
 
-Creting categorical variables
+##### Creting categorical variables
 
 ```
 > # create zigGroups and with a cut that brakes in quantiles
@@ -131,7 +183,7 @@ Levels: yes no
  [1] 1 2 2 1 1 2 1 2 2 1
 ```
 
-Cutting produces factor variables
+##### Cutting produces factor variables
 
 ```r
 > library(Hmisc)
@@ -142,7 +194,7 @@ Cutting produces factor variables
            338            375            300            314
 ```
 
-using the mutate function
+##### using the mutate function
 
 ```r
 > library(Hmisc)
