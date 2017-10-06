@@ -58,13 +58,41 @@ class(FALSE)
 
 `str_pad` helps add white space
 
-`str_detect `to check if there is a match
+`str_detect`to check if there is a match
 
-`str_replace` can also be replacing a total value 
+`str_replace` can also be replacing a total value
 
 `tolower` letters in lowers
 
 `toupper` letters in uppers
+
+```
+# Load the stringr package
+library(stringr)
+
+# Trim all leading and trailing whitespace
+str_trim(c("   Filip ", "Nick  ", " Jonathan"))
+
+# Pad these strings with leading zeros
+str_pad(c("23485W", "8823453Q", "994Z"), 9, pad = "0")
+
+## stringr has been loaded for you
+
+# Look at the head of students2
+head(students2)
+
+# Detect all dates of birth (dob) in 1997
+str_detect(students2$dob, "1997")
+
+# In the sex column, replace "F" with "Female"...
+students2$sex <- str_replace(students2$sex, "F", "Female")
+
+# ...And "M" with "Male"
+students2$sex <- str_replace(students2$sex, "M", "Male")
+
+# View the head of students2
+head(students2)
+```
 
 ### Creating sequences
 
