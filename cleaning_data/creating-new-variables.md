@@ -8,7 +8,7 @@
 * factor: factor\("hello\), factor\(8\)
 * logical: TRUE, FALSE, NA
 
-`class() `shows the variable class of each
+`class()`shows the variable class of each
 
 `as.character`
 
@@ -51,6 +51,20 @@ class(factor("factor"))
 # Make this evaluate to logical
 class(FALSE)
 ```
+
+### String manipulation
+
+`str_trim` trims white space
+
+`str_pad` helps add white space
+
+`str_detect `to check if there is a match
+
+`str_replace` can also be replacing a total value 
+
+`tolower` letters in lowers
+
+`toupper` letters in uppers
 
 ### Creating sequences
 
