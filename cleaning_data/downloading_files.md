@@ -17,5 +17,9 @@ List files in directory
 list.files()
 ```
 
+if folder exists, delete and create a new one \(clean it
+
+if folder exist, do not create one
+
 
 
