@@ -28,5 +28,21 @@ qplot(hwy, data = mpg, fill =  drv)
 
 
 
+Arrangement
+
+```
+qplot(displ, hwy, data = mpg, facets = . ~ drv)
+```
+
+![](/assets/plot_hist_arr1.png)
+
+```
+qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
+```
+
+![](/assets/plot_hist_arr2.png)
+
+
+
 
 
