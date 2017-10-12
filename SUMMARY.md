@@ -35,6 +35,5 @@
   * [Notes](exploratory-data-analysis/notes.md)
   * [Lattice](exploratory-data-analysis/lattice.md)
   * [Plotting Comparison](exploratory-data-analysis/plotting-comparison.md)
-  * [ggplot2](ggplot2)
+  * [ggplot2](exploratory-data-analysis/ggplot2)
 * [Missing Data](missing-data.md)
-
