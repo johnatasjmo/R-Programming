@@ -26,8 +26,6 @@ qplot(hwy, data = mpg, fill =  drv)
 
 ![](/assets/plot_hist_one.png)
 
-
-
 Arrangement
 
 ```
