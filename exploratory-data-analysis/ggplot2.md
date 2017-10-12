@@ -1,5 +1,3 @@
-
-
 qplot
 
 ```
@@ -10,8 +8,6 @@ gray areas indicate the 95% confidence interval
 
 ![](/assets/plot_smooth.png)
 
-
-
 Whiskers
 
 ```
@@ -19,8 +15,6 @@ qplot(drv, hwy, data = mpg, geom = "boxplot", color = manufacturer)
 ```
 
 ![](/assets/plot_whiskers.png)
-
-
 
 Histograms
 
@@ -31,8 +25,4 @@ qplot(hwy, data = mpg, fill =  drv)
 ```
 
 ![](/assets/plot_hist_one.png)
-
-
-
-
 
