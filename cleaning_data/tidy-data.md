@@ -120,6 +120,25 @@ Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02 0_0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22 1_0    3    1
 ```
 
+Use of separate with vector when sep variable is needed
+
+```
+## sales3 is pre-loaded in your workspace
+
+# Load tidyr
+library(tidyr)
+
+# Split event_date_time: sales4
+sales4 <- separate(sales3, event_date_time, 
+                   c("event_dt", "event_time"), sep = " ")
+
+# Split sales_ord_create_dttm: sales5
+sales5 <- separate(sales4, sales_ord_create_dttm, 
+                   c("ord_create_dt", "ord_create_time"), sep = " ")
+```
+
+##### 
+
 ##### Use of gather\(\)
 
 gather uses first value is dataset, second the name of the first column, third name of second column and lastly with - sign, the name of column that we do not wish to gather

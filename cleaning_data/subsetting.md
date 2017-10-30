@@ -47,16 +47,29 @@
 5    4    9   13
 ```
 
-Select columns
+##### Select columns
 
 ```r
-my_df[1:5, ] # First 5 rows of my_df
 my_df[, 4]   # Fourth column of my_df
 my_df[-(1:5), ] # Omit first 5 rows of my_df
 my_df[, -4]     # Omit fourth column of my_df
 
 sales2 <- sales[, 2:ncol(sales)]
 ```
+
+```
+## sales2 is available in your workspace
+
+# Define a vector of column indices: keep
+keep <- 5:(ncol(sales2) - 15)
+
+# Subset sales2 using keep: sales3
+sales3 <- sales2[, keep]
+```
+
+##### 
+
+##### 
 
 ##### Sorting
 
