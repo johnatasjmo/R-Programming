@@ -38,4 +38,5 @@
   * [ggplot2](exploratory-data-analysis/ggplot2.md)
 * [Missing Data](missing-data.md)
 * [qplot](qplot.md)
+* [lubridate](lubridate.md)
 
