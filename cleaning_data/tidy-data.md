@@ -52,7 +52,13 @@ Wide vs long is not tidy
 
 ##### Use of spread\(\)
 
+```r
+spread(data, key, value, fill = NA, convert = FALSE, drop = TRUE, sep = NULL)
 ```
+
+
+
+```r
 > # Apply spread() to bmi_long
 > bmi_wide <- spread(bmi_long, year, bmi_val)
 > 
