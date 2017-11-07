@@ -170,5 +170,9 @@ agricultureLogical = data1$ACR == 3 & data1$AGS == 6
 head(which(agricultureLogical), 3)
 ```
 
+Reference
+
+https://www.r-bloggers.com/5-ways-to-subset-a-data-frame-in-r/
+
 
 

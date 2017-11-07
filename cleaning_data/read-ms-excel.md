@@ -43,7 +43,7 @@ cameraDataSubset<-read.xlsx("./data/cameras.xlsx",sheetIndex=1,colIndex=colIndex
 cameraDataSubset
 ```
 
-#### \#
+#### \
 
 ```r
 # The readxl package is already loaded
