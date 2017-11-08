@@ -39,4 +39,5 @@
 * [Missing Data](missing-data.md)
 * [qplot](qplot.md)
 * [lubridate](lubridate.md)
+* [dplyr](dplyr.md)
 
