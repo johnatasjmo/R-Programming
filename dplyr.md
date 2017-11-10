@@ -25,7 +25,7 @@ two
 
 `summarise` provides statistics
 
-Observations in columns, variables in columns. 
+Observations in columns, variables in columns.
 
 Resources tidyr data package
 
@@ -66,6 +66,30 @@ glimpse(hflights)
 ```
 
 
+
+Filter
+
+filter\(hflights, Cancelled == 1\)
+
+```
+x < y, TRUE if x is less than y
+x <= y, TRUE if x is less than or equal to y
+x == y, TRUE if x equals y
+x != y, TRUE if x does not equal y
+x >= y, TRUE if x is greater than or equal to y
+x > y, TRUE if x is greater than y
+x %in% c(a, b, c), TRUE if x is in the vector c(a, b, c)
+```
+
+R also comes with a set of boolean operators that you can use to combine multiple logical tests into a single test. These include `&`\(and\), `|`\(or\), and `!`\(not\). Instead of using the `&`operator, you can also pass several logical tests to [`filter()`](http://www.rdocumentation.org/packages/dplyr/functions/filter) , separated by commas. The following two calls are completely equivalent:
+
+```
+filter(df, a > 0 & b > 0)
+filter(df, a > 0, b > 0)
+
+# which of the variables is not NA
+filter(df, !is.na(x))
+```
 
 
 
