@@ -65,8 +65,6 @@ hflights$Code <- lut[hflights$CancellationCode]
 glimpse(hflights)
 ```
 
-
-
 Filter
 
 filter\(hflights, Cancelled == 1\)
@@ -90,6 +88,10 @@ filter(df, a > 0, b > 0)
 # which of the variables is not NA
 filter(df, !is.na(x))
 ```
+
+arrange
+
+
 
 
 
