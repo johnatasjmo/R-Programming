@@ -93,5 +93,34 @@ arrange
 
 
 
+### summarise
+
+```
+min(x) - minimum value of vector x.
+max(x) - maximum value of vector x.
+mean(x) - mean value of vector x.
+median(x) - median value of vector x.
+quantile(x, p) - pth quantile of vector x.
+sd(x) - standard deviation of vector x.
+var(x) - variance of vector x.
+IQR(x) - Inter Quartile Range (IQR) of vector x.
+diff(range(x)) - total range of vector x.
+```
+
+##### %&gt;% Operator
+
+```
+mean(c(1, 2, 3, NA), na.rm = TRUE)
+c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
+```
+
+```
+# Write the 'piped' version of the English sentences.
+hflights %>%
+        mutate(diff = TaxiOut - TaxiIn) %>%
+        filter(!is.na(diff)) %>%
+        summarise(avg = mean(diff))
+```
+
 
 
