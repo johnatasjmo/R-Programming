@@ -178,7 +178,6 @@ Combination of unique records
 # create a combination of unique carriers and detinations
 hflights %>%
 group_by(UniqueCarrier, Dest)
-
 ```
 
 ```r
@@ -209,6 +208,39 @@ group_by(UniqueCarrier, Dest)
 13         ExpressJet  1.5290102  7.6131367
 14     American_Eagle  1.8140590  7.8101852
 15            SkyWest  1.6059296  9.1620429
+```
+
+```r
+ # Ordererd overview of average arrival delays per carrie
+        > hflights %>%
+        #filter hflights without NA and positive
+        filter(!is.na(ArrDelay), ArrDelay > 0) %>%
+        #group by carrier
+        group_by(UniqueCarrier) %>%
+        #summarise the mean per carrier
+        summarise(avg = mean(ArrDelay)) %>%
+        #add new variable rank from average
+        mutate( rank = rank(avg)) %>%
+        #arrange by rank
+        arrange(rank)
+# A tibble: 15 × 3
+UniqueCarrier avg rank
+<chr> <dbl> <dbl>
+        1 Frontier 13.42500 1
+2 Mesa 14.00000 2
+3 US_Airways 20.19084 3
+4 Continental 21.83245 4
+5 American 23.07921 5
+6 ExpressJet 23.45569 6
+7 SkyWest 24.31395 7
+8 Southwest 25.18831 8
+9 AirTran 26.28788 9
+10 United 28.03488 10
+11 Alaska 28.30000 11
+12 Delta 33.97872 12
+13 JetBlue 36.63636 13
+14 American_Eagle 39.07407 14
+15 Atlantic_Southeast 39.23171 15
 ```
 
 
