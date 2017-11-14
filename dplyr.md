@@ -212,9 +212,9 @@ group_by(UniqueCarrier, Dest)
 
 ```r
  # Ordererd overview of average arrival delays per carrie
-        > hflights %>%
-        #filter hflights without NA and positive
-        filter(!is.na(ArrDelay), ArrDelay > 0) %>%
+> hflights %>%
+  #filter hflights without NA and positive
+       filter(!is.na(ArrDelay), ArrDelay > 0) %>%
         #group by carrier
         group_by(UniqueCarrier) %>%
         #summarise the mean per carrier
@@ -241,6 +241,56 @@ UniqueCarrier avg rank
 13 JetBlue 36.63636 13
 14 American_Eagle 39.07407 14
 15 Atlantic_Southeast 39.23171 15
+```
+
+```r
+> # dplyr and hflights (with translated carrier names) are pre-loaded
+> 
+> # How many airplanes only flew to one destination?
+> hflights %>%
+  # group by airplane number
+    group_by(TailNum) %>%
+  # summarize by unique destination
+    summarise(ndest = n_distinct(Dest)) %>%
+  #filter airplanes that goes to only 1 destination
+    filter(ndest == 1) %>%
+  # sumarize by new column nplanes 
+    summarise(nplanes = n())
+# A tibble: 1 × 1
+  nplanes
+    <int>
+1    1039
+> 
+> # Find the most visited destination for each carrier
+> hflights %>% 
+  # create a combination carriers and destination
+    group_by(UniqueCarrier, Dest) %>%
+  #summarise by new variable n, UniqueCarrier-Dest combination
+    summarise(n = n()) %>%
+  #add column rank and descend by n
+    mutate(rank = rank(desc(n))) %>%
+  # select only the number one, most visited destination for each carrier
+    filter(rank == 1)
+Source: local data frame [15 x 4]
+Groups: UniqueCarrier [15]
+
+        UniqueCarrier  Dest     n  rank
+                <chr> <chr> <int> <dbl>
+1             AirTran   ATL   211     1
+2              Alaska   SEA    32     1
+3            American   DFW   186     1
+4      American_Eagle   DFW   234     1
+5  Atlantic_Southeast   DTW    89     1
+6         Continental   LAX   417     1
+7               Delta   ATL   219     1
+8          ExpressJet   CRP   313     1
+9            Frontier   DEN    78     1
+10            JetBlue   JFK    72     1
+11               Mesa   CLT     6     1
+12            SkyWest   COS   143     1
+13          Southwest   DAL   839     1
+14         US_Airways   CLT   237     1
+15             United   ORD    59     1
 ```
 
 
