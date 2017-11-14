@@ -91,8 +91,6 @@ filter(df, !is.na(x))
 
 arrange
 
-
-
 ### summarise
 
 ```
@@ -105,6 +103,12 @@ sd(x) - standard deviation of vector x.
 var(x) - variance of vector x.
 IQR(x) - Inter Quartile Range (IQR) of vector x.
 diff(range(x)) - total range of vector x.
+
+first(x) - The first element of vector x.
+last(x) - The last element of vector x.
+nth(x, n) - The nth element of vector x.
+n() - The number of rows in the data.frame or group of observations that summarise() describes.
+n_distinct(x) - The number of unique values in vector x.
 ```
 
 ##### %&gt;% Operator
@@ -120,6 +124,91 @@ hflights %>%
         mutate(diff = TaxiOut - TaxiIn) %>%
         filter(!is.na(diff)) %>%
         summarise(avg = mean(diff))
+```
+
+```
+> # Chain together mutate(), filter() and summarise()
+> hflights %>%
+  mutate(RealTime = ActualElapsedTime + 100, 
+              mph = Distance / RealTime * 60) %>%
+        filter(!is.na(mph), mph < 70) %>%
+        summarise(n_less = n(),
+                  n_dest = n_distinct(Dest),
+                  min_dist = min(Distance),
+                  max_dist = max(Distance))
+# A tibble: 1 × 4
+  n_less n_dest min_dist max_dist
+   <int>  <int>    <int>    <int>
+1    673     12       79      253
+```
+
+```
+> # Finish the command with a filter() and summarise() call
+> hflights %>%
+    mutate(RealTime = ActualElapsedTime + 100, mph = Distance / RealTime * 60) %>%
+    filter(mph < 105 | Cancelled == 1 | Diverted == 1) %>%
+    summarise(n_non = n(),
+              n_dest = n_distinct(Dest),
+              min_dist = min(Distance),
+              max_dist = max(Distance))
+# A tibble: 1 × 4
+  n_non n_dest min_dist max_dist
+  <int>  <int>    <int>    <int>
+1  4294     84       79     2007
+```
+
+```
+> # Count the number of overnight flights
+> hflights %>%
+  filter(!is.na(DepTime), !is.na(ArrTime), DepTime > ArrTime) %>%
+  summarise( num = n())
+# A tibble: 1 × 1
+    num
+  <int>
+1   265
+```
+
+### Group by
+
+### ![](/assets/Screen Shot 2017-11-14 at 8.03.37 AM.png)'
+
+Combination of unique records
+
+```
+# create a combination of unique carriers and detinations
+hflights %>%
+group_by(UniqueCarrier, Dest)
+
+```
+
+```r
+> # Make an ordered per-carrier summary of hflights
+> # get the mean of cancelled flights
+> # summarise without delays not equal to NA
+> # order from low to high by average arrival delay as percentage
+> hflights %>%
+     group_by(UniqueCarrier) %>%
+     summarise(p_canc = mean(Cancelled == 1) * 100, 
+               avg_delay = mean(ArrDelay, na.rm = TRUE)) %>%
+     arrange(avg_delay, p_canc)
+# A tibble: 15 × 3
+        UniqueCarrier     p_canc  avg_delay
+                <chr>      <dbl>      <dbl>
+1          US_Airways  1.1848341 -1.0721154
+2                Mesa 14.2857143 -0.8333333
+3            American  1.5873016 -0.1161290
+4             AirTran  0.8888889  0.7117117
+5              Alaska  0.0000000  1.0625000
+6            Frontier  0.0000000  4.0000000
+7             JetBlue  4.1666667  4.0000000
+8         Continental  0.7165377  6.0759329
+9  Atlantic_Southeast  3.0567686  6.2927928
+10             United  2.5773196  6.5925926
+11              Delta  2.0746888  7.1440678
+12          Southwest  1.6185477  7.5294903
+13         ExpressJet  1.5290102  7.6131367
+14     American_Eagle  1.8140590  7.8101852
+15            SkyWest  1.6059296  9.1620429
 ```
 
 
