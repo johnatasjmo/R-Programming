@@ -293,5 +293,63 @@ Groups: UniqueCarrier [15]
 15             United   ORD    59     1
 ```
 
+Connect to mysql db
+
+```rr
+> # Set up a connection to the mysql database
+> my_db <- src_mysql(dbname = "dplyr", 
+                     host = "courses.csrrinzqubik.us-east-1.rds.amazonaws.com", 
+                     port = 3306, 
+                     user = "student",
+                     password = "datacamp")
+> 
+> # Reference a table within that source: nycflights
+> nycflights <- tbl(my_db, "dplyr")
+> 
+> # glimpse at nycflights
+> glimpse(nycflights)
+Observations: NA
+Variables: 17
+$ id        <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17...
+$ year      <int> 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 201...
+$ month     <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ day       <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+$ dep_time  <int> 517, 533, 542, 544, 554, 554, 555, 557, 557, 558, 558, 55...
+$ dep_delay <int> 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -1, ...
+$ arr_time  <int> 830, 850, 923, 1004, 812, 740, 913, 709, 838, 753, 849, 8...
+$ arr_delay <int> 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -3, 7, -14,...
+$ carrier   <chr> "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV", "B6", "AA...
+$ tailnum   <chr> "N14228", "N24211", "N619AA", "N804JB", "N668DN", "N39463...
+$ flight    <int> 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301, 49,...
+$ origin    <chr> "EWR", "LGA", "JFK", "JFK", "LGA", "EWR", "EWR", "LGA", "...
+$ dest      <chr> "IAH", "IAH", "MIA", "BQN", "ATL", "ORD", "FLL", "IAD", "...
+$ air_time  <int> 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149, 158...
+$ distance  <int> 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733, 10...
+$ hour      <int> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, ...
+$ minute    <int> 17, 33, 42, 44, 54, 54, 55, 57, 57, 58, 58, 58, 58, 58, 5...
+> 
+> # Ordered, grouped summary of nycflights
+>   nycflights %>%
+    group_by(carrier) %>%
+    summarise(n_flights = n(), avg_delay = mean(arr_delay)) %>%
+   arrange(avg_delay)
+Source:   query [?? x 3]
+Database: mysql 5.6.34-log [student@courses.csrrinzqubik.us-east-1.rds.amazonaws.com:/dplyr]
+Warning message: Decimal MySQL column 2 imported as numeric
+   carrier n_flights avg_delay
+     <chr>     <dbl>     <dbl>
+1       AS       714   -9.8613
+2       HA       342   -6.9152
+3       AA     32729    0.3556
+4       DL     48110    1.6289
+5       VX      5162    1.7487
+6       US     20536    2.0565
+7       UA     58665    3.5045
+8       9E     18460    6.9135
+9       B6     54635    9.3565
+10      WN     12275    9.4675
+# ... with more rows
+```
+
 
 
