@@ -351,5 +351,7 @@ Warning message: Decimal MySQL column 2 imported as numeric
 # ... with more rows
 ```
 
+## Exploratory Data Analysis: Case Study
+
 
 
