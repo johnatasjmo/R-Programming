@@ -353,5 +353,194 @@ Warning message: Decimal MySQL column 2 imported as numeric
 
 ## Exploratory Data Analysis: Case Study
 
+filter in 
+
+```
+# Vector of four countries to examine
+countries <- c("United States", "United Kingdom",
+               "France", "India")
+
+# Filter by_year_country: filtered_4_countries
+filtered_4_countries <- by_year_country %>%
+  filter(country %in% countries)
+
+# Line plot of % yes in four countries
+ggplot(filtered_4_countries, aes(year, percent_yes, color = country)) +
+  geom_line()
+```
+
+Facet ggplot
+
+```
+# Vector of six countries to examine
+countries <- c("United States", "United Kingdom",
+               "France", "Japan", "Brazil", "India")
+
+# Filtered by_year_country: filtered_6_countries
+filtered_6_countries <- by_year_country %>%
+filter(country %in% countries)
+
+# Line plot of % yes over time faceted by country
+ggplot(filtered_6_countries, aes(x = year, y = percent_yes)) +
+  geom_line() +
+  facet_wrap(~ country)
+```
+
+
+
+### Linear regression
+
+lm gets the linear model
+
+summary\(\) shows intercept and splope 
+
+```
+> # Percentage of yes votes from the US by year: US_by_year
+> US_by_year <- by_year_country %>%
+    filter(country == "United States")
+> 
+> # Print the US_by_year data
+> US_by_year
+# A tibble: 34 x 4
+    year       country total percent_yes
+   <dbl>         <chr> <int>       <dbl>
+ 1  1947 United States    38   0.7105263
+ 2  1949 United States    64   0.2812500
+ 3  1951 United States    25   0.4000000
+ 4  1953 United States    26   0.5000000
+ 5  1955 United States    37   0.6216216
+ 6  1957 United States    34   0.6470588
+ 7  1959 United States    54   0.4259259
+ 8  1961 United States    75   0.5066667
+ 9  1963 United States    32   0.5000000
+10  1965 United States    41   0.3658537
+# ... with 24 more rows
+> 
+> # Perform a linear regression of percent_yes by year: US_fit
+> US_fit <- lm(percent_yes ~ year, data = US_by_year)
+> 
+> # Perform summary() on the US_fit object
+> summary(US_fit)
+
+Call:
+lm(formula = percent_yes ~ year, data = US_by_year)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.222491 -0.080635 -0.008661  0.081948  0.194307 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 12.6641455  1.8379743   6.890 8.48e-08 ***
+year        -0.0062393  0.0009282  -6.722 1.37e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1062 on 32 degrees of freedom
+Multiple R-squared:  0.5854,	Adjusted R-squared:  0.5724 
+F-statistic: 45.18 on 1 and 32 DF,  p-value: 1.367e-07
+```
+
+### broom
+
+
+
+```
+library(broom)
+```
+
+```
+# Load the broom package
+library(broom)
+
+# Call the tidy() function on the US_fit object
+tidy(US_fit)
+```
+
+```
+> ## Linear regression of percent_yes by year for US
+> US_by_year <- by_year_country %>%
+    filter(country == "United States")
+> US_fit <- lm(percent_yes ~ year, US_by_year)
+> 
+> # Fit model for the United Kingdom
+> UK_by_year <- by_year_country %>%
+    filter(country == "United Kingdom")
+> UK_fit <- lm(percent_yes ~ year, UK_by_year)
+> 
+> # Create US_tidied and UK_tidied
+> US_tidied <- tidy(US_fit)
+> UK_tidied <- tidy(UK_fit)
+> 
+> # Combine the two tidied models
+> bind_rows(tidy(US_fit), tidy(UK_fit))
+         term     estimate    std.error statistic      p.value
+1 (Intercept) 12.664145512 1.8379742715  6.890274 8.477089e-08
+2        year -0.006239305 0.0009282243 -6.721764 1.366904e-07
+3 (Intercept) -3.266547873 1.9577739504 -1.668501 1.049736e-01
+4        year  0.001869434 0.0009887262  1.890750 6.774177e-0
+```
+
+##### nest
+
+nest\(-country\) will nest all information in separate pieces
+
+```
+> # Load the tidyr package
+> library(tidyr)
+> 
+> # Nest all columns besides country
+> by_year_country %>%
+  nest(-country)
+# A tibble: 200 x 2
+                           country              data
+                             <chr>            <list>
+ 1                     Afghanistan <tibble [34 x 3]>
+ 2                       Argentina <tibble [34 x 3]>
+ 3                       Australia <tibble [34 x 3]>
+ 4                         Belarus <tibble [34 x 3]>
+ 5                         Belgium <tibble [34 x 3]>
+ 6 Bolivia, Plurinational State of <tibble [34 x 3]>
+ 7                          Brazil <tibble [34 x 3]>
+ 8                          Canada <tibble [34 x 3]>
+ 9                           Chile <tibble [34 x 3]>
+10                        Colombia <tibble [34 x 3]>
+# ... with 190 more rows
+```
+
+```
+> head(by_year_country)
+# A tibble: 6 x 4
+   year                         country total percent_yes
+  <dbl>                           <chr> <int>       <dbl>
+1  1947                     Afghanistan    34   0.3823529
+2  1947                       Argentina    38   0.5789474
+3  1947                       Australia    38   0.5526316
+4  1947                         Belarus    38   0.5000000
+5  1947                         Belgium    38   0.6052632
+6  1947 Bolivia, Plurinational State of    37   0.5945946
+> # All countries are nested besides country
+> nested <- by_year_country %>%
+    nest(-country)
+> 
+> # Print the nested data for Brazil
+> nested$data[7]
+[[1]]
+# A tibble: 34 x 3
+    year total percent_yes
+   <dbl> <int>       <dbl>
+ 1  1947    38   0.6578947
+ 2  1949    64   0.4687500
+ 3  1951    25   0.6400000
+ 4  1953    26   0.7307692
+ 5  1955    37   0.7297297
+ 6  1957    34   0.7352941
+ 7  1959    54   0.5370370
+ 8  1961    76   0.5526316
+ 9  1963    32   0.7812500
+10  1965    41   0.6097561
+# ... with 24 more rows
+```
+
 
 
