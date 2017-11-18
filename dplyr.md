@@ -552,28 +552,28 @@ nested %>%
 
 ##### map
 
-`map `uses for apply an operation in the list
+`map`uses for apply an operation in the list
 
 broom package takes each model and takes into data fame
 
-`map(v, ~ . * 10)`  then `~ `starts ` .` is each item in the list , then multiply each item by 10
+`map(v, ~ . * 10)`  then `~`starts `.` is each item in the list , then multiply each item by 10
 
-    > v <- list(1, 2, 3)
-    > map(v, ~ . * `0)
-    [[1]]
-    [1] 10
+> v &lt;- list\(1, 2, 3\)  
+> map\(v, ~ . \* \`0\)  
+>     \[\[1\]\]  
+>     \[1\] 10
 
-    [[2]]
-    [1] 20
+```
+[[2]]
+[1] 20
 
-    [[3]]
-    [1] 30
+[[3]]
+[1] 30
+```
 
 steps
 
 ![](/assets/nest4steps.png)
-
-
 
 ```
 > ## Load tidyr and purrr
@@ -730,7 +730,7 @@ Filter out significant countries with less than p value of 0.05
  9                      Costa Rica  year 0.006539273 0.0008119113  8.054171
 10                            Cuba  year 0.004610867 0.0007205029  6.399512
 # ... with 51 more rows, and 2 more variables: p.value <dbl>, p.adjusted <dbl>
-> 
+>
 ```
 
 arrange data asc y desc
@@ -777,7 +777,91 @@ arrange data asc y desc
  9                     Congo  year  0.003967778 0.0009220262  4.303324
 10                     Sudan  year  0.003989394 0.0009613894  4.149613
 # ... with 51 more rows, and 2 more variables: p.value <dbl>, p.adjusted <dbl>
+>
+```
+
+### Joining datasets
+
+Join two datasets with description, so all 
+
+```
+> # Print the votes_processed dataset
+> votes_processed
+# A tibble: 353,547 x 6
+    rcid session  vote ccode  year            country
+   <dbl>   <dbl> <dbl> <int> <dbl>              <chr>
+ 1    46       2     1     2  1947      United States
+ 2    46       2     1    20  1947             Canada
+ 3    46       2     1    40  1947               Cuba
+ 4    46       2     1    41  1947              Haiti
+ 5    46       2     1    42  1947 Dominican Republic
+ 6    46       2     1    70  1947             Mexico
+ 7    46       2     1    90  1947          Guatemala
+ 8    46       2     1    91  1947           Honduras
+ 9    46       2     1    92  1947        El Salvador
+10    46       2     1    93  1947          Nicaragua
+# ... with 353,537 more rows
 > 
+> # Print the descriptions dataset
+> descriptions
+# A tibble: 2,589 x 10
+    rcid session       date   unres    me    nu    di    hr    co    ec
+   <dbl>   <dbl>     <dttm>   <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1    46       2 1947-09-04 R/2/299     0     0     0     0     0     0
+ 2    47       2 1947-10-05 R/2/355     0     0     0     1     0     0
+ 3    48       2 1947-10-06 R/2/461     0     0     0     0     0     0
+ 4    49       2 1947-10-06 R/2/463     0     0     0     0     0     0
+ 5    50       2 1947-10-06 R/2/465     0     0     0     0     0     0
+ 6    51       2 1947-10-02 R/2/561     0     0     0     0     1     0
+ 7    52       2 1947-11-06 R/2/650     0     0     0     0     1     0
+ 8    53       2 1947-11-06 R/2/651     0     0     0     0     1     0
+ 9    54       2 1947-11-06 R/2/651     0     0     0     0     1     0
+10    55       2 1947-11-06 R/2/667     0     0     0     0     1     0
+# ... with 2,579 more rows
+> 
+> # Join them together based on the "rcid" and "session" columns
+> votes_joined <-votes_processed %>%
+   inner_join(descriptions, by = c("rcid", "session"))
+> votes_joined
+# A tibble: 353,547 x 14
+    rcid session  vote ccode  year            country       date   unres    me
+   <dbl>   <dbl> <dbl> <int> <dbl>              <chr>     <dttm>   <chr> <dbl>
+ 1    46       2     1     2  1947      United States 1947-09-04 R/2/299     0
+ 2    46       2     1    20  1947             Canada 1947-09-04 R/2/299     0
+ 3    46       2     1    40  1947               Cuba 1947-09-04 R/2/299     0
+ 4    46       2     1    41  1947              Haiti 1947-09-04 R/2/299     0
+ 5    46       2     1    42  1947 Dominican Republic 1947-09-04 R/2/299     0
+ 6    46       2     1    70  1947             Mexico 1947-09-04 R/2/299     0
+ 7    46       2     1    90  1947          Guatemala 1947-09-04 R/2/299     0
+ 8    46       2     1    91  1947           Honduras 1947-09-04 R/2/299     0
+ 9    46       2     1    92  1947        El Salvador 1947-09-04 R/2/299     0
+10    46       2     1    93  1947          Nicaragua 1947-09-04 R/2/299     0
+# ... with 353,537 more rows, and 5 more variables: nu <dbl>, di <dbl>,
+#   hr <dbl>, co <dbl>, ec <dbl>
+```
+
+fiter for votes with colonialism  = 1
+
+```
+# Filter for votes related to colonialism
+filter(votes_joined, co == 1)
+```
+
+
+
+```
+> ## Load the ggplot2 package
+> library(ggplot2)
+> 
+> # Filter, then summarize percentage of voles that are yes by year: US_co_by_year
+> US_co_by_year <- votes_joined %>%
+    filter(country == "United States", co == 1) %>%
+    group_by(year) %>%
+    summarize(percent_yes = mean(vote == 1))
+> 
+> # Graph the % of "yes" votes over time
+> ggplot(US_co_by_year, aes(year, percent_yes)) +
+    geom_line()
 ```
 
 
