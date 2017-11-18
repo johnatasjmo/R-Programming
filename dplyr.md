@@ -1,6 +1,6 @@
-dplyr package
+# dplyr package
 
-tibble is special type of dataframe
+# tibble is special type of dataframe
 
 package hflights
 
@@ -353,7 +353,7 @@ Warning message: Decimal MySQL column 2 imported as numeric
 
 ## Exploratory Data Analysis: Case Study
 
-filter in 
+filter in
 
 ```
 # Vector of four countries to examine
@@ -386,13 +386,11 @@ ggplot(filtered_6_countries, aes(x = year, y = percent_yes)) +
   facet_wrap(~ country)
 ```
 
-
-
 ### Linear regression
 
 lm gets the linear model
 
-summary\(\) shows intercept and splope 
+summary\(\) shows intercept and splope
 
 ```
 > # Percentage of yes votes from the US by year: US_by_year
@@ -437,13 +435,11 @@ year        -0.0062393  0.0009282  -6.722 1.37e-07 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.1062 on 32 degrees of freedom
-Multiple R-squared:  0.5854,	Adjusted R-squared:  0.5724 
+Multiple R-squared:  0.5854,    Adjusted R-squared:  0.5724 
 F-statistic: 45.18 on 1 and 32 DF,  p-value: 1.367e-07
 ```
 
 ### broom
-
-
 
 ```
 library(broom)
@@ -540,6 +536,248 @@ nest\(-country\) will nest all information in separate pieces
  9  1963    32   0.7812500
 10  1965    41   0.6097561
 # ... with 24 more rows
+```
+
+Nest and unest
+
+```
+# All countries are nested besides country
+nested <- by_year_country %>%
+  nest(-country)
+
+# Unnest the data column to return it to its original form
+nested %>%
+  unnest(data)
+```
+
+##### map
+
+`map `uses for apply an operation in the list
+
+broom package takes each model and takes into data fame
+
+`map(v, ~ . * 10)`  then `~ `starts ` .` is each item in the list , then multiply each item by 10
+
+    > v <- list(1, 2, 3)
+    > map(v, ~ . * `0)
+    [[1]]
+    [1] 10
+
+    [[2]]
+    [1] 20
+
+    [[3]]
+    [1] 30
+
+steps
+
+![](/assets/nest4steps.png)
+
+
+
+```
+> ## Load tidyr and purrr
+> library(tidyr)
+> library(purrr)
+> 
+> #check data
+> head(by_year_country)
+# A tibble: 6 x 4
+   year                         country total percent_yes
+  <dbl>                           <chr> <int>       <dbl>
+1  1947                     Afghanistan    34   0.3823529
+2  1947                       Argentina    38   0.5789474
+3  1947                       Australia    38   0.5526316
+4  1947                         Belarus    38   0.5000000
+5  1947                         Belgium    38   0.6052632
+6  1947 Bolivia, Plurinational State of    37   0.5945946
+> 
+> # Perform a linear regression on each item in the data column
+> by_year_country %>%
+    nest(-country) %>%
+    mutate(model = map(data, ~ lm(percent_yes ~ year, .)))
+# A tibble: 200 x 3
+                           country              data    model
+                             <chr>            <list>   <list>
+ 1                     Afghanistan <tibble [34 x 3]> <S3: lm>
+ 2                       Argentina <tibble [34 x 3]> <S3: lm>
+ 3                       Australia <tibble [34 x 3]> <S3: lm>
+ 4                         Belarus <tibble [34 x 3]> <S3: lm>
+ 5                         Belgium <tibble [34 x 3]> <S3: lm>
+ 6 Bolivia, Plurinational State of <tibble [34 x 3]> <S3: lm>
+ 7                          Brazil <tibble [34 x 3]> <S3: lm>
+ 8                          Canada <tibble [34 x 3]> <S3: lm>
+ 9                           Chile <tibble [34 x 3]> <S3: lm>
+10                        Colombia <tibble [34 x 3]> <S3: lm>
+# ... with 190 more rows
+```
+
+Tidy each linear regression model
+
+```
+> # Load the broom package
+> library(broom)
+> 
+> # Add another mutate that applies tidy() to each model
+> by_year_country %>%
+    nest(-country) %>%
+    mutate(model = map(data, ~ lm(percent_yes ~ year, data = .))) %>%
+    mutate(tidied = map(model, tidy))
+# A tibble: 200 x 4
+                           country              data    model
+                             <chr>            <list>   <list>
+ 1                     Afghanistan <tibble [34 x 3]> <S3: lm>
+ 2                       Argentina <tibble [34 x 3]> <S3: lm>
+ 3                       Australia <tibble [34 x 3]> <S3: lm>
+ 4                         Belarus <tibble [34 x 3]> <S3: lm>
+ 5                         Belgium <tibble [34 x 3]> <S3: lm>
+ 6 Bolivia, Plurinational State of <tibble [34 x 3]> <S3: lm>
+ 7                          Brazil <tibble [34 x 3]> <S3: lm>
+ 8                          Canada <tibble [34 x 3]> <S3: lm>
+ 9                           Chile <tibble [34 x 3]> <S3: lm>
+10                        Colombia <tibble [34 x 3]> <S3: lm>
+# ... with 190 more rows, and 1 more variables: tidied <list>
+```
+
+**Unnesting the dataframe**
+
+```
+> # Add one more step that unnests the tidied column
+> country_coefficients <-by_year_country  %>%
+    nest(-country) %>%
+    mutate(model = map(data, ~ lm(percent_yes ~ year, data = .)),
+           tidied = map(model, tidy)) %>%
+    unnest(tidied)
+> 
+> # Print the resulting country_coefficients variable
+> country_coefficients
+# A tibble: 399 x 6
+       country        term      estimate    std.error statistic      p.value
+         <chr>       <chr>         <dbl>        <dbl>     <dbl>        <dbl>
+ 1 Afghanistan (Intercept) -11.063084650 1.4705189228 -7.523252 1.444892e-08
+ 2 Afghanistan        year   0.006009299 0.0007426499  8.091698 3.064797e-09
+ 3   Argentina (Intercept)  -9.464512565 2.1008982371 -4.504984 8.322481e-05
+ 4   Argentina        year   0.005148829 0.0010610076  4.852773 3.047078e-05
+ 5   Australia (Intercept)  -4.545492536 2.1479916283 -2.116159 4.220387e-02
+ 6   Australia        year   0.002567161 0.0010847910  2.366503 2.417617e-02
+ 7     Belarus (Intercept)  -7.000692717 1.5024232546 -4.659601 5.329950e-05
+ 8     Belarus        year   0.003907557 0.0007587624  5.149908 1.284924e-05
+ 9     Belgium (Intercept)  -5.845534016 1.5153390521 -3.857575 5.216573e-04
+10     Belgium        year   0.003203234 0.0007652852  4.185673 2.072981e-04
+# ... with 389 more rows
+```
+
+Filter to get only `year` coefficients, as `(Intercept)` wont be used
+
+```
+> # Print the country_coefficients dataset
+> country_coefficients
+# A tibble: 399 x 6
+       country        term      estimate    std.error statistic      p.value
+         <chr>       <chr>         <dbl>        <dbl>     <dbl>        <dbl>
+ 1 Afghanistan (Intercept) -11.063084650 1.4705189228 -7.523252 1.444892e-08
+ 2 Afghanistan        year   0.006009299 0.0007426499  8.091698 3.064797e-09
+ 3   Argentina (Intercept)  -9.464512565 2.1008982371 -4.504984 8.322481e-05
+ 4   Argentina        year   0.005148829 0.0010610076  4.852773 3.047078e-05
+ 5   Australia (Intercept)  -4.545492536 2.1479916283 -2.116159 4.220387e-02
+ 6   Australia        year   0.002567161 0.0010847910  2.366503 2.417617e-02
+ 7     Belarus (Intercept)  -7.000692717 1.5024232546 -4.659601 5.329950e-05
+ 8     Belarus        year   0.003907557 0.0007587624  5.149908 1.284924e-05
+ 9     Belgium (Intercept)  -5.845534016 1.5153390521 -3.857575 5.216573e-04
+10     Belgium        year   0.003203234 0.0007652852  4.185673 2.072981e-04
+# ... with 389 more rows
+> 
+> # Filter for only the slope terms
+> filter(country_coefficients, term == 'year')
+# A tibble: 199 x 6
+                           country  term    estimate    std.error statistic
+                             <chr> <chr>       <dbl>        <dbl>     <dbl>
+ 1                     Afghanistan  year 0.006009299 0.0007426499  8.091698
+ 2                       Argentina  year 0.005148829 0.0010610076  4.852773
+ 3                       Australia  year 0.002567161 0.0010847910  2.366503
+ 4                         Belarus  year 0.003907557 0.0007587624  5.149908
+ 5                         Belgium  year 0.003203234 0.0007652852  4.185673
+ 6 Bolivia, Plurinational State of  year 0.005802864 0.0009657515  6.008651
+ 7                          Brazil  year 0.006107151 0.0008167736  7.477164
+ 8                          Canada  year 0.001515867 0.0009552118  1.586943
+ 9                           Chile  year 0.006775560 0.0008220463  8.242310
+10                        Colombia  year 0.006157755 0.0009645084  6.384346
+# ... with 189 more rows, and 1 more variables: p.value <dbl>
+```
+
+Filter out significant countries with less than p value of 0.05
+
+```
+> ## Filter for only the slope terms
+> slope_terms <- country_coefficients %>%
+    filter(term == "year")
+> 
+> # Add p.adjusted column, then filter
+> slope_terms %>%
+    mutate(p.adjusted = p.adjust(p.value)) %>%
+    filter(p.adjusted < .05)
+# A tibble: 61 x 7
+                           country  term    estimate    std.error statistic
+                             <chr> <chr>       <dbl>        <dbl>     <dbl>
+ 1                     Afghanistan  year 0.006009299 0.0007426499  8.091698
+ 2                       Argentina  year 0.005148829 0.0010610076  4.852773
+ 3                         Belarus  year 0.003907557 0.0007587624  5.149908
+ 4                         Belgium  year 0.003203234 0.0007652852  4.185673
+ 5 Bolivia, Plurinational State of  year 0.005802864 0.0009657515  6.008651
+ 6                          Brazil  year 0.006107151 0.0008167736  7.477164
+ 7                           Chile  year 0.006775560 0.0008220463  8.242310
+ 8                        Colombia  year 0.006157755 0.0009645084  6.384346
+ 9                      Costa Rica  year 0.006539273 0.0008119113  8.054171
+10                            Cuba  year 0.004610867 0.0007205029  6.399512
+# ... with 51 more rows, and 2 more variables: p.value <dbl>, p.adjusted <dbl>
+> 
+```
+
+arrange data asc y desc
+
+```
+> ## Filter by adjusted p-values
+> filtered_countries <- country_coefficients %>%
+    filter(term == "year") %>%
+    mutate(p.adjusted = p.adjust(p.value)) %>%
+    filter(p.adjusted < .05)
+> 
+> # Sort for the countries increasing most quickly
+> filtered_countries %>%
+    arrange(desc(estimate))
+# A tibble: 61 x 7
+               country  term    estimate    std.error statistic      p.value
+                 <chr> <chr>       <dbl>        <dbl>     <dbl>        <dbl>
+ 1        South Africa  year 0.011858333 0.0014003768  8.467959 1.595372e-08
+ 2          Kazakhstan  year 0.010955741 0.0019482401  5.623404 3.244186e-04
+ 3 Yemen Arab Republic  year 0.010854882 0.0015869058  6.840281 1.197855e-06
+ 4          Kyrgyzstan  year 0.009725462 0.0009884060  9.839541 2.379933e-05
+ 5              Malawi  year 0.009084873 0.0018111087  5.016194 4.480823e-05
+ 6  Dominican Republic  year 0.008055482 0.0009138578  8.814809 5.957258e-10
+ 7            Portugal  year 0.008020046 0.0017124482  4.683380 7.132640e-05
+ 8            Honduras  year 0.007717977 0.0009214260  8.376123 1.431724e-09
+ 9                Peru  year 0.007299813 0.0009764019  7.476238 1.645381e-08
+10           Nicaragua  year 0.007075848 0.0010716402  6.602820 1.918043e-07
+# ... with 51 more rows, and 1 more variables: p.adjusted <dbl>
+> 
+> # Sort for the countries decreasing most quickly
+> filtered_countries %>%
+    arrange(estimate)
+# A tibble: 61 x 7
+                     country  term     estimate    std.error statistic
+                       <chr> <chr>        <dbl>        <dbl>     <dbl>
+ 1        Korea, Republic of  year -0.009209912 0.0015453128 -5.959901
+ 2                    Israel  year -0.006852921 0.0011718657 -5.847873
+ 3             United States  year -0.006239305 0.0009282243 -6.721764
+ 4                   Belgium  year  0.003203234 0.0007652852  4.185673
+ 5                    Guinea  year  0.003621508 0.0008326598  4.349325
+ 6                   Morocco  year  0.003798641 0.0008603064  4.415451
+ 7                   Belarus  year  0.003907557 0.0007587624  5.149908
+ 8 Iran, Islamic Republic of  year  0.003911100 0.0008558952  4.569602
+ 9                     Congo  year  0.003967778 0.0009220262  4.303324
+10                     Sudan  year  0.003989394 0.0009613894  4.149613
+# ... with 51 more rows, and 2 more variables: p.value <dbl>, p.adjusted <dbl>
+> 
 ```
 
 
