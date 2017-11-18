@@ -782,7 +782,7 @@ arrange data asc y desc
 
 ### Joining datasets
 
-Join two datasets with description, so all 
+Join two datasets with description, so all
 
 ```
 > # Print the votes_processed dataset
@@ -847,8 +847,6 @@ fiter for votes with colonialism  = 1
 filter(votes_joined, co == 1)
 ```
 
-
-
 ```
 > ## Load the ggplot2 package
 > library(ggplot2)
@@ -862,6 +860,225 @@ filter(votes_joined, co == 1)
 > # Graph the % of "yes" votes over time
 > ggplot(US_co_by_year, aes(year, percent_yes)) +
     geom_line()
+```
+
+### Tidy data
+
+`gather()` reshapes number of columnand collapses into two, key and value
+
+![](/assets/gather_tidy.png)
+
+### gather and filter
+
+```
+> # Load the tidyr package
+> library(tidyr)
+> 
+> #votes_joined head
+> head(votes_joined)
+# A tibble: 6 x 14
+   rcid session  vote ccode  year            country       date   unres    me
+  <dbl>   <dbl> <dbl> <int> <dbl>              <chr>     <dttm>   <chr> <dbl>
+1    46       2     1     2  1947      United States 1947-09-04 R/2/299     0
+2    46       2     1    20  1947             Canada 1947-09-04 R/2/299     0
+3    46       2     1    40  1947               Cuba 1947-09-04 R/2/299     0
+4    46       2     1    41  1947              Haiti 1947-09-04 R/2/299     0
+5    46       2     1    42  1947 Dominican Republic 1947-09-04 R/2/299     0
+6    46       2     1    70  1947             Mexico 1947-09-04 R/2/299     0
+# ... with 5 more variables: nu <dbl>, di <dbl>, hr <dbl>, co <dbl>, ec <dbl>
+> 
+> # Gather the six me/nu/di/hr/co/ec columns
+> votes_joined %>%
+  gather(topic, has_topic, me:ec)
+# A tibble: 2,121,282 x 10
+    rcid session  vote ccode  year            country       date   unres topic
+   <dbl>   <dbl> <dbl> <int> <dbl>              <chr>     <dttm>   <chr> <chr>
+ 1    46       2     1     2  1947      United States 1947-09-04 R/2/299    me
+ 2    46       2     1    20  1947             Canada 1947-09-04 R/2/299    me
+ 3    46       2     1    40  1947               Cuba 1947-09-04 R/2/299    me
+ 4    46       2     1    41  1947              Haiti 1947-09-04 R/2/299    me
+ 5    46       2     1    42  1947 Dominican Republic 1947-09-04 R/2/299    me
+ 6    46       2     1    70  1947             Mexico 1947-09-04 R/2/299    me
+ 7    46       2     1    90  1947          Guatemala 1947-09-04 R/2/299    me
+ 8    46       2     1    91  1947           Honduras 1947-09-04 R/2/299    me
+ 9    46       2     1    92  1947        El Salvador 1947-09-04 R/2/299    me
+10    46       2     1    93  1947          Nicaragua 1947-09-04 R/2/299    me
+# ... with 2,121,272 more rows, and 1 more variables: has_topic <dbl>
+> 
+> # Perform gather again, then filter
+> votes_gathered <- votes_joined %>%
+  gather(topic, has_topic, me:ec) %>%
+  filter(has_topic > 0)
+```
+
+recode\(\) to show description
+
+```
+> ## Replace the two-letter codes in topic: votes_tidied
+> votes_tidied <- votes_gathered %>%
+    mutate(topic = recode(topic,
+                          me = "Palestinian conflict",
+                          nu = "Nuclear weapons and nuclear material",
+                          di = "Arms control and disarmament",
+                          hr = "Human rights",
+                          co = "Colonialism",
+                          ec = "Economic development"))
+> 
+> #str(votes_tidied)
+> str(votes_tidied)
+Classes 'tbl_df', 'tbl' and 'data.frame':	350032 obs. of  10 variables:
+ $ rcid     : atomic  77 77 77 77 77 77 77 77 77 77 ...
+  ..- attr(*, "comment")= chr ""
+ $ session  : atomic  2 2 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "comment")= chr ""
+ $ vote     : atomic  1 1 3 1 1 2 1 2 2 1 ...
+  ..- attr(*, "comment")= chr ""
+ $ ccode    : atomic  2 20 40 41 42 70 90 91 92 93 ...
+  ..- attr(*, "comment")= chr ""
+ $ year     : atomic  1947 1947 1947 1947 1947 ...
+  ..- attr(*, "comment")= chr ""
+ $ country  : chr  "United States" "Canada" "Cuba" "Haiti" ...
+ $ date     : POSIXct, format: "1947-11-06" "1947-11-06" ...
+ $ unres    : chr  "R/2/1424" "R/2/1424" "R/2/1424" "R/2/1424" ...
+ $ topic    : chr  "Palestinian conflict" "Palestinian conflict" "Palestinian conflict" "Palestinian conflict" ...
+ $ has_topic: num  1 1 1 1 1 1 1 1 1 1 ...
+```
+
+Summarize by country, year and topic
+
+```
+> # Print votes_tidied
+> votes_tidied
+# A tibble: 350,032 x 10
+    rcid session  vote ccode  year            country       date    unres
+   <dbl>   <dbl> <dbl> <int> <dbl>              <chr>     <dttm>    <chr>
+ 1    77       2     1     2  1947      United States 1947-11-06 R/2/1424
+ 2    77       2     1    20  1947             Canada 1947-11-06 R/2/1424
+ 3    77       2     3    40  1947               Cuba 1947-11-06 R/2/1424
+ 4    77       2     1    41  1947              Haiti 1947-11-06 R/2/1424
+ 5    77       2     1    42  1947 Dominican Republic 1947-11-06 R/2/1424
+ 6    77       2     2    70  1947             Mexico 1947-11-06 R/2/1424
+ 7    77       2     1    90  1947          Guatemala 1947-11-06 R/2/1424
+ 8    77       2     2    91  1947           Honduras 1947-11-06 R/2/1424
+ 9    77       2     2    92  1947        El Salvador 1947-11-06 R/2/1424
+10    77       2     1    93  1947          Nicaragua 1947-11-06 R/2/1424
+# ... with 350,022 more rows, and 2 more variables: topic <chr>,
+#   has_topic <dbl>
+> 
+> # Summarize the percentage "yes" per country-year-topic
+> by_country_year_topic <- votes_tidied %>%
+    group_by(country, year, topic) %>%
+    summarize(total = n(), percent_yes = mean(vote == 1)) %>%
+    ungroup()
+> 
+> # Print by_country_year_topic
+> by_country_year_topic
+# A tibble: 26,968 x 5
+       country  year                                topic total percent_yes
+         <chr> <dbl>                                <chr> <int>       <dbl>
+ 1 Afghanistan  1947                          Colonialism     8   0.5000000
+ 2 Afghanistan  1947                 Economic development     1   0.0000000
+ 3 Afghanistan  1947                         Human rights     1   0.0000000
+ 4 Afghanistan  1947                 Palestinian conflict     6   0.0000000
+ 5 Afghanistan  1949         Arms control and disarmament     3   0.0000000
+ 6 Afghanistan  1949                          Colonialism    22   0.8636364
+ 7 Afghanistan  1949                 Economic development     1   1.0000000
+ 8 Afghanistan  1949                         Human rights     3   0.0000000
+ 9 Afghanistan  1949 Nuclear weapons and nuclear material     3   0.0000000
+10 Afghanistan  1949                 Palestinian conflict    11   0.8181818
+# ... with 26,958 more rows
+```
+
+### Visualizing trends
+
+```
+> ## Load the ggplot2 package
+> library(ggplot2)
+> 
+> # Filter by_country_year_topic for just the US
+> US_by_country_year_topic <- by_country_year_topic %>%
+    filter(country == "United States")
+> 
+> # Plot % yes over time for the US, faceting by topic
+> ggplot(US_by_country_year_topic, aes(year, percent_yes)) +
+    geom_line() +
+    facet_wrap(~ topic)
+```
+
+nest topic into country
+
+```
+> # Load purrr, tidyr, and broom
+> library(purrr)
+> library(tidyr)
+> library(broom)
+> 
+> # Print by_country_year_topic
+> by_country_year_topic
+# A tibble: 26,968 x 5
+       country  year                                topic total percent_yes
+         <chr> <dbl>                                <chr> <int>       <dbl>
+ 1 Afghanistan  1947                          Colonialism     8   0.5000000
+ 2 Afghanistan  1947                 Economic development     1   0.0000000
+ 3 Afghanistan  1947                         Human rights     1   0.0000000
+ 4 Afghanistan  1947                 Palestinian conflict     6   0.0000000
+ 5 Afghanistan  1949         Arms control and disarmament     3   0.0000000
+ 6 Afghanistan  1949                          Colonialism    22   0.8636364
+ 7 Afghanistan  1949                 Economic development     1   1.0000000
+ 8 Afghanistan  1949                         Human rights     3   0.0000000
+ 9 Afghanistan  1949 Nuclear weapons and nuclear material     3   0.0000000
+10 Afghanistan  1949                 Palestinian conflict    11   0.8181818
+# ... with 26,958 more rows
+> 
+> # Fit model on the by_country_year_topic dataset
+> country_topic_coefficients <- by_country_year_topic %>%
+    nest(-country, -topic) %>%
+    mutate(model = map(data, ~ lm(percent_yes ~ year, data = .)),
+           tidied = map(model, tidy)) %>%
+    unnest(tidied)
+Warning message: essentially perfect fit: summary may be unreliable
+> 
+> # Print country_topic_coefficients
+> country_topic_coefficients
+# A tibble: 2,383 x 7
+       country                        topic        term      estimate
+         <chr>                        <chr>       <chr>         <dbl>
+ 1 Afghanistan                  Colonialism (Intercept)  -9.196506325
+ 2 Afghanistan                  Colonialism        year   0.005106200
+ 3 Afghanistan         Economic development (Intercept) -11.476390441
+ 4 Afghanistan         Economic development        year   0.006239157
+ 5 Afghanistan                 Human rights (Intercept)  -7.265379964
+ 6 Afghanistan                 Human rights        year   0.004075877
+ 7 Afghanistan         Palestinian conflict (Intercept) -13.313363338
+ 8 Afghanistan         Palestinian conflict        year   0.007167675
+ 9 Afghanistan Arms control and disarmament (Intercept) -13.759624843
+10 Afghanistan Arms control and disarmament        year   0.007369733
+# ... with 2,373 more rows, and 3 more variables: std.error <dbl>,
+#   statistic <dbl>, p.value <dbl>
+```
+
+Filter only terms = year, then add p.adjust value less than 0.05 \(significant\)
+
+```
+> # Create country_topic_filtered
+> 
+> country_topic_filtered <- country_topic_coefficients %>%
+  filter(term == "year") %>%
+  mutate(p.adjusted = p.adjust(p.value)) %>%
+  filter(p.adjusted < 0.05)
+```
+
+filter only vanuatu
+
+```
+> # Create vanuatu_by_country_year_topic
+> vanuatu_by_country_year_topic <- by_country_year_topic %>%
+  filter(country == "Vanuatu")
+> 
+> # Plot of percentage "yes" over time, faceted by topic
+> ggplot(vanuatu_by_country_year_topic, aes(year, percent_yes)) +
+    geom_line() +
+    facet_wrap(~ topic)
 ```
 
 
