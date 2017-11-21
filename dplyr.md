@@ -1,6 +1,6 @@
 # dplyr package
 
-# tibble is special type of dataframe
+tibble is special type of dataframe
 
 package hflights
 
@@ -926,7 +926,7 @@ recode\(\) to show description
 > 
 > #str(votes_tidied)
 > str(votes_tidied)
-Classes 'tbl_df', 'tbl' and 'data.frame':	350032 obs. of  10 variables:
+Classes 'tbl_df', 'tbl' and 'data.frame':    350032 obs. of  10 variables:
  $ rcid     : atomic  77 77 77 77 77 77 77 77 77 77 ...
   ..- attr(*, "comment")= chr ""
  $ session  : atomic  2 2 2 2 2 2 2 2 2 2 ...
@@ -1079,6 +1079,136 @@ filter only vanuatu
 > ggplot(vanuatu_by_country_year_topic, aes(year, percent_yes)) +
     geom_line() +
     facet_wrap(~ topic)
+```
+
+
+
+## joins
+
+##### Keys
+
+primary key is on the master data table
+
+foreign key is the key on the second databae
+
+key can be a combination of two values
+
+```
+> head(artists)
+# A tibble: 6 × 3
+   first     last instrument
+   <chr>    <chr>      <chr>
+1  Jimmy  Buffett     Guitar
+2 George Harrison     Guitar
+3   Mick   Jagger     Vocals
+4    Tom    Jones     Vocals
+5   Davy    Jones     Vocals
+6   John   Lennon     Guitar
+> head(bands)
+# A tibble: 6 × 3
+      first     last         band
+      <chr>    <chr>        <chr>
+1      John   Bonham Led Zeppelin
+2 John Paul    Jones Led Zeppelin
+3     Jimmy     Page Led Zeppelin
+4    Robert    Plant Led Zeppelin
+5    George Harrison  The Beatles
+6      John   Lennon  The Beatles
+> # Complete the code to join artists to bands
+> bands2 <- left_join(bands, artists, by = c("first", "last"))
+> 
+> # Examine the results
+> bands2
+# A tibble: 13 × 4
+       first      last               band instrument
+       <chr>     <chr>              <chr>      <chr>
+1       John    Bonham       Led Zeppelin       <NA>
+2  John Paul     Jones       Led Zeppelin       <NA>
+3      Jimmy      Page       Led Zeppelin     Guitar
+4     Robert     Plant       Led Zeppelin       <NA>
+5     George  Harrison        The Beatles     Guitar
+6       John    Lennon        The Beatles     Guitar
+7       Paul McCartney        The Beatles       Bass
+8      Ringo     Starr        The Beatles      Drums
+9      Jimmy   Buffett  The Coral Reefers     Guitar
+10      Mick    Jagger The Rolling Stones     Vocals
+11     Keith  Richards The Rolling Stones     Guitar
+12   Charlie     Watts The Rolling Stones       <NA>
+13    Ronnie      Wood The Rolling Stones       <NA>A right 
+```
+
+
+
+##### A right join to reverse
+
+```
+> bands2 <- left_join(bands, artists, by = c("first", "last"))
+> bands3 <- right_join(artists, bands, by = c("first", "last"))
+> 
+> # Check that bands3 is equal to bands2
+> setequal(bands2, bands3)
+TRUE
+```
+
+variations of joins
+
+```
+> ## Join albums to songs using inner_join()
+> inner_join(songs, albums, by = "album")
+# A tibble: 3 × 6
+            song                album  first      last        band  year
+           <chr>                <chr>  <chr>     <chr>       <chr> <int>
+1  Come Together           Abbey Road   John    Lennon The Beatles  1969
+2       Dream On            Aerosmith Steven     Tyler   Aerosmith  1973
+3 Hello, Goodbye Magical Mystery Tour   Paul McCartney The Beatles  1967
+> 
+> # Join bands to artists using full_join()
+> full_join(artists, bands, by = c("first", "last"))
+# A tibble: 21 × 4
+    first      last instrument               band
+    <chr>     <chr>      <chr>              <chr>
+1   Jimmy   Buffett     Guitar  The Coral Reefers
+2  George  Harrison     Guitar        The Beatles
+3    Mick    Jagger     Vocals The Rolling Stones
+4     Tom     Jones     Vocals               <NA>
+5    Davy     Jones     Vocals               <NA>
+6    John    Lennon     Guitar        The Beatles
+7    Paul McCartney       Bass        The Beatles
+8   Jimmy      Page     Guitar       Led Zeppelin
+9     Joe     Perry     Guitar               <NA>
+10  Elvis   Presley     Vocals               <NA>
+# ... with 11 more rows
+```
+
+Pipes
+
+```
+> # Find guitarists in bands dataset (don't change)
+> temp <- left_join(bands, artists, by = c("first", "last"))
+> temp <- filter(temp, instrument == "Guitar")
+> select(temp, first, last, band)
+# A tibble: 5 × 3
+   first     last               band
+   <chr>    <chr>              <chr>
+1  Jimmy     Page       Led Zeppelin
+2 George Harrison        The Beatles
+3   John   Lennon        The Beatles
+4  Jimmy  Buffett  The Coral Reefers
+5  Keith Richards The Rolling Stones
+> 
+> # Reproduce code above using pipes
+> bands %>% 
+    left_join(artists, by = c("first", "last")) %>%
+    filter(instrument == "Guitar") %>%
+    select(first, last, band)
+# A tibble: 5 × 3
+   first     last               band
+   <chr>    <chr>              <chr>
+1  Jimmy     Page       Led Zeppelin
+2 George Harrison        The Beatles
+3   John   Lennon        The Beatles
+4  Jimmy  Buffett  The Coral Reefers
+5  Keith Richards The Rolling Stones
 ```
 
 
