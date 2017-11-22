@@ -1081,8 +1081,6 @@ filter only vanuatu
     facet_wrap(~ topic)
 ```
 
-
-
 ## joins
 
 ##### Keys
@@ -1134,10 +1132,8 @@ key can be a combination of two values
 10      Mick    Jagger The Rolling Stones     Vocals
 11     Keith  Richards The Rolling Stones     Guitar
 12   Charlie     Watts The Rolling Stones       <NA>
-13    Ronnie      Wood The Rolling Stones       <NA>A right 
+13    Ronnie      Wood The Rolling Stones       <NA>A right
 ```
-
-
 
 ##### A right join to reverse
 
@@ -1150,7 +1146,7 @@ key can be a combination of two values
 TRUE
 ```
 
-variations of joins
+##### variations of joins
 
 ```
 > ## Join albums to songs using inner_join()
@@ -1180,7 +1176,7 @@ variations of joins
 # ... with 11 more rows
 ```
 
-Pipes
+##### Pipes
 
 ```
 > # Find guitarists in bands dataset (don't change)
@@ -1209,6 +1205,87 @@ Pipes
 3   John   Lennon        The Beatles
 4  Jimmy  Buffett  The Coral Reefers
 5  Keith Richards The Rolling Stones
+```
+
+##### Pipes and joins
+
+```
+> goal
+# A tibble: 3 × 6
+  first      last instrument        band             song                album
+  <chr>     <chr>      <chr>       <chr>            <chr>                <chr>
+1   Tom     Jones     Vocals        <NA> It's Not Unusual     Along Came Jones
+2  John    Lennon     Guitar The Beatles    Come Together           Abbey Road
+3  Paul McCartney       Bass The Beatles   Hello, Goodbye Magical Mystery Tour
+> head(artists)
+# A tibble: 6 × 3
+   first     last instrument
+   <chr>    <chr>      <chr>
+1  Jimmy  Buffett     Guitar
+2 George Harrison     Guitar
+3   Mick   Jagger     Vocals
+4    Tom    Jones     Vocals
+5   Davy    Jones     Vocals
+6   John   Lennon     Guitar
+> head(bands)
+# A tibble: 6 × 3
+      first     last         band
+      <chr>    <chr>        <chr>
+1      John   Bonham Led Zeppelin
+2 John Paul    Jones Led Zeppelin
+3     Jimmy     Page Led Zeppelin
+4    Robert    Plant Led Zeppelin
+5    George Harrison  The Beatles
+6      John   Lennon  The Beatles
+> head(songs)
+# A tibble: 4 × 4
+              song                album  first      last
+             <chr>                <chr>  <chr>     <chr>
+1    Come Together           Abbey Road   John    Lennon
+2         Dream On            Aerosmith Steven     Tyler
+3   Hello, Goodbye Magical Mystery Tour   Paul McCartney
+4 It's Not Unusual     Along Came Jones    Tom     Jones
+> # Examine the contents of the goal dataset
+> goal
+# A tibble: 3 × 6
+  first      last instrument        band             song                album
+  <chr>     <chr>      <chr>       <chr>            <chr>                <chr>
+1   Tom     Jones     Vocals        <NA> It's Not Unusual     Along Came Jones
+2  John    Lennon     Guitar The Beatles    Come Together           Abbey Road
+3  Paul McCartney       Bass The Beatles   Hello, Goodbye Magical Mystery Tour
+> 
+> # Create goal2 using full_join() and inner_join()
+> goal2 <- artists %>% 
+    full_join(bands, by = c("first", "last")) %>% 
+    inner_join(songs, by = c("first", "last"))
+> 
+> # Check that goal and goal2 are the same
+> setequal(goal, goal2)
+TRUE
+```
+
+##### full\_join on 3 sets
+
+```
+> # Create one table that combines all information
+> artists %>% 
+    full_join(bands, by = c("first", "last")) %>% 
+    full_join(songs, by = c("first", "last")) %>% 
+    full_join(albums, by = c("album", "band"))
+# A tibble: 29 × 7
+    first      last instrument               band             song
+    <chr>     <chr>      <chr>              <chr>            <chr>
+1   Jimmy   Buffett     Guitar  The Coral Reefers             <NA>
+2  George  Harrison     Guitar        The Beatles             <NA>
+3    Mick    Jagger     Vocals The Rolling Stones             <NA>
+4     Tom     Jones     Vocals               <NA> It's Not Unusual
+5    Davy     Jones     Vocals               <NA>             <NA>
+6    John    Lennon     Guitar        The Beatles    Come Together
+7    Paul McCartney       Bass        The Beatles   Hello, Goodbye
+8   Jimmy      Page     Guitar       Led Zeppelin             <NA>
+9     Joe     Perry     Guitar               <NA>             <NA>
+10  Elvis   Presley     Vocals               <NA>             <NA>
+# ... with 19 more rows, and 2 more variables: album <chr>, year <int>
 ```
 
 
