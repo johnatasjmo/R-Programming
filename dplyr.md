@@ -1314,7 +1314,7 @@ returns a copy of the dataset. Gets a copy of the first set without additional c
 1  John    Lennon     Guitar
 2  Paul McCartney       Bass
 3   Tom     Jones     Vocals
-> 
+>
 ```
 
 ##### count the records of semi joins
@@ -1372,7 +1372,15 @@ shows which records do NOT match from the second database. Which ones doesnt hav
 6   Joe   Perry     Guitar
 7  Davy   Jones     Vocals
 8   Tom   Jones     Vocals
-> 
+>
+```
+
+check misspelling
+
+```r
+# Check whether album names in labels are mis-entered
+labels %>% 
+  anti_join(albums, by = "album")
 ```
 
 
