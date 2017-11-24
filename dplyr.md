@@ -8,8 +8,8 @@ glimpse\(hflights\) uses more information to display
 
 ```r
 two <- c("AA", "AS")
-lut <- c("AA" = "American", 
-         "AS" = "Alaska", 
+lut <- c("AA" = "American",
+         "AS" = "Alaska",
          "B6" = "JetBlue")
 two <- lut[two]
 two
@@ -45,9 +45,9 @@ hflights
 carriers <- hflights$UniqueCarrier
 
 # Both the dplyr and hflights packages are loaded into workspace
-lut <- c("AA" = "American", "AS" = "Alaska", "B6" = "JetBlue", "CO" = "Continental", 
-         "DL" = "Delta", "OO" = "SkyWest", "UA" = "United", "US" = "US_Airways", 
-         "WN" = "Southwest", "EV" = "Atlantic_Southeast", "F9" = "Frontier", 
+lut <- c("AA" = "American", "AS" = "Alaska", "B6" = "JetBlue", "CO" = "Continental",
+         "DL" = "Delta", "OO" = "SkyWest", "UA" = "United", "US" = "US_Airways",
+         "WN" = "Southwest", "EV" = "Atlantic_Southeast", "F9" = "Frontier",
          "FL" = "AirTran", "MQ" = "American_Eagle", "XE" = "ExpressJet", "YV" = "Mesa")
 lut
 # Add the Carrier column to hflights
@@ -129,7 +129,7 @@ hflights %>%
 ```
 > # Chain together mutate(), filter() and summarise()
 > hflights %>%
-  mutate(RealTime = ActualElapsedTime + 100, 
+  mutate(RealTime = ActualElapsedTime + 100,
               mph = Distance / RealTime * 60) %>%
         filter(!is.na(mph), mph < 70) %>%
         summarise(n_less = n(),
@@ -187,7 +187,7 @@ group_by(UniqueCarrier, Dest)
 > # order from low to high by average arrival delay as percentage
 > hflights %>%
      group_by(UniqueCarrier) %>%
-     summarise(p_canc = mean(Cancelled == 1) * 100, 
+     summarise(p_canc = mean(Cancelled == 1) * 100,
                avg_delay = mean(ArrDelay, na.rm = TRUE)) %>%
      arrange(avg_delay, p_canc)
 # A tibble: 15 × 3
@@ -245,7 +245,7 @@ UniqueCarrier avg rank
 
 ```r
 > # dplyr and hflights (with translated carrier names) are pre-loaded
-> 
+>
 > # How many airplanes only flew to one destination?
 > hflights %>%
   # group by airplane number
@@ -254,15 +254,15 @@ UniqueCarrier avg rank
     summarise(ndest = n_distinct(Dest)) %>%
   #filter airplanes that goes to only 1 destination
     filter(ndest == 1) %>%
-  # sumarize by new column nplanes 
+  # sumarize by new column nplanes
     summarise(nplanes = n())
 # A tibble: 1 × 1
   nplanes
     <int>
 1    1039
-> 
+>
 > # Find the most visited destination for each carrier
-> hflights %>% 
+> hflights %>%
   # create a combination carriers and destination
     group_by(UniqueCarrier, Dest) %>%
   #summarise by new variable n, UniqueCarrier-Dest combination
@@ -297,15 +297,15 @@ Connect to mysql db
 
 ```rr
 > # Set up a connection to the mysql database
-> my_db <- src_mysql(dbname = "dplyr", 
-                     host = "courses.csrrinzqubik.us-east-1.rds.amazonaws.com", 
-                     port = 3306, 
+> my_db <- src_mysql(dbname = "dplyr",
+                     host = "courses.csrrinzqubik.us-east-1.rds.amazonaws.com",
+                     port = 3306,
                      user = "student",
                      password = "datacamp")
-> 
+>
 > # Reference a table within that source: nycflights
 > nycflights <- tbl(my_db, "dplyr")
-> 
+>
 > # glimpse at nycflights
 > glimpse(nycflights)
 Observations: NA
@@ -327,7 +327,7 @@ $ air_time  <int> 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149, 158...
 $ distance  <int> 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733, 10...
 $ hour      <int> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, ...
 $ minute    <int> 17, 33, 42, 44, 54, 54, 55, 57, 57, 58, 58, 58, 58, 58, 5...
-> 
+>
 > # Ordered, grouped summary of nycflights
 >   nycflights %>%
     group_by(carrier) %>%
@@ -396,7 +396,7 @@ summary\(\) shows intercept and splope
 > # Percentage of yes votes from the US by year: US_by_year
 > US_by_year <- by_year_country %>%
     filter(country == "United States")
-> 
+>
 > # Print the US_by_year data
 > US_by_year
 # A tibble: 34 x 4
@@ -413,10 +413,10 @@ summary\(\) shows intercept and splope
  9  1963 United States    32   0.5000000
 10  1965 United States    41   0.3658537
 # ... with 24 more rows
-> 
+>
 > # Perform a linear regression of percent_yes by year: US_fit
 > US_fit <- lm(percent_yes ~ year, data = US_by_year)
-> 
+>
 > # Perform summary() on the US_fit object
 > summary(US_fit)
 
@@ -424,18 +424,18 @@ Call:
 lm(formula = percent_yes ~ year, data = US_by_year)
 
 Residuals:
-      Min        1Q    Median        3Q       Max 
--0.222491 -0.080635 -0.008661  0.081948  0.194307 
+      Min        1Q    Median        3Q       Max
+-0.222491 -0.080635 -0.008661  0.081948  0.194307
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
+              Estimate Std. Error t value Pr(>|t|)
 (Intercept) 12.6641455  1.8379743   6.890 8.48e-08 ***
 year        -0.0062393  0.0009282  -6.722 1.37e-07 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.1062 on 32 degrees of freedom
-Multiple R-squared:  0.5854,    Adjusted R-squared:  0.5724 
+Multiple R-squared:  0.5854,    Adjusted R-squared:  0.5724
 F-statistic: 45.18 on 1 and 32 DF,  p-value: 1.367e-07
 ```
 
@@ -458,16 +458,16 @@ tidy(US_fit)
 > US_by_year <- by_year_country %>%
     filter(country == "United States")
 > US_fit <- lm(percent_yes ~ year, US_by_year)
-> 
+>
 > # Fit model for the United Kingdom
 > UK_by_year <- by_year_country %>%
     filter(country == "United Kingdom")
 > UK_fit <- lm(percent_yes ~ year, UK_by_year)
-> 
+>
 > # Create US_tidied and UK_tidied
 > US_tidied <- tidy(US_fit)
 > UK_tidied <- tidy(UK_fit)
-> 
+>
 > # Combine the two tidied models
 > bind_rows(tidy(US_fit), tidy(UK_fit))
          term     estimate    std.error statistic      p.value
@@ -484,7 +484,7 @@ nest\(-country\) will nest all information in separate pieces
 ```
 > # Load the tidyr package
 > library(tidyr)
-> 
+>
 > # Nest all columns besides country
 > by_year_country %>%
   nest(-country)
@@ -518,7 +518,7 @@ nest\(-country\) will nest all information in separate pieces
 > # All countries are nested besides country
 > nested <- by_year_country %>%
     nest(-country)
-> 
+>
 > # Print the nested data for Brazil
 > nested$data[7]
 [[1]]
@@ -558,9 +558,9 @@ broom package takes each model and takes into data fame
 
 `map(v, ~ . * 10)`  then `~`starts `.` is each item in the list , then multiply each item by 10
 
-> v &lt;- list\(1, 2, 3\)  
-> map\(v, ~ . \* \`0\)  
->     \[\[1\]\]  
+> v &lt;- list\(1, 2, 3\)
+> map\(v, ~ . \* \`0\)
+>     \[\[1\]\]
 >     \[1\] 10
 
 ```
@@ -579,7 +579,7 @@ steps
 > ## Load tidyr and purrr
 > library(tidyr)
 > library(purrr)
-> 
+>
 > #check data
 > head(by_year_country)
 # A tibble: 6 x 4
@@ -591,7 +591,7 @@ steps
 4  1947                         Belarus    38   0.5000000
 5  1947                         Belgium    38   0.6052632
 6  1947 Bolivia, Plurinational State of    37   0.5945946
-> 
+>
 > # Perform a linear regression on each item in the data column
 > by_year_country %>%
     nest(-country) %>%
@@ -617,7 +617,7 @@ Tidy each linear regression model
 ```
 > # Load the broom package
 > library(broom)
-> 
+>
 > # Add another mutate that applies tidy() to each model
 > by_year_country %>%
     nest(-country) %>%
@@ -648,7 +648,7 @@ Tidy each linear regression model
     mutate(model = map(data, ~ lm(percent_yes ~ year, data = .)),
            tidied = map(model, tidy)) %>%
     unnest(tidied)
-> 
+>
 > # Print the resulting country_coefficients variable
 > country_coefficients
 # A tibble: 399 x 6
@@ -686,7 +686,7 @@ Filter to get only `year` coefficients, as `(Intercept)` wont be used
  9     Belgium (Intercept)  -5.845534016 1.5153390521 -3.857575 5.216573e-04
 10     Belgium        year   0.003203234 0.0007652852  4.185673 2.072981e-04
 # ... with 389 more rows
-> 
+>
 > # Filter for only the slope terms
 > filter(country_coefficients, term == 'year')
 # A tibble: 199 x 6
@@ -711,7 +711,7 @@ Filter out significant countries with less than p value of 0.05
 > ## Filter for only the slope terms
 > slope_terms <- country_coefficients %>%
     filter(term == "year")
-> 
+>
 > # Add p.adjusted column, then filter
 > slope_terms %>%
     mutate(p.adjusted = p.adjust(p.value)) %>%
@@ -741,7 +741,7 @@ arrange data asc y desc
     filter(term == "year") %>%
     mutate(p.adjusted = p.adjust(p.value)) %>%
     filter(p.adjusted < .05)
-> 
+>
 > # Sort for the countries increasing most quickly
 > filtered_countries %>%
     arrange(desc(estimate))
@@ -759,7 +759,7 @@ arrange data asc y desc
  9                Peru  year 0.007299813 0.0009764019  7.476238 1.645381e-08
 10           Nicaragua  year 0.007075848 0.0010716402  6.602820 1.918043e-07
 # ... with 51 more rows, and 1 more variables: p.adjusted <dbl>
-> 
+>
 > # Sort for the countries decreasing most quickly
 > filtered_countries %>%
     arrange(estimate)
@@ -801,7 +801,7 @@ Join two datasets with description, so all
  9    46       2     1    92  1947        El Salvador
 10    46       2     1    93  1947          Nicaragua
 # ... with 353,537 more rows
-> 
+>
 > # Print the descriptions dataset
 > descriptions
 # A tibble: 2,589 x 10
@@ -818,7 +818,7 @@ Join two datasets with description, so all
  9    54       2 1947-11-06 R/2/651     0     0     0     0     1     0
 10    55       2 1947-11-06 R/2/667     0     0     0     0     1     0
 # ... with 2,579 more rows
-> 
+>
 > # Join them together based on the "rcid" and "session" columns
 > votes_joined <-votes_processed %>%
    inner_join(descriptions, by = c("rcid", "session"))
@@ -850,13 +850,13 @@ filter(votes_joined, co == 1)
 ```
 > ## Load the ggplot2 package
 > library(ggplot2)
-> 
+>
 > # Filter, then summarize percentage of voles that are yes by year: US_co_by_year
 > US_co_by_year <- votes_joined %>%
     filter(country == "United States", co == 1) %>%
     group_by(year) %>%
     summarize(percent_yes = mean(vote == 1))
-> 
+>
 > # Graph the % of "yes" votes over time
 > ggplot(US_co_by_year, aes(year, percent_yes)) +
     geom_line()
@@ -873,7 +873,7 @@ filter(votes_joined, co == 1)
 ```
 > # Load the tidyr package
 > library(tidyr)
-> 
+>
 > #votes_joined head
 > head(votes_joined)
 # A tibble: 6 x 14
@@ -886,7 +886,7 @@ filter(votes_joined, co == 1)
 5    46       2     1    42  1947 Dominican Republic 1947-09-04 R/2/299     0
 6    46       2     1    70  1947             Mexico 1947-09-04 R/2/299     0
 # ... with 5 more variables: nu <dbl>, di <dbl>, hr <dbl>, co <dbl>, ec <dbl>
-> 
+>
 > # Gather the six me/nu/di/hr/co/ec columns
 > votes_joined %>%
   gather(topic, has_topic, me:ec)
@@ -904,7 +904,7 @@ filter(votes_joined, co == 1)
  9    46       2     1    92  1947        El Salvador 1947-09-04 R/2/299    me
 10    46       2     1    93  1947          Nicaragua 1947-09-04 R/2/299    me
 # ... with 2,121,272 more rows, and 1 more variables: has_topic <dbl>
-> 
+>
 > # Perform gather again, then filter
 > votes_gathered <- votes_joined %>%
   gather(topic, has_topic, me:ec) %>%
@@ -923,7 +923,7 @@ recode\(\) to show description
                           hr = "Human rights",
                           co = "Colonialism",
                           ec = "Economic development"))
-> 
+>
 > #str(votes_tidied)
 > str(votes_tidied)
 Classes 'tbl_df', 'tbl' and 'data.frame':    350032 obs. of  10 variables:
@@ -964,13 +964,13 @@ Summarize by country, year and topic
 10    77       2     1    93  1947          Nicaragua 1947-11-06 R/2/1424
 # ... with 350,022 more rows, and 2 more variables: topic <chr>,
 #   has_topic <dbl>
-> 
+>
 > # Summarize the percentage "yes" per country-year-topic
 > by_country_year_topic <- votes_tidied %>%
     group_by(country, year, topic) %>%
     summarize(total = n(), percent_yes = mean(vote == 1)) %>%
     ungroup()
-> 
+>
 > # Print by_country_year_topic
 > by_country_year_topic
 # A tibble: 26,968 x 5
@@ -994,11 +994,11 @@ Summarize by country, year and topic
 ```
 > ## Load the ggplot2 package
 > library(ggplot2)
-> 
+>
 > # Filter by_country_year_topic for just the US
 > US_by_country_year_topic <- by_country_year_topic %>%
     filter(country == "United States")
-> 
+>
 > # Plot % yes over time for the US, faceting by topic
 > ggplot(US_by_country_year_topic, aes(year, percent_yes)) +
     geom_line() +
@@ -1012,7 +1012,7 @@ nest topic into country
 > library(purrr)
 > library(tidyr)
 > library(broom)
-> 
+>
 > # Print by_country_year_topic
 > by_country_year_topic
 # A tibble: 26,968 x 5
@@ -1029,7 +1029,7 @@ nest topic into country
  9 Afghanistan  1949 Nuclear weapons and nuclear material     3   0.0000000
 10 Afghanistan  1949                 Palestinian conflict    11   0.8181818
 # ... with 26,958 more rows
-> 
+>
 > # Fit model on the by_country_year_topic dataset
 > country_topic_coefficients <- by_country_year_topic %>%
     nest(-country, -topic) %>%
@@ -1037,7 +1037,7 @@ nest topic into country
            tidied = map(model, tidy)) %>%
     unnest(tidied)
 Warning message: essentially perfect fit: summary may be unreliable
-> 
+>
 > # Print country_topic_coefficients
 > country_topic_coefficients
 # A tibble: 2,383 x 7
@@ -1061,7 +1061,7 @@ Filter only terms = year, then add p.adjust value less than 0.05 \(significant\)
 
 ```
 > # Create country_topic_filtered
-> 
+>
 > country_topic_filtered <- country_topic_coefficients %>%
   filter(term == "year") %>%
   mutate(p.adjusted = p.adjust(p.value)) %>%
@@ -1074,7 +1074,7 @@ filter only vanuatu
 > # Create vanuatu_by_country_year_topic
 > vanuatu_by_country_year_topic <- by_country_year_topic %>%
   filter(country == "Vanuatu")
-> 
+>
 > # Plot of percentage "yes" over time, faceted by topic
 > ggplot(vanuatu_by_country_year_topic, aes(year, percent_yes)) +
     geom_line() +
@@ -1114,7 +1114,7 @@ key can be a combination of two values
 6      John   Lennon  The Beatles
 > # Complete the code to join artists to bands
 > bands2 <- left_join(bands, artists, by = c("first", "last"))
-> 
+>
 > # Examine the results
 > bands2
 # A tibble: 13 × 4
@@ -1140,7 +1140,7 @@ key can be a combination of two values
 ```
 > bands2 <- left_join(bands, artists, by = c("first", "last"))
 > bands3 <- right_join(artists, bands, by = c("first", "last"))
-> 
+>
 > # Check that bands3 is equal to bands2
 > setequal(bands2, bands3)
 TRUE
@@ -1157,7 +1157,7 @@ TRUE
 1  Come Together           Abbey Road   John    Lennon The Beatles  1969
 2       Dream On            Aerosmith Steven     Tyler   Aerosmith  1973
 3 Hello, Goodbye Magical Mystery Tour   Paul McCartney The Beatles  1967
-> 
+>
 > # Join bands to artists using full_join()
 > full_join(artists, bands, by = c("first", "last"))
 # A tibble: 21 × 4
@@ -1191,9 +1191,9 @@ TRUE
 3   John   Lennon        The Beatles
 4  Jimmy  Buffett  The Coral Reefers
 5  Keith Richards The Rolling Stones
-> 
+>
 > # Reproduce code above using pipes
-> bands %>% 
+> bands %>%
     left_join(artists, by = c("first", "last")) %>%
     filter(instrument == "Guitar") %>%
     select(first, last, band)
@@ -1253,12 +1253,12 @@ TRUE
 1   Tom     Jones     Vocals        <NA> It's Not Unusual     Along Came Jones
 2  John    Lennon     Guitar The Beatles    Come Together           Abbey Road
 3  Paul McCartney       Bass The Beatles   Hello, Goodbye Magical Mystery Tour
-> 
+>
 > # Create goal2 using full_join() and inner_join()
-> goal2 <- artists %>% 
-    full_join(bands, by = c("first", "last")) %>% 
+> goal2 <- artists %>%
+    full_join(bands, by = c("first", "last")) %>%
     inner_join(songs, by = c("first", "last"))
-> 
+>
 > # Check that goal and goal2 are the same
 > setequal(goal, goal2)
 TRUE
@@ -1268,9 +1268,9 @@ TRUE
 
 ```r
 > # Create one table that combines all information
-> artists %>% 
-    full_join(bands, by = c("first", "last")) %>% 
-    full_join(songs, by = c("first", "last")) %>% 
+> artists %>%
+    full_join(bands, by = c("first", "last")) %>%
+    full_join(songs, by = c("first", "last")) %>%
     full_join(albums, by = c("album", "band"))
 # A tibble: 29 × 7
     first      last instrument               band             song
@@ -1294,7 +1294,7 @@ returns a copy of the dataset. Gets a copy of the first set without additional c
 
 ```r
 > # View the output of semi_join()
-> artists %>% 
+> artists %>%
     semi_join(songs, by = c("first", "last"))
 # A tibble: 3 × 3
   first      last instrument
@@ -1302,11 +1302,11 @@ returns a copy of the dataset. Gets a copy of the first set without additional c
 1  John    Lennon     Guitar
 2  Paul McCartney       Bass
 3   Tom     Jones     Vocals
-> 
+>
 > # Create the same result as before with a long code
-> artists %>% 
-    right_join(songs, by = c("first", "last")) %>% 
-    filter( !is.na(instrument)) %>% 
+> artists %>%
+    right_join(songs, by = c("first", "last")) %>%
+    filter( !is.na(instrument)) %>%
     select(first, last, instrument)
 # A tibble: 3 × 3
   first      last instrument
@@ -1320,9 +1320,9 @@ returns a copy of the dataset. Gets a copy of the first set without additional c
 ##### count the records of semi joins
 
 ```r
-> albums %>% 
+> albums %>%
     # Collect the albums made by a band
-    semi_join(bands, by = "band") %>% 
+    semi_join(bands, by = "band") %>%
     # Count the albums made by a band
     nrow()
 [1] 5
@@ -1345,7 +1345,7 @@ shows which records do NOT match from the second database. Which ones doesnt hav
 4    Tom    Jones     Vocals
 5   Davy    Jones     Vocals
 6   John   Lennon     Guitar
-> 
+>
 > #bands
 > head(bands)
 # A tibble: 6 × 3
@@ -1357,9 +1357,9 @@ shows which records do NOT match from the second database. Which ones doesnt hav
 4    Robert    Plant Led Zeppelin
 5    George Harrison  The Beatles
 6      John   Lennon  The Beatles
-> 
+>
 > #anti join
-> artists %>% 
+> artists %>%
     anti_join(bands, by = c("first", "last"))
 # A tibble: 8 × 3
   first    last instrument
@@ -1379,9 +1379,42 @@ check misspelling
 
 ```r
 # Check whether album names in labels are mis-entered
-labels %>% 
+labels %>%
   anti_join(albums, by = "album")
 ```
 
+check count
 
+```
+> ## Determine which key joins labels and songs
+> labels
+# A tibble: 9 × 2
+                      album           label
+                      <chr>           <chr>
+1                Abbey Road           Apple
+2         A Hard Days Night      Parlophone
+3      Magical Mystery Tour      Parlophone
+4           Led Zeppelin IV        Atlantic
+5 The Dark Side of the Moon         Harvest
+6          Hotel California          Asylum
+7                   Rumours Warner Brothers
+8                 Aerosmith        Columbia
+9          Beggar's Banquet           Decca
+> songs
+# A tibble: 4 × 4
+              song                album  first      last
+             <chr>                <chr>  <chr>     <chr>
+1    Come Together           Abbey Road   John    Lennon
+2         Dream On            Aerosmith Steven     Tyler
+3   Hello, Goodbye Magical Mystery Tour   Paul McCartney
+4 It's Not Unusual     Along Came Jones    Tom     Jones
+>
+> # Check your understanding
+> songs %>%
+    # Find the rows of songs that match a row in labels
+    semi_join(labels, by = "album") %>%
+    # Number of matches between labels and songs
+    nrow()
+[1] 3
 
+```
