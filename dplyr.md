@@ -1148,7 +1148,7 @@ TRUE
 
 ##### variations of joins
 
-```
+```r
 > ## Join albums to songs using inner_join()
 > inner_join(songs, albums, by = "album")
 # A tibble: 3 × 6
@@ -1178,7 +1178,7 @@ TRUE
 
 ##### Pipes
 
-```
+```r
 > # Find guitarists in bands dataset (don't change)
 > temp <- left_join(bands, artists, by = c("first", "last"))
 > temp <- filter(temp, instrument == "Guitar")
@@ -1209,7 +1209,7 @@ TRUE
 
 ##### Pipes and joins
 
-```
+```r
 > goal
 # A tibble: 3 × 6
   first      last instrument        band             song                album
@@ -1266,7 +1266,7 @@ TRUE
 
 ##### full\_join on 3 sets
 
-```
+```r
 > # Create one table that combines all information
 > artists %>% 
     full_join(bands, by = c("first", "last")) %>% 
@@ -1286,6 +1286,93 @@ TRUE
 9     Joe     Perry     Guitar               <NA>             <NA>
 10  Elvis   Presley     Vocals               <NA>             <NA>
 # ... with 19 more rows, and 2 more variables: album <chr>, year <int>
+```
+
+##### semi joins
+
+returns a copy of the dataset. Gets a copy of the first set without additional columns. It is easier to semijoin on the second dataset
+
+```r
+> # View the output of semi_join()
+> artists %>% 
+    semi_join(songs, by = c("first", "last"))
+# A tibble: 3 × 3
+  first      last instrument
+  <chr>     <chr>      <chr>
+1  John    Lennon     Guitar
+2  Paul McCartney       Bass
+3   Tom     Jones     Vocals
+> 
+> # Create the same result as before with a long code
+> artists %>% 
+    right_join(songs, by = c("first", "last")) %>% 
+    filter( !is.na(instrument)) %>% 
+    select(first, last, instrument)
+# A tibble: 3 × 3
+  first      last instrument
+  <chr>     <chr>      <chr>
+1  John    Lennon     Guitar
+2  Paul McCartney       Bass
+3   Tom     Jones     Vocals
+> 
+```
+
+##### count the records of semi joins
+
+```r
+> albums %>% 
+    # Collect the albums made by a band
+    semi_join(bands, by = "band") %>% 
+    # Count the albums made by a band
+    nrow()
+[1] 5
+```
+
+##### Anti-joins
+
+shows which records do NOT match from the second database. Which ones doesnt have matches \(i.e. gramma errors\)
+
+```r
+## Return rows of artists that don't have bands info
+> #artists
+> head(artists)
+# A tibble: 6 × 3
+   first     last instrument
+   <chr>    <chr>      <chr>
+1  Jimmy  Buffett     Guitar
+2 George Harrison     Guitar
+3   Mick   Jagger     Vocals
+4    Tom    Jones     Vocals
+5   Davy    Jones     Vocals
+6   John   Lennon     Guitar
+> 
+> #bands
+> head(bands)
+# A tibble: 6 × 3
+      first     last         band
+      <chr>    <chr>        <chr>
+1      John   Bonham Led Zeppelin
+2 John Paul    Jones Led Zeppelin
+3     Jimmy     Page Led Zeppelin
+4    Robert    Plant Led Zeppelin
+5    George Harrison  The Beatles
+6      John   Lennon  The Beatles
+> 
+> #anti join
+> artists %>% 
+    anti_join(bands, by = c("first", "last"))
+# A tibble: 8 × 3
+  first    last instrument
+  <chr>   <chr>      <chr>
+1 Nancy  Wilson     Vocals
+2 Brian  Wilson     Vocals
+3   Joe   Walsh     Guitar
+4  Paul   Simon     Guitar
+5 Elvis Presley     Vocals
+6   Joe   Perry     Guitar
+7  Davy   Jones     Vocals
+8   Tom   Jones     Vocals
+> 
 ```
 
 
