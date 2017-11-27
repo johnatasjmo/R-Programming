@@ -558,9 +558,9 @@ broom package takes each model and takes into data fame
 
 `map(v, ~ . * 10)`  then `~`starts `.` is each item in the list , then multiply each item by 10
 
-> v &lt;- list\(1, 2, 3\)
-> map\(v, ~ . \* \`0\)
->     \[\[1\]\]
+> v &lt;- list\(1, 2, 3\)  
+> map\(v, ~ . \* \`0\)  
+>     \[\[1\]\]  
 >     \[1\] 10
 
 ```
@@ -1416,5 +1416,13 @@ check count
     # Number of matches between labels and songs
     nrow()
 [1] 3
+```
+
+set operations
 
 ```
+
+```
+
+
+
