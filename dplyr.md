@@ -558,9 +558,9 @@ broom package takes each model and takes into data fame
 
 `map(v, ~ . * 10)`  then `~`starts `.` is each item in the list , then multiply each item by 10
 
-> v &lt;- list\(1, 2, 3\)  
-> map\(v, ~ . \* \`0\)  
->     \[\[1\]\]  
+> v &lt;- list\(1, 2, 3\)
+> map\(v, ~ . \* \`0\)
+>     \[\[1\]\]
 >     \[1\] 10
 
 ```
@@ -1424,5 +1424,865 @@ set operations
 
 ```
 
+##### Binds
+rbind and cbind , not to be used
+bind_rows combine two datasets in the same order. Sometimes cannot be told if the row 1 of first dataset belongs to row1 of the second datasets
+Returns a tibboe that can be easy
+Can handle dataframes
+If binded are passed as character string, then it is set as ID
+
+pass two dates and set `.id` argument for the ID Example for merging two data frames named `band1` and `band2` and creating a new dataset naming all data from each band with their respective (Beatles or Stones)
+`bind_rows(Beatles = band1,  Stones = Band2, .id = "Band")`
+
+```
+> # Examine side_one and side_two
+> side_one
+# A tibble: 5 × 2
+                      song     length
+                     <chr>     <time>
+1              Speak to Me  5400 secs
+2                  Breathe  9780 secs
+3               On the Run 12600 secs
+4                     Time 24780 secs
+5 The Great Gig in the Sky 15300 secs
+> side_two
+# A tibble: 5 × 2
+                 song     length
+                <chr>     <time>
+1               Money 23400 secs
+2         Us and Them 28260 secs
+3 Any Colour You Like 12240 secs
+4        Brain Damage 13800 secs
+5             Eclipse  7380 secs
+>
+> # Bind side_one and side_two into a single dataset
+> side_one %>%
+   bind_rows(side_two)
+# A tibble: 10 × 2
+                       song length
+                      <chr>  <dbl>
+1               Speak to Me   5400
+2                   Breathe   9780
+3                On the Run  12600
+4                      Time  24780
+5  The Great Gig in the Sky  15300
+6                     Money  23400
+7               Us and Them  28260
+8       Any Colour You Like  12240
+9              Brain Damage  13800
+10                  Eclipse   7380
+```
+
+##### Bind bind_rows
+
+Binding rows of a tibble
+`discography` contains a data frame of each album by The Jimi Hendrix Experience and the year of the album.
+
+`jimi` contains a list of data frames of album tracks, one for each album released by The Jimi Hendrix Experience.
+
+```{r}
+> ## Examine discography and jimi
+> discography
+# A tibble: 3 × 2
+                album  year
+                <chr> <int>
+1 Are You Experienced  1967
+2  Axis: Bold as Love  1967
+3   Electric Ladyland  1968
+> jimi
+$`Are You Experienced`
+# A tibble: 10 × 2
+                       song     length
+                      <chr>     <time>
+1               Purple Haze  9960 secs
+2          Manic Depression 13560 secs
+3                   Hey Joe 12180 secs
+4          May This Be Love 11640 secs
+5        I Don't Live Today 14100 secs
+6       The Wind Cries Mary 12060 secs
+7                      Fire  9240 secs
+8  Third Stone from the Sun 24000 secs
+9                 Foxy Lady 11700 secs
+10     Are You Experienced? 14100 secs
+
+$`Axis: Bold As Love`
+# A tibble: 13 × 2
+                   song     length
+                  <chr>     <time>
+1                   EXP  6900 secs
+2     Up from the Skies 10500 secs
+3  Spanish Castle Magic 10800 secs
+4   Wait Until Tomorrow 10800 secs
+5      Ain't No Telling  6360 secs
+6           Little Wing  8640 secs
+7            If 6 was 9 19920 secs
+8    You Got Me Floatin  9900 secs
+9  Castles Made of Sand  9960 secs
+10        She's So Fine  9420 secs
+11       One Rainy Wish 13200 secs
+12    Little Miss Lover  8400 secs
+13         Bold as Love 15060 secs
+
+$`Electric Ladyland`
+# A tibble: 16 × 2
+                                         song     length
+                                        <chr>     <time>
+1                      And the Gods Made Love  4860 secs
+2   Have You Ever Been (To Electric Ladyland)  7860 secs
+3                           Crosstown Traffic  8700 secs
+4                                Voodoo Chile 54000 secs
+5                         Little Miss Strange 10320 secs
+6                       Long Hot Summer Night 12420 secs
+7                            Come On (Part 1) 14940 secs
+8                                  Gypsy Eyes 13380 secs
+9                Burning of the Midnight Lamp 13140 secs
+10                      Rainy Day, Dream Away 13320 secs
+11     1983... (A Merman I Should Turn to Be) 49140 secs
+12 Moon, Turn the Tides... Gently Gently Away  3720 secs
+13              Still Raining, Still Dreaming 15900 secs
+14                         House Burning Down 16380 secs
+15                   All Along the Watchtower 14460 secs
+16               Voodoo Child (Slight Return) 18720 secs
+>
+> jimi %>%
+    # Bind jimi into a single data frame
+    bind_rows(.id = "album") %>%
+    # Make a complete data frame
+    left_join(discography)
+Joining, by = "album"
+# A tibble: 39 × 4
+                 album                     song length  year
+                 <chr>                    <chr>  <dbl> <int>
+1  Are You Experienced              Purple Haze   9960  1967
+2  Are You Experienced         Manic Depression  13560  1967
+3  Are You Experienced                  Hey Joe  12180  1967
+4  Are You Experienced         May This Be Love  11640  1967
+5  Are You Experienced       I Don't Live Today  14100  1967
+6  Are You Experienced      The Wind Cries Mary  12060  1967
+7  Are You Experienced                     Fire   9240  1967
+8  Are You Experienced Third Stone from the Sun  24000  1967
+9  Are You Experienced                Foxy Lady  11700  1967
+10 Are You Experienced     Are You Experienced?  14100  1967
+# ... with 29 more rows
+
+```
+
+##### Bind columns
+
+```{r}
+> # Examine hank_years and hank_charts
+> hank_years
+# A tibble: 67 × 2
+    year                                    song
+   <int>                                   <chr>
+1   1947                         Move It On Over
+2   1947    My Love for You (Has Turned to Hate)
+3   1947 Never Again (Will I Knock on Your Door)
+4   1947    On the Banks of the Old Ponchartrain
+5   1947                            Pan American
+6   1947             Wealth Won't Save Your Soul
+7   1948                   A Mansion on the Hill
+8   1948                           Honky Tonkin'
+9   1948                         I Saw the Light
+10  1948                   I'm a Long Gone Daddy
+# ... with 57 more rows
+> hank_charts
+# A tibble: 67 × 2
+                              song  peak
+                             <chr> <int>
+1  (I Heard That) Lonesome Whistle     9
+2     (I'm Gonna) Sing, Sing, Sing    NA
+3                 A Home in Heaven    NA
+4            A Mansion on the Hill    12
+5             A Teardrop on a Rose    NA
+6        At the First Fall of Snow    NA
+7       Baby, We're Really in Love     4
+8                California Zephyr    NA
+9                      Calling You    NA
+10                Cold, Cold Heart     1
+# ... with 57 more rows
+>
+> hank_years %>%
+    # Reorder hank_years alphabetically by song title
+    arrange(song) %>%
+    # Select just the year column
+    select(year) %>%
+    # Bind the year column
+    bind_cols(hank_charts) %>%
+    # Arrange the finished dataset
+    arrange(year, song)
+# A tibble: 67 × 3
+    year                                    song  peak
+   <int>                                   <chr> <int>
+1   1947                         Move It On Over     4
+2   1947    My Love for You (Has Turned to Hate)    NA
+3   1947 Never Again (Will I Knock on Your Door)    NA
+4   1947    On the Banks of the Old Ponchartrain    NA
+5   1947                            Pan American    NA
+6   1947             Wealth Won't Save Your Soul    NA
+7   1948                   A Mansion on the Hill    12
+8   1948                           Honky Tonkin'    14
+9   1948                         I Saw the Light    NA
+10  1948             I'm So Lonesome I Could Cry     2
+# ... with 57 more rows
+```
+
+##### data_frame
+
+```{r}
+# Make combined data frame using data_frame()
+ data_frame(year = hank_year, song = hank_song, peak = hank_peak) %>%
+   # Extract songs where peak equals 1
+   filter(peak == 1)
+# A tibble: 11 × 3
+   year                                   song  peak
+  <int>                                  <chr> <int>
+1   1949                         Lovesick Blues     1
+2   1950               Long Gone Lonesome Blues     1
+3   1950                      Moanin the Blues     1
+4   1950                  Why Dont You Love Me     1
+5   1951                       Cold, Cold Heart     1
+6   1951                       Hey Good Lookin'     1
+7   1952 Ill Never Get Out of This World Alive     1
+8   1952               Jambalaya (On the Bayou)     1
+9   1953                               Kaw-Liga     1
+10  1953        Take These Chains from My Heart     1
+11  1953                    Your Cheatin' Heart     1
+```
 
 
+
+```{r}
+> # Examine the contents of hank
+> hank
+$year
+ [1] 1947 1947 1947 1947 1947 1947 1948 1948 1948 1948 1948 1949 1949 1949 1949
+[16] 1949 1949 1949 1949 1950 1950 1950 1950 1950 1950 1950 1950 1951 1951 1951
+[31] 1951 1951 1951 1951 1951 1952 1952 1952 1952 1952 1952 1953 1953 1953 1953
+[46] 1953 1953 1954 1954 1954 1954 1955 1955 1955 1955 1955 1956 1956 1956 1956
+[61] 1957 1957 1957 1958 1965 1966 1989
+
+$song
+ [1] "Move It On Over"
+ [2] "My Love for You (Has Turned to Hate)"
+ [3] "Never Again (Will I Knock on Your Door)"
+ [4] "On the Banks of the Old Ponchartrain"
+ [5] "Pan American"
+ [6] "Wealth Won't Save Your Soul"
+ [7] "A Mansion on the Hill"
+ [8] "Honky Tonkin'"
+ [9] "I Saw the Light"
+[10] "I'm So Lonesome I Could Cry"
+[11] "My Sweet Love Ain't Around"
+[12] "I'm Satisfied with You"
+[13] "Lost Highway"
+[14] "Lovesick Blues"
+[15] "Mind Your Own Business"
+[16] "My Bucket's Got a Hole in It"
+[17] "Never Again (Will I Knock on Your Door)"
+[18] "Wedding Bells"
+[19] "You're Gonna Change (Or I'm Gonna Leave)"
+[20] "I Just Don't Like This Kind of Living"
+[21] "Long Gone Lonesome Blues"
+[22] "Moanin' the Blues"
+[23] "My Son Calls Another Man Daddy"
+[24] "Nobody's Lonesome for Me"
+[25] "They'll Never Take Her Love from Me"
+[26] "Why Don't You Love Me"
+[27] "Why Should We Try Anymore"
+[28] "(I Heard That) Lonesome Whistle"
+[29] "Baby, We're Really in Love"
+[30] "Cold, Cold Heart"
+[31] "Crazy Heart"
+[32] "Dear John"
+[33] "Hey Good Lookin'"
+[34] "Howlin' At the Moon"
+[35] "I Can't Help It (If I'm Still in Love With You)"
+[36] "Half as Much"
+[37] "Honky Tonk Blues"
+[38] "I'll Never Get Out of This World Alive"
+[39] "Jambalaya (On the Bayou)"
+[40] "Settin' the Woods on Fire"
+[41] "You Win Again"
+[42] "Calling You"
+[43] "I Won't Be Home No More"
+[44] "Kaw-Liga"
+[45] "Take These Chains from My Heart"
+[46] "Weary Blues from Waitin'"
+[47] "Your Cheatin' Heart"
+[48] "(I'm Gonna) Sing, Sing, Sing"
+[49] "How Can You Refuse Him Now"
+[50] "I'm a Long Gone Daddy"
+[51] "You Better Keep It on Your Mind"
+[52] "A Teardrop on a Rose"
+[53] "At the First Fall of Snow"
+[54] "Mother Is Gone"
+[55] "Please Don't Let Me Love You"
+[56] "Thank God"
+[57] "A Home in Heaven"
+[58] "California Zephyr"
+[59] "Singing Waterfall"
+[60] "There's a Tear in My Beer"
+[61] "Leave Me Alone with the Blues"
+[62] "Ready to Go Home"
+[63] "The Waltz of the Wind"
+[64] "Just Waitin'"
+[65] "The Pale Horse and His Rider"
+[66] "Kaw-Liga"
+[67] "There's No Room in My Heart for the Blues"
+
+$peak
+ [1]  4 NA NA NA NA NA 12 14 NA  2 NA NA 12  1  5  2  6  2  4  5  1  1  9  9  5
+[26]  1  9  9  4  1  4  8  1  3  2  2  2  1  1  2 10 NA  4  1  1  7  1 NA NA  6
+[51] NA NA NA NA  9 NA NA NA NA  7 NA NA NA NA NA NA NA
+>
+> # Convert the hank list into a data frame
+> as_data_frame(hank) %>%
+    # Extract songs where peak equals 1
+    filter(peak == 1)
+# A tibble: 11 × 3
+    year                                   song  peak
+   <int>                                  <chr> <int>
+1   1949                         Lovesick Blues     1
+2   1950               Long Gone Lonesome Blues     1
+3   1950                      Moanin' the Blues     1
+4   1950                  Why Don't You Love Me     1
+5   1951                       Cold, Cold Heart     1
+6   1951                       Hey Good Lookin'     1
+7   1952 I'll Never Get Out of This World Alive     1
+8   1952               Jambalaya (On the Bayou)     1
+9   1953                               Kaw-Liga     1
+10  1953        Take These Chains from My Heart     1
+11  1953
+```
+
+##### bind rows of a tibble which is a list of dataframes
+
+```{r}
+> # Examine the contents of michael
+> michael %>%
+
+  # as_data_frame(michael) %>%
+    bind_rows( .id = "album") %>%
+    group_by(album) %>%
+    mutate(rank = min_rank(peak)) %>%
+    filter(rank == 1) %>%
+    select(-rank, -peak)
+Source: local data frame [16 x 2]
+Groups: album [10]
+
+              album                           song
+              <chr>                          <chr>
+1   Got to Be There                  Rockin' Robin
+2               Ben                            Ben
+3        Music & Me           With a Child's Heart
+4  Forever, Michael       Just a Little Bit of You
+5      Off the Wall Don't Stop 'Til You Get Enough
+6      Off the Wall                  Rock with You
+7          Thriller                        Beat It
+8          Thriller                    Billie Jean
+9               Bad                            Bad
+10              Bad       The Way You Make Me Feel
+11              Bad              Man in the Mirror
+12              Bad   I Just Can't Stop Loving You
+13              Bad                    Dirty Diana
+14        Dangerous                 Black or White
+15          HIStory              You Are Not Alone
+16       Invincible              You Rock My World
+> # Examine the contents of michael
+> michael
+$`Got to Be There`
+# A tibble: 10 × 2
+                                song  peak
+                               <chr> <int>
+1                  Ain'T No Sunshine    NA
+2           I Wanna be Where You Are    NA
+3  Girl Don't Take Your Love from Me    NA
+4                   In Our Small Way    NA
+5                    Got to Be There     4
+6                      Rockin' Robin     2
+7                   Wings of My Love    NA
+8      Maria (You Were the Only One)    NA
+9   Love is Here and Now You're Gone    NA
+10               You've Got a Friend    NA
+
+$Ben
+# A tibble: 10 × 2
+                              song  peak
+                             <chr> <int>
+1                              Ben     1
+2           Greatest Show On Earth    NA
+3  People Make the World Go 'Round    NA
+4           We've Got a Good Thing    NA
+5      Everybody's Somebody's Fool    NA
+6                          My Girl    NA
+7    What Goes Around Comes Around    NA
+8                 In Our Small Way    NA
+9        Shoo-Be-Doo-Be-Doo-Da-Day    NA
+10      You Can Cry On My Shoulder    NA
+
+$`Music & Me`
+# A tibble: 10 × 2
+                     song  peak
+                    <chr> <int>
+1    With a Child's Heart    50
+2                Up Again    NA
+3  All the Things You Are    NA
+4                   Happy    NA
+5               Too Young    NA
+6          Doggin' Around    NA
+7                Euphoria    NA
+8            Morning Glow    NA
+9            Johnny Raven    NA
+10           Music and Me    NA
+
+$`Forever, Michael`
+# A tibble: 10 × 2
+                       song  peak
+                      <chr> <int>
+1        We're Almost There    54
+2              Take Me Back    NA
+3      One Day in Your Life    NA
+4    Cinderella Stay Awhile    NA
+5         We've Got Forever    NA
+6  Just a Little Bit of You    23
+7             You Are There    NA
+8                Dapper-Dan    NA
+9              Dear Michael    NA
+10    I'll Come Home to You    NA
+
+$`Off the Wall`
+# A tibble: 10 × 2
+                             song  peak
+                            <chr> <int>
+1  Don't Stop 'Til You Get Enough     1
+2                   Rock with You     1
+3           Working Day and Night    NA
+4                Get on the Floor    NA
+5                    Off the Wall    10
+6                      Girlfriend    NA
+7            She's Out of My Life    10
+8                 I Can't Help It    NA
+9        It's the Falling in Love    NA
+10            Burn This Disco Out    NA
+
+$Thriller
+# A tibble: 9 × 2
+                         song  peak
+                        <chr> <int>
+1  Wanna Be Startin' Somethin     5
+2                Baby be Mine    NA
+3            The Girl is Mine     2
+4                    Thriller     4
+5                     Beat It     1
+6                 Billie Jean     1
+7                Human Nature     7
+8 P.Y.T. (Pretty Young Thing)    10
+9         The Lady in My Life    NA
+
+$Bad
+# A tibble: 10 × 2
+                           song  peak
+                          <chr> <int>
+1                           Bad     1
+2      The Way You Make Me Feel     1
+3                   Speed Demon    NA
+4                 Liberian Girl    NA
+5             Just Good Friends    NA
+6            Another Part of Me    11
+7             Man in the Mirror     1
+8  I Just Can't Stop Loving You     1
+9                   Dirty Diana     1
+10              Smooth Criminal     7
+
+$Dangerous
+# A tibble: 14 × 2
+                       song  peak
+                      <chr> <int>
+1                       Jam    26
+2  Why You Wanna Trip on Me    NA
+3             In the Closet     6
+4        She Drives Me Wild    NA
+5         Remember the Time     3
+6    Can't Let Her Get Away    NA
+7            Heal the World    27
+8            Black or White     1
+9                 Who Is It    14
+10            Give In to Me    NA
+11        Will You Be There     7
+12           Keep the Faith    NA
+13            Gone Too Soon    NA
+14                Dangerous    NA
+
+$HIStory
+# A tibble: 30 × 2
+                           song  peak
+                          <chr> <int>
+1                   Billie Jean    NA
+2      The Way You Make Me Feel    NA
+3                Black or White    NA
+4                 Rock with You    NA
+5          She's Out of My Life    NA
+6                           Bad    NA
+7  I Just Can't Stop Loving You    NA
+8             Man in the Mirror    NA
+9                      Thriller    NA
+10                      Beat It    NA
+# ... with 20 more rows
+
+$Invincible
+# A tibble: 16 × 2
+                song  peak
+               <chr> <int>
+1        Unbreakable    NA
+2       Heartbreaker    NA
+3         Invincible    NA
+4      Break of Dawn    NA
+5    Heaven Can Wait    NA
+6  You Rock My World    10
+7        Butterflies    NA
+8         Speechless    NA
+9         2000 Watts    NA
+10   You Are My Life    NA
+11           Privacy    NA
+12   Don't Walk Away    NA
+13               Cry    NA
+14 The Lost Children    NA
+15  Whatever Happens    NA
+16        Threatened    NA
+>
+> # as_data_frame(michael) %>%
+>   bind_rows(michael, .id = "album") %>%
+    group_by(album) %>%
+    mutate(rank = min_rank(peak)) %>%
+    filter(rank == 1) %>%
+    select(-rank, -peak)
+Source: local data frame [16 x 2]
+Groups: album [10]
+
+              album                           song
+              <chr>                          <chr>
+1   Got to Be There                  Rockin' Robin
+2               Ben                            Ben
+3        Music & Me           With a Child's Heart
+4  Forever, Michael       Just a Little Bit of You
+5      Off the Wall Don't Stop 'Til You Get Enough
+6      Off the Wall                  Rock with You
+7          Thriller                        Beat It
+8          Thriller                    Billie Jean
+9               Bad                            Bad
+10              Bad       The Way You Make Me Feel
+11              Bad              Man in the Mirror
+12              Bad   I Just Cant Stop Loving You
+13              Bad                    Dirty Diana
+14        Dangerous                 Black or White
+15          HIStory              You Are Not Alone
+16       Invincible              You Rock My World
+
+```
+
+##### binding different factor country_topic_coefficients
+
+```{r}
+> ##
+> #sixties stores year as numeric (double)
+> #seventies stores year as factor
+> #change the column year to read factor as character and convert to numeric
+> #result will be a tibble with year as numeric (double)
+> seventies
+# A tibble: 10 × 3
+     year                      album                 band
+   <fctr>                      <chr>                <chr>
+1    1970 Bridge Over Troubled Water  Simon and Garfunkel
+2    1971     Jesus Christ Superstar      Various Artists
+3    1972                    Harvest           Neil Young
+4    1973      The World is a Ghetto                  War
+5    1974  Goodbye Yellow Brick Road           Elton John
+6    1975 Elton Johns Greatest Hits           Elton John
+7    1976             Peter Frampton Frampton Comes Alive
+8    1977                    Rumours        Fleetwood Mac
+9    1978       Saturday Night Fever             Bee Gees
+10   1979                 Billy Joel          52nd Street
+> sixties
+# A tibble: 10 × 3
+    year                          album                            band
+   <dbl>                          <chr>                           <chr>
+1   1960             The Sound of Music          Original Broadway Cast
+2   1961                        Camelot          Original Broadway Cast
+3   1962                West Side Story                      Soundtrack
+4   1963                West Side Story                      Soundtrack
+5   1964                  Hello, Dolly!          Original Broadway Cast
+6   1965                   Mary Poppins                      Soundtrack
+7   1966 Whipped Cream & Other Delights Herb Alpert & The Tijuana Brass
+8   1967            More of The Monkees                     The Monkees
+9   1968           Are You Experienced?     The Jimi Hendrix Experience
+10  1969             In-A-Gadda-Da-Vida                  Iron Butterfly
+> seventies %>%
+    # Coerce seventies$year into a useful numeric
+    mutate(year = as.numeric(as.character(year))) %>%
+    # Bind the updated version of seventies to sixties
+    bind_rows(sixties) %>%
+    arrange(year)
+# A tibble: 20 × 3
+    year                          album                            band
+   <dbl>                          <chr>                           <chr>
+1   1960             The Sound of Music          Original Broadway Cast
+2   1961                        Camelot          Original Broadway Cast
+3   1962                West Side Story                      Soundtrack
+4   1963                West Side Story                      Soundtrack
+5   1964                  Hello, Dolly!          Original Broadway Cast
+6   1965                   Mary Poppins                      Soundtrack
+7   1966 Whipped Cream & Other Delights Herb Alpert & The Tijuana Brass
+8   1967            More of The Monkees                     The Monkees
+9   1968           Are You Experienced?     The Jimi Hendrix Experience
+10  1969             In-A-Gadda-Da-Vida                  Iron Butterfly
+11  1970     Bridge Over Troubled Water             Simon and Garfunkel
+12  1971         Jesus Christ Superstar                 Various Artists
+13  1972                        Harvest                      Neil Young
+14  1973          The World is a Ghetto                             War
+15  1974      Goodbye Yellow Brick Road                      Elton John
+16  1975     Elton Johns Greatest Hits                      Elton John
+17  1976                 Peter Frampton            Frampton Comes Alive
+18  1977                        Rumours                   Fleetwood Mac
+19  1978           Saturday Night Fever                        Bee Gees
+20  1979                     Billy Joel                     52 Street
+>
+```
+
+### Advance join
+
+What can go wrong?
+missing keys or duplicates Keys
+
+##### Missing key values
+one dataset with missing values
+if possible, you can remove the data with filter
+Example with two data sets namesNA and plays
+
+```{r}
+namesNA %>%
+ filter(!is.na(name)) %>%
+ left_join(playes, by = "name")
+```
+`rownames_to_column` can add a rowname to get a key
+`rownames_to_column(noNames, var = "name")` will return a copy of the dataframe with a new column to be used
+
+```{r}
+> # Load the tibble package
+> library(tibble)
+>
+> stage_songs %>%
+    # Add row names as a column named song
+    rownames_to_column(var = "song") %>%
+    # Left join stage_writers to stage_songs
+   left_join(stage_writers)
+Joining, by = "song"
+                    song              musical year            composer
+1   Children Will Listen       Into the Woods 1986    Stephen Sondheim
+2                  Maria      West Side Story 1957   Leonard Bernstein
+3                 Memory                 Cats 1981 Andrew Lloyd Webber
+4 The Music of the Night Phantom of the Opera 1986 Andrew Lloyd Webber
+
+```
+
+
+
+##### duplicate keys
+If the primary set has keys, dplyr will keep the duplicates
+
+##### Missing Keys
+removing NAs from a joined datasets
+
+```{r}
+> ##singers
+> singers
+# A tibble: 2 × 2
+               movie                singer
+               <chr>                 <chr>
+1               <NA> Arnold Schwarzenegger
+2 The Sound of Music         Julie Andrews
+> #two_Songs
+> two_songs
+# A tibble: 2 × 2
+                 song              movie
+                <chr>              <chr>
+1            Do-Re-Mi The Sound of Music
+2 A Spoonful of Sugar               <NA>
+> # Examine the result of joining singers to two_songs
+> two_songs %>% inner_join(singers, by = "movie")
+# A tibble: 2 × 3
+                 song              movie                singer
+                <chr>              <chr>                 <chr>
+1            Do-Re-Mi The Sound of Music         Julie Andrews
+2 A Spoonful of Sugar               <NA> Arnold Schwarzenegger
+>
+> # Remove NA's from key before joining
+> two_songs %>%
+    filter(!is.na(movie)) %>%
+    inner_join(singers, by = "movie")
+# A tibble: 1 × 3
+      song              movie        singer
+     <chr>              <chr>         <chr>
+1 Do-Re-Mi The Sound of Music Julie Andrews
+>
+```
+
+### Defining the Keys
+
+it is not necessary to mention the key, but it can be missmatched.
+To match colums along datasets we need to declare it as vector
+
+`left_join(members, plays, by = c("member" = "name"))` will join members dataset with plays dataset and have member column equal to name column as key. Can be used with single or multiple columns
+
+`left_join(playsWith, plays, by "name")` in this case, dataset playsWith will be merged with plays and a suffix by default will be added
+
+##### add a subset of Keys
+left join two datasets by movie and then rename each column.
+
+```{r}
+> #movie_studios
+> movie_studios
+# A tibble: 10 × 2
+                     movie                  name
+                     <chr>                 <chr>
+1      The Road to Morocco    Paramount Pictures
+2             Going My Way    Paramount Pictures
+3           Anchors Aweigh   Metro-Goldwyn-Mayer
+4  Till the Clouds Roll By   Metro-Goldwyn-Mayer
+5          White Christmas    Paramount Pictures
+6          The Tender Trap   Metro-Goldwyn-Mayer
+7             High Society   Metro-Goldwyn-Mayer
+8        The Joker is Wild    Paramount Pictures
+9                 Pal Joey     Columbia Pictures
+10                 Can-Can Twentieth-Century Fox
+>
+> #movie_years
+> movie_years
+# A tibble: 10 × 3
+                     movie          name  year
+                     <chr>         <chr> <int>
+1      The Road to Morocco   Bing Crosby  1942
+2             Going My Way   Bing Crosby  1944
+3           Anchors Aweigh Frank Sinatra  1945
+4  Till the Clouds Roll By Frank Sinatra  1946
+5          White Christmas   Bing Crosby  1954
+6          The Tender Trap Frank Sinatra  1955
+7             High Society   Bing Crosby  1956
+8        The Joker is Wild Frank Sinatra  1957
+9                 Pal Joey Frank Sinatra  1957
+10                 Can-Can Frank Sinatra  1960
+>
+> movie_years %>%
+    # Left join movie_studios to movie_years
+    left_join(movie_studios, by = "movie") %>%
+    # Rename the columns: artist and studio
+    rename(artist = name.x, studio = name.y)
+# A tibble: 10 × 4
+                     movie        artist  year                studio
+                     <chr>         <chr> <int>                 <chr>
+1      The Road to Morocco   Bing Crosby  1942    Paramount Pictures
+2             Going My Way   Bing Crosby  1944    Paramount Pictures
+3           Anchors Aweigh Frank Sinatra  1945   Metro-Goldwyn-Mayer
+4  Till the Clouds Roll By Frank Sinatra  1946   Metro-Goldwyn-Mayer
+5          White Christmas   Bing Crosby  1954    Paramount Pictures
+6          The Tender Trap Frank Sinatra  1955   Metro-Goldwyn-Mayer
+7             High Society   Bing Crosby  1956   Metro-Goldwyn-Mayer
+8        The Joker is Wild Frank Sinatra  1957    Paramount Pictures
+9                 Pal Joey Frank Sinatra  1957     Columbia Pictures
+10                 Can-Can Frank Sinatra  1960 Twentieth-Century Fo
+```
+
+##### Mis-matched key names
+When there are two datasets and the column names do not match
+
+```{r}
+> # Identify the key column
+> elvis_songs
+# A tibble: 5 × 2
+                                  name          movie
+                                 <chr>          <chr>
+1 (You're So Square) Baby I Don't Care Jailhouse Rock
+2         I Can't Help Falling in Love    Blue Hawaii
+3                       Jailhouse Rock Jailhouse Rock
+4                       Viva Las Vegas Viva Las Vegas
+5                    You Don't Know Me       Clambake
+> elvis_movies
+# A tibble: 4 × 2
+            name  year
+           <chr> <int>
+1 Jailhouse Rock  1957
+2    Blue Hawaii  1961
+3 Viva Las Vegas  1963
+4       Clambake  1967
+>
+> elvis_movies %>%
+    # Left join elvis_songs to elvis_movies by this column
+    left_join(elvis_songs, by = c("name" = "movie")) %>%
+    # Rename columns
+    rename(movie = name, song = name.y)
+# A tibble: 5 × 3
+           movie  year                                 song
+           <chr> <int>                                <chr>
+1 Jailhouse Rock  1957 (You're So Square) Baby I Don't Care
+2 Jailhouse Rock  1957                       Jailhouse Rock
+3    Blue Hawaii  1961         I Can't Help Falling in Love
+4 Viva Las Vegas  1963                       Viva Las Vegas
+5       Clambake  1967                    You Don't Know Me
+
+```
+
+##### Mis matched and rename columns
+
+```{r}
+> # Identify the key columns
+> movie_directors
+# A tibble: 10 × 3
+                      name        director                studio
+                     <chr>           <chr>                 <chr>
+1           Anchors Aweigh   George Sidney   Metro-Goldwyn-Mayer
+2                  Can-Can     Walter Lang Twentieth-Century Fox
+3             Going My Way     Leo McCarey    Paramount Pictures
+4             High Society Charles Walters   Metro-Goldwyn-Mayer
+5                 Pal Joey   George Sidney     Columbia Pictures
+6        The Joker is Wild   Charles Vidor    Paramount Pictures
+7      The Road to Morocco    David Butler    Paramount Pictures
+8          The Tender Trap Charles Walters   Metro-Goldwyn-Mayer
+9  Till the Clouds Roll By   Richard Whorf   Metro-Goldwyn-Mayer
+10         White Christmas  Michael Curtiz    Paramount Pictures
+> movie_years
+# A tibble: 10 × 3
+                     movie          name  year
+                     <chr>         <chr> <int>
+1      The Road to Morocco   Bing Crosby  1942
+2             Going My Way   Bing Crosby  1944
+3           Anchors Aweigh Frank Sinatra  1945
+4  Till the Clouds Roll By Frank Sinatra  1946
+5          White Christmas   Bing Crosby  1954
+6          The Tender Trap Frank Sinatra  1955
+7             High Society   Bing Crosby  1956
+8        The Joker is Wild Frank Sinatra  1957
+9                 Pal Joey Frank Sinatra  1957
+10                 Can-Can Frank Sinatra  1960
+>
+> movie_years %>%
+    # Left join movie_directors to movie_years
+    left_join(movie_directors, by = c("movie" = "name")) %>%
+    # Arrange the columns using select()
+    select(year, movie, artist = name, director, studio)
+# A tibble: 10 × 5
+    year                   movie        artist        director
+   <int>                   <chr>         <chr>           <chr>
+1   1942     The Road to Morocco   Bing Crosby    David Butler
+2   1944            Going My Way   Bing Crosby     Leo McCarey
+3   1945          Anchors Aweigh Frank Sinatra   George Sidney
+4   1946 Till the Clouds Roll By Frank Sinatra   Richard Whorf
+5   1954         White Christmas   Bing Crosby  Michael Curtiz
+6   1955         The Tender Trap Frank Sinatra Charles Walters
+7   1956            High Society   Bing Crosby Charles Walters
+8   1957       The Joker is Wild Frank Sinatra   Charles Vidor
+9   1957                Pal Joey Frank Sinatra   George Sidney
+10  1960                 Can-Can Frank Sinatra     Walter Lang
+# ... with 1 more variables: studio <chr>
+```
+
+### Joining multiple tables
