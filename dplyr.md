@@ -2285,6 +2285,18 @@ When there are two datasets and the column names do not match
 # ... with 1 more variables: studio <chr>
 ```
 
-### Joining multiple tables
+### Joining multiple tables with purr
 
-so on
+The best way to combine multiple tables is with reduce
+
+```{r}
+install.packages("purrr")
+library(purr)
+```
+
+Example of using reduce
+
+```{r}
+tables <- list(surnames, names, plays)
+reduce(tables, left_join, by = "name")
+```
