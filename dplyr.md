@@ -453,7 +453,7 @@ library(broom)
 tidy(US_fit)
 ```
 
-```
+```{r}
 > ## Linear regression of percent_yes by year for US
 > US_by_year <- by_year_country %>%
     filter(country == "United States")
@@ -2299,4 +2299,95 @@ Example of using reduce
 ```{r}
 tables <- list(surnames, names, plays)
 reduce(tables, left_join, by = "name")
+```
+
+### Case Study Lahman Database
+
+##### Universal keys
+
+```{r}
+# Examine lahmanNames
+lahmanNames
+
+# Find variables in common
+reduce(lahmanNames, intersect)
+```
+
+###### Common Keys
+binding the datasets
+
+```{r}
+lahmanNames %>%
+  # Bind the data frames in lahmanNames. Creating a dataframe with all rows
+  bind_rows(.id = "dataframe") %>%
+  # Group the result by var. Because we need to identify var
+  group_by(var) %>%
+  # Tally the number of appearances. Order by appearance
+  tally() %>%
+  # Filter the data. Keep only the ones mayor to 1
+  filter(n > 1) %>%
+  # Arrange the results.
+  arrange(desc(n))
+```
+
+```{r}
+> lahmanNames %>%
+    # Bind the data frames in lahmanNames
+    bind_rows(.id = "dataframe") %>%
+    # Group the result by var
+    group_by(var) %>%
+    # Tally the number of appearances
+    tally() %>%
+    # Filter the data
+    filter(n > 1) %>%
+    # Arrange the results
+    arrange(desc(n))
+# A tibble: 59 × 2
+        var     n
+      <chr> <int>
+1    yearID    21
+2  playerID    19
+3      lgID    17
+4    teamID    13
+5         G    10
+6         L     6
+7         W     6
+8        BB     5
+9        CS     5
+10       GS     5
+# ... with 49 more rows
+
+```
+`yearID`, `playerID`, `lgID`, `teamID` are the most common variable namesNA
+
+###### Player ID
+
+Which datasets use `playerID`
+
+```{r}
+lahmanNames %>%
+  # Bind the data frames
+  bind_rows(.id = "dataframe") %>%
+  # Filter the results
+  filter(var == "playerID") %>%
+  # Extract the dataframe variable
+  `$`("dataframe")
+  ```
+
+  ```{r}
+  > lahmanNames %>%
+    # Bind the data frames
+    bind_rows(.id = "dataframe") %>%
+    # Filter the results
+    filter(var == "playerID") %>%
+    # Extract the dataframe variable
+    `$`("dataframe")
+ [1] "AllstarFull"         "Appearances"         "AwardsManagers"
+ [4] "AwardsPlayers"       "AwardsShareManagers" "AwardsSharePlayers"
+ [7] "Batting"             "BattingPost"         "CollegePlaying"
+[10] "Fielding"            "FieldingOF"          "FieldingPost"
+[13] "HallOfFame"          "Managers"            "ManagersHalf"
+[16] "Master"              "Pitching"            "PitchingPost"
+[19] "Salaries"
+
 ```
