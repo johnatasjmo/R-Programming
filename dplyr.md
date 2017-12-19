@@ -784,7 +784,7 @@ arrange data asc y desc
 
 Join two datasets with description, so all
 
-```
+```{r}
 > # Print the votes_processed dataset
 > votes_processed
 # A tibble: 353,547 x 6
@@ -842,12 +842,12 @@ Join two datasets with description, so all
 
 fiter for votes with colonialism  = 1
 
-```
+```{r}
 # Filter for votes related to colonialism
 filter(votes_joined, co == 1)
 ```
 
-```
+```{r}
 > ## Load the ggplot2 package
 > library(ggplot2)
 >
@@ -870,7 +870,7 @@ filter(votes_joined, co == 1)
 
 ### gather and filter
 
-```
+```{r}
 > # Load the tidyr package
 > library(tidyr)
 >
@@ -2390,4 +2390,102 @@ lahmanNames %>%
 [16] "Master"              "Pitching"            "PitchingPost"
 [19] "Salaries"
 
+```
+
+##### Salaries (unique)
+Create a players list from Master and checking that there are unique records
+```{r}
+> players <- Master %>%
+    # Return one row for each distinct player
+    distinct(playerID, nameFirst, nameLast)
+```
+
+##### Find all players not shown in Salaries
+using antijoin by playerId we found out that 13,888 players do not have salaries.
+
+```{r}
+> players %>%
+    # Find all players who do not appear in Salaries
+    anti_join(Salaries, by = "playerID") %>%
+    # Count them
+    count()
+# A tibble: 1 × 1
+      n
+  <int>
+1 13888
+```
+
+##### players with missing salaries in appearances
+
+```{r}
+> players %>%
+    anti_join(Salaries, by = "playerID") %>%
+    # How many unsalaried players appear in Appearances?
+    semi_join(Appearances, by = "playerID") %>%
+    count()
+# A tibble: 1 × 1
+      n
+  <int>
+1 13695
+```
+
+##### How many games
+
+How many games each of unpaid salaried players played?
+
+```{r}
+> players %>%
+    # Find all players who do not appear in Salaries
+    anti_join(Salaries, by = "playerID") %>%
+    # Join them to Appearances
+    left_join(Appearances, by = "playerID") %>%
+    # Calculate total_games for each player
+    group_by(playerID) %>%
+    summarize(total_games = sum(G_all, na.rm = TRUE)) %>%
+    # Arrange in descending order by total_games
+    arrange(desc(total_games))
+# A tibble: 13,888 × 2
+    playerID total_games
+       <chr>       <int>
+1  yastrca01        3308
+2  aaronha01        3298
+3   cobbty01        3034
+4  musiast01        3026
+5   mayswi01        2992
+6  robinbr01        2896
+7  kalinal01        2834
+8  collied01        2826
+9  robinfr02        2808
+10 wagneho01        2794
+# ... with 13,878 more rows
+```
+
+### check at bat players
+
+```{r}
+> players %>%
+    # Find unsalaried players
+    anti_join(Salaries, by = "playerID") %>%
+    # Join Batting to the unsalaried players
+    left_join(Batting, by = "playerID") %>%
+    # Group by player
+    group_by(playerID) %>%
+    # Sum at-bats for each player
+    summarize(total_at_bat = sum(AB, na.rm = TRUE)) %>%
+    # Arrange in descending order
+    arrange(desc(total_at_bat))
+# A tibble: 13,888 × 2
+    playerID total_at_bat
+       <chr>        <int>
+1  aaronha01        12364
+2  yastrca01        11988
+3   cobbty01        11434
+4  musiast01        10972
+5   mayswi01        10881
+6  robinbr01        10654
+7  wagneho01        10430
+8  brocklo01        10332
+9  ansonca01        10277
+10 aparilu01        10230
+# ... with 13,878 more rows
 ```
