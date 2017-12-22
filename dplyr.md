@@ -2489,3 +2489,83 @@ How many games each of unpaid salaried players played?
 10 aparilu01        10230
 # ... with 13,878 more rows
 ```
+
+#### How players have been nominated in hall of frame
+
+```{r}
+> # Find the distinct players that appear in HallOfFame
+> nominated <- HallOfFame %>%
+    distinct(playerID)
+>
+> nominated %>%
+    # Count the number of players in nominated
+    count()
+# A tibble: 1 × 1
+      n
+  <int>
+1  1239
+>
+> nominated_full <- nominated %>%
+    # Join to Master
+    left_join(Master, by = "playerID") %>%
+    # Return playerID, nameFirst, nameLast
+    select(playerID, nameFirst, nameLast)
+
+```
+
+There were 1,239 nominees for the Hall of Fame. We now have a dataset of everyone nominated!
+
+####  Find and filter with inducted
+
+```{r}
+> # Find distinct players in HallOfFame with inducted == "Y"
+> inducted <- HallOfFame %>%
+    filter(inducted == "Y") %>%
+    distinct(playerID)
+>
+> inducted %>%
+    # Count the number of players in inducted
+    count()
+# A tibble: 1 × 1
+      n
+  <int>
+1   312
+>
+> inducted_full <- inducted %>%
+    # Join to Master
+    left_join(Master, by = "playerID") %>%
+    # Return playerID, nameFirst, nameLast
+    select(playerID, nameFirst, nameLast)
+
+```
+
+#### tally and filter
+
+```{r}
+> # Tally the number of awards in AwardsPlayers by playerID
+> nAwards <- AwardsPlayers %>%
+    group_by(playerID) %>%
+    tally()
+>
+> nAwards %>%
+    # Filter to just the players in inducted
+    semi_join(inducted, by = "playerID") %>%
+    # Calculate the mean number of awards per player
+    summarize(avg_n = mean(n, na.rm = TRUE))
+# A tibble: 1 × 1
+     avg_n
+     <dbl>
+1 11.95161
+>
+> nAwards %>% 
+    # Filter to just the players in nominated
+    semi_join(nominated, by = "playerID") %>%
+    # Filter to players NOT in inducted
+    anti_join(inducted, by = "playerID") %>%
+    # Calculate the mean number of awards per player
+    summarize(avg_n = mean(n, na.rm = TRUE))
+# A tibble: 1 × 1
+     avg_n
+     <dbl>
+1 4.226923
+```
