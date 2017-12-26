@@ -2557,7 +2557,7 @@ There were 1,239 nominees for the Hall of Fame. We now have a dataset of everyon
      <dbl>
 1 11.95161
 >
-> nAwards %>% 
+> nAwards %>%
     # Filter to just the players in nominated
     semi_join(nominated, by = "playerID") %>%
     # Filter to players NOT in inducted
@@ -2569,3 +2569,66 @@ There were 1,239 nominees for the Hall of Fame. We now have a dataset of everyon
      <dbl>
 1 4.226923
 ```
+
+#### Salary Analysis
+```{r}
+> # Find the players who are in nominated, but not inducted
+> notInducted <- nominated %>%
+    setdiff(inducted)
+>
+> Salaries %>%
+    # Find the players who are in notInducted
+    semi_join(notInducted, by = "playerID") %>%
+    # Calculate the max salary by player
+    group_by(playerID) %>%
+    summarize(max_salary = max(salary, na.rm = TRUE)) %>%
+    # Calculate the average of the max salaries
+    summarize(avg_salary = mean(max_salary, na.rm = TRUE))
+# A tibble: 1 × 1
+  avg_salary
+       <dbl>
+1    4677737
+>
+> # Repeat for players who were inducted
+> Salaries %>%
+    semi_join(inducted, by = "playerID") %>%
+    group_by(playerID) %>%
+    summarize(max_salary = max(salary, na.rm = TRUE)) %>%
+    summarize(avg_salary = mean(max_salary, na.rm = TRUE))
+# A tibble: 1 × 1
+  avg_salary
+       <dbl>
+1    5079720
+```
+
+#### Retirement
+Players cannot be nominated until five years after retirement. Is this true? Check last appaearances for users nominated to Hall of Fame
+
+```{r}
+> Appearances %>%
+    # Filter Appearances against nominated
+    semi_join(nominated, by = "playerID") %>%
+    # Find last year played by player
+    group_by(playerID) %>%
+    summarize(last_year = max(yearID)) %>%
+    # Join to full HallOfFame
+    left_join(HallOfFame, by = "playerID") %>%
+    # Filter for unusual observations
+    filter(last_year >= yearID)
+# A tibble: 39 × 10
+    playerID last_year yearID         votedBy ballots needed votes inducted
+       <chr>     <int>  <int>           <chr>   <int>  <int> <int>   <fctr>
+1  cissebi01      1938   1937           BBWAA     201    151     1        N
+2  cochrmi01      1937   1936           BBWAA     226    170    80        N
+3   deandi01      1947   1945           BBWAA     247    186    17        N
+4   deandi01      1947   1946    Final Ballot     263    198    45        N
+5   deandi01      1947   1946 Nominating Vote     202     NA    40        N
+6   deandi01      1947   1947           BBWAA     161    121    88        N
+7  dickebi01      1946   1945           BBWAA     247    186    17        N
+8  dickebi01      1946   1946 Nominating Vote     202     NA    40        N
+9  dickebi01      1946   1946    Final Ballot     263    198    32        N
+10 dimagjo01      1951   1945           BBWAA     247    186     1        N
+# ... with 29 more rows, and 2 more variables: category <fctr>,
+#   needed_note <chr>
+
+````
